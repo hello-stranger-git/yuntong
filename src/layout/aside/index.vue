@@ -1,8 +1,8 @@
 <!--侧边栏-->
 <template>
-    <div>
-        侧边栏
-    </div>
+  <div>
+    侧边栏
+  </div>
 </template>
 
 <script>
