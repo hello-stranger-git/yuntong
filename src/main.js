@@ -6,6 +6,9 @@ import ElementUI from 'element-ui'
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 
+// 引入全局矢量图
+import '@/assets/iconfont/iconfont.css'
+
 new Vue({
   router,
   store,
