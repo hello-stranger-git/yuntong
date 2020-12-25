@@ -1,0 +1,70 @@
+@font-face {
+  font-family: 'iconfont';
+  src: url('./iconfont.ttf'); /* IE9 */
+  src: url('./iconfont.ttf') format('embedded-opentype'),
+    /* IE6-IE8 */ url('./iconfont.ttf') format('woff2'),
+    url('./iconfont.ttf') format('woff'),
+    url('./iconfont.ttf') format('truetype'),
+    /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+      url('./iconfont.ttf') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: 'iconfont' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconzu73:before {
+  content: '\e610';
+}
+
+.iconzu683:before {
+  content: '\e611';
+}
+
+.iconzu686:before {
+  content: '\e612';
+}
+
+.iconzu694:before {
+  content: '\e613';
+}
+
+.iconzu688:before {
+  content: '\e614';
+}
+
+.iconzu777:before {
+  content: '\e615';
+}
+
+.iconzu695:before {
+  content: '\e616';
+}
+
+.iconzu690:before {
+  content: '\e617';
+}
+
+.iconzu699:before {
+  content: '\e618';
+}
+
+.iconzu831:before {
+  content: '\e619';
+}
+
+.iconzu804:before {
+  content: '\e61a';
+}
+
+.iconzu697:before {
+  content: '\e61b';
+}
+
+.iconzu705:before {
+  content: '\e61c';
+}
