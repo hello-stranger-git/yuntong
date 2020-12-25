@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container class="outerLayer">
     <el-aside width="200px">Aside</el-aside>
     <el-container>
       <el-header>Header</el-header>
@@ -21,6 +21,14 @@ export default {}
   line-height: 60px;
 }
 
+.outerLayer {
+  display: flex;
+  height: 100%;
+  .el-container {
+    width: 100%;
+  }
+}
+
 .el-aside {
   background-color: #d3dce6;
   color: #333;
@@ -33,6 +41,7 @@ export default {}
   color: #333;
   text-align: center;
   line-height: 160px;
+  height: calc(100vh - 60px);
 }
 
 body > .el-container {
