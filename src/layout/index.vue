@@ -22,26 +22,23 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.el-header {
+.outerLayer {
+  height: 100%;
+}
+.el-header,
+.el-footer {
   background-color: #b3c0d1;
   color: #333;
 }
 
-.outerLayer {
-  display: flex;
-  height: 100%;
-  .el-container {
-    width: 100%;
-  }
-}
-
 .el-aside {
   background-color: #d3dce6;
+  color: #333;
 }
 
 .el-main {
   background-color: #e9eef3;
-  height: calc(100vh - 60px);
+  color: #333;
 }
 
 body > .el-container {
