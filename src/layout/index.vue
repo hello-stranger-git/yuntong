@@ -1,6 +1,8 @@
 <template>
   <el-container class="outerLayer">
-    <el-aside width="200px">Aside</el-aside>
+    <el-aside width="200px">
+      <SideBar />
+    </el-aside>
     <el-container>
       <el-header>Header</el-header>
       <el-main>
@@ -11,16 +13,18 @@
 </template>
 
 <script>
-export default {}
+import SideBar from './aside/index'
+export default {
+  components: {
+    SideBar
+  }
+}
 </script>
 
 <style lang="less" scoped>
-.el-header,
-.el-footer {
+.el-header {
   background-color: #b3c0d1;
   color: #333;
-  text-align: center;
-  line-height: 60px;
 }
 
 .outerLayer {
@@ -33,16 +37,10 @@ export default {}
 
 .el-aside {
   background-color: #d3dce6;
-  color: #333;
-  text-align: center;
-  line-height: 200px;
 }
 
 .el-main {
   background-color: #e9eef3;
-  color: #333;
-  text-align: center;
-  line-height: 160px;
   height: calc(100vh - 60px);
 }
 
