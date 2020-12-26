@@ -17,7 +17,7 @@
         <!-- 独立路由 -->
         <template v-if="!item.childrens">
           <el-menu-item :key="i" :index="item.to">
-            <i class="el-icon-menu" />
+            <i class="el-icon-menu"></i>
             <span slot="title">{{ item.value }}</span>
           </el-menu-item>
         </template>
@@ -26,7 +26,7 @@
           <el-submenu :key="i" :index="item.to">
             <!-- 标题 -->
             <template slot="title">
-              <i class="el-icon-location" />
+              <i class="el-icon-location"></i>
               <span>{{ item.value }}</span>
             </template>
             <!-- 组内成员 -->

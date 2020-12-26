@@ -1,8 +1,10 @@
 <template>
   <el-container class="outerLayer">
-    <el-aside width="198px">
-      <SideBar />
-    </el-aside>
+    <div :style="{ background: '#38414A' }" @click="flag = !flag">
+      <el-aside :style="{ width: flag ? '80px' : '198px' }">
+        <SideBar />
+      </el-aside>
+    </div>
     <el-container>
       <el-header height="60px">
         <Header />
@@ -15,12 +17,17 @@
 </template>
 
 <script>
-import SideBar from './aside/index'
+import SideBar from './aside/index1'
 import Header from '@/layout/head/index.vue'
 export default {
   components: {
     SideBar,
     Header
+  },
+  data() {
+    return {
+      flag: false
+    }
   }
 }
 </script>
@@ -34,8 +41,12 @@ export default {
 }
 
 .el-aside {
+  transition: width 0.3s;
   background-color: #38414a;
   color: #333;
+}
+.el-aside::-webkit-scrollbar {
+  display: none;
 }
 
 .el-main {
