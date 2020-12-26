@@ -98,8 +98,8 @@ export default {
 }
 //登录框
 .loginDiv {
-  width: 742px;
-  height: 742px;
+  width: 678px;
+  height: 678px;
   background: #ffffff;
   box-shadow: 0px 0px 27px rgba(0, 0, 0, 0.37);
   opacity: 1;
@@ -112,17 +112,18 @@ export default {
 //logo->div
 .imgDiv {
   text-align: center;
-  margin-top: 48px;
+  margin-top: 42px;
 }
 //标题div
 .titleDiv {
   width: 301px;
   height: 47px;
   margin: auto;
-  margin-top: 19px;
+  margin-top: 10px;
   text-align: center;
+  letter-spacing: 4px;
   span {
-    font-size: 36px;
+    font-size: 32px;
     font-family: Microsoft YaHei;
     font-weight: bold;
     color: #141414;
@@ -165,6 +166,9 @@ export default {
       }
     }
   }
+  .user {
+    margin-top: 36px;
+  }
   .password,
   .codeL {
     margin-top: 32px;
@@ -189,7 +193,7 @@ export default {
   }
   //提交按钮div
   .submit {
-    margin-top: 75px;
+    margin-top: 54px;
     text-align: center;
     .subBtn {
       display: inline-block;
@@ -216,7 +220,7 @@ export default {
 .footer {
   width: 411px;
   margin: auto;
-  margin-top: 21px;
+  margin-top: 18px;
   display: flex;
   justify-content: space-between;
   .remPassword {
