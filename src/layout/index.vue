@@ -5,7 +5,7 @@
     </el-aside>
     <el-container>
       <el-header height="80px">
-        <Header></Header>
+        <Header />
       </el-header>
       <el-main>
         <router-view />
