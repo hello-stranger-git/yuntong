@@ -1,7 +1,7 @@
 <!--头部-->
 <template>
   <div class="header">
-    <i class="iconfont iconzu778"></i>
+    <i class="iconfont iconzu778" style="cursor: pointer;" @click="tog"></i>
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>数据分析</el-breadcrumb-item>
@@ -17,9 +17,19 @@
 
 <script>
 export default {
+  data() {
+    return {
+      togAsid: true
+    }
+  },
   methods: {
     signOut() {
       this.$router.push({ name: 'Login' })
+    },
+    // 切换侧边栏
+    tog() {
+      this.togAsid = !this.togAsid
+      this.$emit('togAsid', this.togAsid)
     }
   }
 }

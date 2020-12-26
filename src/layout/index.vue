@@ -1,11 +1,11 @@
 <template>
   <el-container class="outerLayer">
-    <el-aside width="198px">
-      <SideBar />
+    <el-aside width="198px" :class="[togAsid ? 'togAsid' : '']">
+      <SideBar :tog-asid="togAsid" />
     </el-aside>
     <el-container>
       <el-header height="60px">
-        <Header />
+        <Header @togAsid="tog" />
       </el-header>
       <el-main>
         <router-view />
@@ -21,6 +21,16 @@ export default {
   components: {
     SideBar,
     Header
+  },
+  data() {
+    return {
+      togAsid: true
+    }
+  },
+  methods: {
+    tog(tog) {
+      this.togAsid = tog
+    }
   }
 }
 </script>
@@ -54,5 +64,9 @@ body > .el-container {
 
 .el-container:nth-child(7) .el-aside {
   line-height: 320px;
+}
+
+.togAsid {
+  width: 68px !important;
 }
 </style>
