@@ -10,7 +10,9 @@
     <div class="header_right">
       <span>集团二维码</span>
       <span>兰宇贵</span>
-      <span @click="signOut"> <i class="iconfont iconzu779"></i>退出</span>
+      <span class="signOut" @click="signOut">
+        <i class="iconfont iconzu779"></i>退出</span
+      >
     </div>
   </div>
 </template>
@@ -53,6 +55,12 @@ export default {
       i {
         margin-right: 7px;
       }
+    }
+  }
+  .signOut {
+    cursor: pointer;
+    &:hover {
+      color: #3f85ff;
     }
   }
 }
