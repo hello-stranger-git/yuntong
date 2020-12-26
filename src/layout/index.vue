@@ -4,7 +4,7 @@
       <SideBar />
     </el-aside>
     <el-container>
-      <el-header height="80px">
+      <el-header height="60px">
         <Header />
       </el-header>
       <el-main>

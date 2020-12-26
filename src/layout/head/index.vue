@@ -10,13 +10,19 @@
     <div class="header_right">
       <span>集团二维码</span>
       <span>兰宇贵</span>
-      <span> <i class="iconfont iconzu779"></i>退出</span>
+      <span @click="signOut"> <i class="iconfont iconzu779"></i>退出</span>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    signOut() {
+      this.$router.push({ name: 'Login' })
+    }
+  }
+}
 </script>
 
 <style lang="less" scoped>
