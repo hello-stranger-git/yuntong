@@ -4,7 +4,9 @@
       <SideBar />
     </el-aside>
     <el-container>
-      <el-header>Header</el-header>
+      <el-header height="80px">
+        <Header></Header>
+      </el-header>
       <el-main>
         <router-view />
       </el-main>
@@ -14,9 +16,11 @@
 
 <script>
 import SideBar from './aside/index'
+import Header from '@/layout/head/index.vue'
 export default {
   components: {
-    SideBar
+    SideBar,
+    Header
   }
 }
 </script>
@@ -25,10 +29,8 @@ export default {
 .outerLayer {
   height: 100%;
 }
-.el-header,
-.el-footer {
-  background-color: #b3c0d1;
-  color: #333;
+.el-header {
+  background-color: #fff;
 }
 
 .el-aside {
