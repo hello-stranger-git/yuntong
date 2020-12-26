@@ -1,51 +1,59 @@
-<!--侧边栏-->
 <template>
-  <div>
-    <el-row class="tac">
-      <el-col :span="2">
-        <div class="logo">logo</div>
-        <el-menu
-          default-active="2"
-          class="el-menu-vertical-demo"
-          background-color="#545c64"
-          text-color="#fff"
-          active-text-color="#ffd04b"
-          @open="handleOpen"
-          @close="handleClose"
-        >
-          <el-submenu index="1">
+  <div class="contain">
+    <div class="head">
+      <div class="logo">logo</div>
+      <h2>云瞳</h2>
+    </div>
+    <el-menu
+      default-active="1"
+      class="el-menu-vertical-demo"
+      :collapse="false"
+      active-text-color="#38414a"
+      text-color="red"
+      @open="handleOpen"
+      @close="handleClose"
+    >
+      <template v-for="(item, i) in routes">
+        <!-- 独立路由 -->
+        <template v-if="!item.childrens">
+          <el-menu-item :key="i" :index="item.to">
+            <i class="el-icon-menu" />
+            <span slot="title">{{ item.value }}</span>
+          </el-menu-item>
+        </template>
+        <!-- 带有子路由 -->
+        <template v-else>
+          <el-submenu :key="i" :index="item.to">
+            <!-- 标题 -->
             <template slot="title">
               <i class="el-icon-location" />
-              <span>导航一</span>
+              <span>{{ item.value }}</span>
             </template>
-            <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="1-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="1-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="1-4-1">选项1</el-menu-item>
-            </el-submenu>
+            <!-- 组内成员 -->
+            <!-- 再次判断是否有子路由 -->
+            <template v-for="(params, index) in item.childrens">
+              <template v-if="!params.childrens">
+                <el-menu-item :key="index" :index="params.to">
+                  {{ params.value }}
+                </el-menu-item>
+              </template>
+              <template v-else>
+                <el-submenu :key="index" index="1-4">
+                  <template slot="title">{{ params.value }}</template>
+                  <el-menu-item
+                    v-for="(query, k) in params.childrens"
+                    :key="k"
+                    :index="query.to"
+                  >
+                    {{ query.value }}
+                  </el-menu-item>
+                </el-submenu>
+              </template>
+            </template>
           </el-submenu>
-          <el-menu-item index="2">
-            <i class="el-icon-menu" />
-            <span slot="title">导航二</span>
-          </el-menu-item>
-          <el-menu-item index="3" disabled>
-            <i class="el-icon-document" />
-            <span slot="title">导航三</span>
-          </el-menu-item>
-          <el-menu-item index="4">
-            <i class="el-icon-setting" />
-            <span slot="title">导航四</span>
-          </el-menu-item>
-        </el-menu>
-      </el-col>
-    </el-row>
+        </template>
+      </template>
+    </el-menu>
   </div>
 </template>
 
@@ -53,7 +61,37 @@
 export default {
   data() {
     return {
-      isCollapse: true
+      // 只能嵌套两个childrens
+      routes: [
+        {
+          value: '导航二',
+          to: '1'
+        },
+        {
+          value: '导航二',
+          to: '2'
+        },
+        {
+          value: '导航二',
+          to: '3'
+        },
+        {
+          to: '4',
+          value: '导航一',
+          childrens: [
+            { value: '1-1', to: '4-1' },
+            { value: '1-2', to: '4-2' },
+            {
+              value: '1-3',
+              to: '4-3'
+            }
+          ]
+        },
+        {
+          value: '导航二',
+          to: '5'
+        }
+      ]
     }
   },
   methods: {
@@ -68,9 +106,42 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.logo {
-  height: 80px;
-  background-color: palegreen;
-  text-align: center;
+.contain {
+  width: 100%;
+  background-color: #38414a;
+  .el-menu {
+    background-color: #38414a;
+  }
+  .el-submenu {
+    margin: 0 40px 0 28px;
+    padding: 0;
+  }
+  .el-submenu__title {
+    height: 42px;
+    line-height: 42px;
+  }
+  .head {
+    display: flex;
+    height: 60px;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+  }
+  // 独立路由
+  .el-menu-item,
+  .el-submenu__title {
+    height: 42px;
+    line-height: 42px;
+    font-weight: bold;
+    margin: 0 40px 0 28px;
+    .el-submenu__icon-arrow {
+      display: none;
+    }
+  }
+  .el-menu-item.is-active {
+    border-radius: 5px;
+    background-color: #fff;
+    color: #38414a;
+  }
 }
 </style>

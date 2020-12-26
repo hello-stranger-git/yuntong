@@ -1,6 +1,6 @@
 <template>
   <el-container class="outerLayer">
-    <el-aside width="200px">
+    <el-aside width="198px">
       <SideBar />
     </el-aside>
     <el-container>
@@ -32,7 +32,7 @@ export default {
 }
 
 .el-aside {
-  background-color: #d3dce6;
+  background-color: #38414a;
   color: #333;
 }
 
