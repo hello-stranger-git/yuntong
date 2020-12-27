@@ -1,6 +1,6 @@
 <template>
   <el-container class="outerLayer">
-    <el-aside width="198px" :class="[togAsid ? 'togAsid' : '']">
+    <el-aside :width="togAsid ? '68px' : '198px'" style="overflow:hidden">
       <SideBar :tog-asid="togAsid" />
     </el-aside>
     <el-container>
@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      togAsid: true
+      togAsid: false
     }
   },
   methods: {
@@ -43,10 +43,10 @@ export default {
   background-color: #fff;
 }
 
-.el-aside {
-  background-color: #38414a;
-  color: #333;
-}
+// .el-aside {
+//   background-color: #38414a;
+//   color: #333;
+// }
 
 .el-main {
   background-color: #e9eef3;
@@ -66,7 +66,7 @@ body > .el-container {
   line-height: 320px;
 }
 
-.togAsid {
-  width: 68px !important;
-}
+// .togAsid {
+//   width: 68px !important;
+// }
 </style>
