@@ -1,7 +1,7 @@
 <!--头部-->
 <template>
   <div class="header">
-    <i class="iconfont iconzu778"></i>
+    <i class="iconfont iconzu778" style="cursor: pointer;" @click="tog"></i>
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>数据分析</el-breadcrumb-item>
@@ -10,16 +10,28 @@
     <div class="header_right">
       <span>集团二维码</span>
       <span>兰宇贵</span>
-      <span @click="signOut"> <i class="iconfont iconzu779"></i>退出</span>
+      <span class="signOut" @click="signOut">
+        <i class="iconfont iconzu779"></i>退出</span
+      >
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      togAsid: false
+    }
+  },
   methods: {
     signOut() {
       this.$router.push({ name: 'Login' })
+    },
+    // 切换侧边栏
+    tog() {
+      this.togAsid = !this.togAsid
+      this.$emit('togAsid', this.togAsid)
     }
   }
 }
@@ -53,6 +65,12 @@ export default {
       i {
         margin-right: 7px;
       }
+    }
+  }
+  .signOut {
+    cursor: pointer;
+    &:hover {
+      color: #3f85ff;
     }
   }
 }

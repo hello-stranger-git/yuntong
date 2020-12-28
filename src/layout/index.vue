@@ -1,13 +1,11 @@
 <template>
   <el-container class="outerLayer">
-    <div :style="{ background: '#38414A' }" @click="flag = !flag">
-      <el-aside :style="{ width: flag ? '80px' : '198px' }">
-        <SideBar />
-      </el-aside>
-    </div>
+    <el-aside :width="togAsid ? '68px' : '198px'" style="overflow:hidden">
+      <SideBar :tog-asid="togAsid" />
+    </el-aside>
     <el-container>
       <el-header height="60px">
-        <Header />
+        <Header @togAsid="tog" />
       </el-header>
       <el-main>
         <router-view />
@@ -26,7 +24,12 @@ export default {
   },
   data() {
     return {
-      flag: false
+      togAsid: false
+    }
+  },
+  methods: {
+    tog(tog) {
+      this.togAsid = tog
     }
   }
 }
@@ -40,14 +43,10 @@ export default {
   background-color: #fff;
 }
 
-.el-aside {
-  transition: width 0.3s;
-  background-color: #38414a;
-  color: #333;
-}
-.el-aside::-webkit-scrollbar {
-  display: none;
-}
+// .el-aside {
+//   background-color: #38414a;
+//   color: #333;
+// }
 
 .el-main {
   background-color: #e9eef3;
@@ -66,4 +65,8 @@ body > .el-container {
 .el-container:nth-child(7) .el-aside {
   line-height: 320px;
 }
+
+// .togAsid {
+//   width: 68px !important;
+// }
 </style>
