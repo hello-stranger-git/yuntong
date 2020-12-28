@@ -11,8 +11,9 @@
       <span>集团二维码</span>
       <span>兰宇贵</span>
       <span class="signOut" @click="signOut">
-        <i class="iconfont iconzu779"></i>退出</span
-      >
+        <i class="iconfont iconzu779"></i>
+        退出
+      </span>
     </div>
   </div>
 </template>

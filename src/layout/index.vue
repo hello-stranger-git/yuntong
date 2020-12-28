@@ -1,6 +1,6 @@
 <template>
   <el-container class="outerLayer">
-    <el-aside :width="togAsid ? '68px' : '198px'" style="overflow:hidden">
+    <el-aside width="auto" style="overflow:hidden">
       <SideBar :tog-asid="togAsid" />
     </el-aside>
     <el-container>
