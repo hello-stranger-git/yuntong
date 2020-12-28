@@ -1,7 +1,9 @@
 <!--集团管理-->
 <template>
   <div>
-    集团管理
+    <el-card class="box-card">
+      <div>123</div>
+    </el-card>
   </div>
 </template>
 

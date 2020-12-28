@@ -9,16 +9,24 @@
       v-for="(item, index) in routes"
       :key="index"
       class="menu"
-      :class="activeIndex === index ? 'activeItem' : ''"
+      :class="activeIndex === index && !item.childrens ? 'activeItem' : ''"
+      @click="handle(item.childrens, index)"
     >
       <div :class="{ item: true }" @click="item.flag = !routes[index].flag">
         <div
           :class="{ icon: true }"
-          :style="{ color: activeIndex === index ? '#38414A' : '' }"
+          :style="{
+            color: activeIndex === index && !item.childrens ? '#38414A' : ''
+          }"
         >
           <i :class="'iconfont ' + item.icon"></i>
         </div>
-        <div :style="{ color: activeIndex === index ? '#38414A' : '' }">
+        <div
+          v-show="1"
+          :style="{
+            color: activeIndex === index && !item.childrens ? '#38414A' : ''
+          }"
+        >
           {{ item.value }}
         </div>
       </div>
@@ -115,14 +123,21 @@ export default {
       ]
     }
   },
-  methods: {}
+  methods: {
+    handle(child, i) {
+      if (!child) {
+        this.activeIndex = i
+      }
+    }
+  }
 }
 </script>
 
 <style lang="less" scoped>
 .contain {
-  padding: 0 40px 0 28px;
-  overflow: auto;
+  padding: 0 0 0 0px;
+  // padding: 0 40px 0 28px;
+  // overflow: overlay;
   .head {
     height: 81px;
     position: relative;
@@ -145,7 +160,7 @@ export default {
     }
   }
   .activeItem {
-    background-color: #fff;
+    background-color: #eee;
     font-weight: bold;
     border-radius: 5px;
   }
@@ -178,6 +193,7 @@ export default {
       font-size: 14px;
       color: rgba(255, 255, 255, 0.5);
       border-radius: 5px;
+      overflow: hidden;
     }
     ul > li:hover {
       background-color: lightblue;
@@ -186,6 +202,6 @@ export default {
 }
 .contain::-webkit-scrollbar {
   display: none;
-  width: 0 !important;
+  // width: 0 !important;
 }
 </style>
