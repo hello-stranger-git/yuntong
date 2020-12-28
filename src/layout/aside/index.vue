@@ -8,18 +8,20 @@
       default-active="1"
       class="el-menu-vertical-demo"
       :collapse="togAsid"
-      :router="true"
       @open="handleOpen"
       @close="handleClose"
+      :collapse-transition="true"
+      router
     >
       <template v-for="(item, i) in routes">
         <!-- 独立路由 -->
         <template v-if="!item.childrens">
           <el-menu-item
             :key="i"
-            :index="item.to"
+            :route="{ path: item.to }"
             class="primary"
             style="padding-left: 15px;"
+            :index="i"
           >
             <i :class="['iconfont', item.icon]"></i>
             <span slot="title">{{ item.value }}</span>
@@ -41,18 +43,6 @@
                   {{ params.value }}
                 </el-menu-item>
               </template>
-              <template v-else>
-                <el-submenu :key="index" index="1-4">
-                  <template slot="title">{{ params.value }}</template>
-                  <el-menu-item
-                    v-for="(query, k) in params.childrens"
-                    :key="k"
-                    :index="query.to"
-                  >
-                    {{ query.value }}
-                  </el-menu-item>
-                </el-submenu>
-              </template>
             </template>
           </el-submenu>
         </template>
@@ -72,23 +62,23 @@ export default {
   data() {
     return {
       huaweiLogo: require('@/assets/img/aside/huawei_logo.png'),
-
+      activeIndex: 0,
       // 只能嵌套两个childrens
       routes: [
         {
           value: '实时大屏',
           icon: 'iconzu831',
-          to: '1'
+          to: '/realScreen'
         },
         {
           value: '门店分布',
           icon: 'iconzu683',
-          to: '2'
+          to: ''
         },
         {
           value: '数据分析',
           icon: 'iconzu686',
-          to: '3',
+          to: '',
           childrens: [{ value: '实时分析', to: '/dataAnalysis/realTime' }]
         },
         {
@@ -152,10 +142,13 @@ export default {
   },
   methods: {
     handleOpen(key, keyPath) {
-      console.log(key, keyPath)
+      // console.log(key, keyPath)
     },
     handleClose(key, keyPath) {
-      console.log(key, keyPath)
+      // console.log(key, keyPath)
+    },
+    handleSelect(index) {
+      console.log(index)
     }
   }
 }
@@ -164,6 +157,7 @@ export default {
 <style lang="less" scoped>
 // 头部logo区域样式
 .head {
+  transition: all 1s;
   display: flex;
   align-items: center;
   margin: 21px 0 20px;
@@ -191,12 +185,12 @@ export default {
   box-sizing: border-box;
   background: #38414a;
 }
-.bAside {
-  width: 198px;
-}
-.sAside {
-  width: 68px;
-}
+// .bAside {
+//   width: 198px;
+// }
+// .sAside {
+//   width: 68px;
+// }
 .sAside,
 .bAside {
   scrollbar-width: none; /* firefox */
@@ -210,15 +204,16 @@ export default {
 }
 //导航展开全部样式start
 .el-menu {
-  margin-right: 40px;
-  margin-left: 28px;
+  // margin-right: 40px;
+  // margin-left: 28px;
   background: inherit;
-  width: 130px;
+  width: 198px;
   border: 0;
   // border: 1px solid red;
-  margin-left: 28px;
   .el-menu-item {
     padding: 0;
+    // border: 1px solid red;
+    margin: 0 34px;
   }
   //一级导航样式
   .primary {
@@ -277,12 +272,16 @@ export default {
   //二级菜单父样式
   .el-submenu {
     // padding-left: 0 !important;
-    width: 130px;
+    width: 198px;
     line-height: 42px;
     border-radius: 5px;
     margin-bottom: 5px;
+    padding: 0 34px;
+
+    // border: 1px solid red;
     /deep/.el-submenu__title {
       // border: 1px solid red;
+      width: 130px;
       &.is-active,
       &:focus,
       &:hover {
@@ -326,6 +325,7 @@ export default {
       //二级菜单每个子菜单样式
       .el-menu-item {
         // border: 1px solid red;
+        padding-left: 6px !important ;
         color: #9ca0a5;
         //二级菜单每个子菜单选中样式
         &.is-active,
