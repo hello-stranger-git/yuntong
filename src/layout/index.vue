@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import SideBar from './aside/index1'
+import SideBar from './aside/index'
 import Header from '@/layout/head/index.vue'
 export default {
   components: {
