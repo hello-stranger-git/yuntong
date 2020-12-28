@@ -8,6 +8,7 @@
       default-active="1"
       class="el-menu-vertical-demo"
       :collapse="togAsid"
+      :router="true"
       @open="handleOpen"
       @close="handleClose"
     >
@@ -88,18 +89,7 @@ export default {
           value: '数据分析',
           icon: 'iconzu686',
           to: '3',
-          childrens: [
-            { value: '实时分析', to: '3-1' },
-            { value: '客流分析', to: '3-2' },
-            { value: '顾客分析', to: '3-3' },
-            { value: '区域排行', to: '3-4' },
-            { value: '会员识别', to: '3-5' },
-            { value: '多店对比', to: '3-6' },
-            { value: '试驾识别', to: '3-7' },
-            { value: '波次统计', to: '3-8' },
-            { value: '统计报表', to: '3-9' },
-            { value: '考勤统计', to: '3-10' }
-          ]
+          childrens: [{ value: '实时分析', to: '/dataAnalysis/realTime' }]
         },
         {
           to: '4',
@@ -149,7 +139,13 @@ export default {
         {
           value: '系统管理',
           icon: 'iconzu804',
-          to: '13'
+          to: '13',
+          childrens: [
+            {
+              value: '集团管理',
+              to: '/systemManagement/group'
+            }
+          ]
         }
       ]
     }

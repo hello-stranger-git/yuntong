@@ -1,9 +1,9 @@
+<!--系统设置-->
 <template>
-  <div>系统管理</div>
+  <router-view />
 </template>
-
 <script>
 export default {}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="less" scoped></style>
