@@ -26,7 +26,15 @@ const routes = [
       {
         path: '/dataAnalysis',
         name: 'DataAnalysis',
-        component: () => import('@/views/dataAnalysis')
+        component: () => import('@/views/dataAnalysis'),
+        children: [
+          // 实时分析
+          {
+            path: '/dataAnalysis/realTime',
+            name: 'RealTime',
+            component: () => import('@/views/dataAnalysis/realTime')
+          }
+        ]
       },
       // 实时视频
       {
