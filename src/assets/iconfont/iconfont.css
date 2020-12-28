@@ -17,6 +17,26 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.iconzu104:before {
+  content: '\e620';
+}
+
+.iconzu277:before {
+  content: '\e623';
+}
+
+.iconzu807:before {
+  content: '\e624';
+}
+
+.iconlujing473:before {
+  content: '\e625';
+}
+
+.iconzu817:before {
+  content: '\e626';
+}
+
 .iconzu778:before {
   content: '\e621';
 }
