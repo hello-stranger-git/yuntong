@@ -1,7 +1,10 @@
-<!--数据分析-->
+<!--集团管理-->
 <template>
-  <router-view />
+  <div>
+    集团管理
+  </div>
 </template>
+
 <script>
 export default {}
 </script>

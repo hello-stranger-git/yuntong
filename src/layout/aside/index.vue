@@ -8,6 +8,7 @@
       default-active="1"
       class="el-menu-vertical-demo"
       :collapse="togAsid"
+      :router="true"
       @open="handleOpen"
       @close="handleClose"
     >
@@ -142,7 +143,13 @@ export default {
         {
           value: '系统管理',
           icon: 'iconzu804',
-          to: '13'
+          to: '13',
+          childrens: [
+            {
+              value: '集团管理',
+              to: '/systemManagement/group'
+            }
+          ]
         }
       ]
     }

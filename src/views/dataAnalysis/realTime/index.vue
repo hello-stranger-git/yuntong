@@ -1,7 +1,10 @@
-<!--数据分析-->
+<!--实时分析-->
 <template>
-  <router-view />
+  <div>
+    实时分析
+  </div>
 </template>
+
 <script>
 export default {}
 </script>

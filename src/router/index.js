@@ -86,7 +86,15 @@ const routes = [
       {
         path: '/systemManagement',
         name: 'SystemManagement',
-        component: () => import('@/views/systemManagement')
+        component: () => import('@/views/systemManagement'),
+        children: [
+          // 集团管理
+          {
+            path: '/systemManagement/group',
+            name: 'Group',
+            component: () => import('@/views/systemManagement/group')
+          }
+        ]
       }
     ]
   },
