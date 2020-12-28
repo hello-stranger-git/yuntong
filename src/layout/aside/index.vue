@@ -1,21 +1,28 @@
 <template>
   <div :class="['contain', togAsid ? 'sAside' : 'bAside']">
     <div class="head">
-      <div class="logo">logo</div>
-      <h2>云瞳</h2>
+      <div class="logo"><img :src="huaweiLogo" /></div>
+      <h2 v-if="!togAsid">云瞳</h2>
     </div>
     <el-menu
       default-active="1"
       class="el-menu-vertical-demo"
       :collapse="togAsid"
-      :router="true"
       @open="handleOpen"
       @close="handleClose"
+      :collapse-transition="true"
+      router
     >
       <template v-for="(item, i) in routes">
         <!-- 独立路由 -->
         <template v-if="!item.childrens">
-          <el-menu-item :key="i" :index="item.to">
+          <el-menu-item
+            :key="i"
+            :route="{ path: item.to }"
+            class="primary"
+            style="padding-left: 15px;"
+            :index="i"
+          >
             <i :class="['iconfont', item.icon]"></i>
             <span slot="title">{{ item.value }}</span>
           </el-menu-item>
@@ -25,7 +32,7 @@
           <el-submenu :key="i" :index="item.to">
             <!-- 标题 -->
             <template slot="title">
-              <i class="el-icon-location"></i>
+              <i :class="['iconfont', item.icon]"></i>
               <span>{{ item.value }}</span>
             </template>
             <!-- 组内成员 -->
@@ -35,18 +42,6 @@
                 <el-menu-item :key="index" :index="params.to">
                   {{ params.value }}
                 </el-menu-item>
-              </template>
-              <template v-else>
-                <el-submenu :key="index" index="1-4">
-                  <template slot="title">{{ params.value }}</template>
-                  <el-menu-item
-                    v-for="(query, k) in params.childrens"
-                    :key="k"
-                    :index="query.to"
-                  >
-                    {{ query.value }}
-                  </el-menu-item>
-                </el-submenu>
               </template>
             </template>
           </el-submenu>
@@ -66,28 +61,30 @@ export default {
   },
   data() {
     return {
+      huaweiLogo: require('@/assets/img/aside/huawei_logo.png'),
+      activeIndex: 0,
       // 只能嵌套两个childrens
       routes: [
         {
           value: '实时大屏',
-          icon: 'iconzu690',
-          to: '1'
+          icon: 'iconzu831',
+          to: '/realScreen'
         },
         {
           value: '门店分布',
           icon: 'iconzu683',
-          to: '2'
+          to: ''
         },
         {
           value: '数据分析',
           icon: 'iconzu686',
-          to: '3',
+          to: '',
           childrens: [{ value: '实时分析', to: '/dataAnalysis/realTime' }]
         },
         {
           to: '4',
           value: '实时视频',
-          icon: 'iconzu831'
+          icon: 'iconzu690'
         },
         {
           value: '视频巡查',
@@ -145,16 +142,40 @@ export default {
   },
   methods: {
     handleOpen(key, keyPath) {
-      console.log(key, keyPath)
+      // console.log(key, keyPath)
     },
     handleClose(key, keyPath) {
-      console.log(key, keyPath)
+      // console.log(key, keyPath)
+    },
+    handleSelect(index) {
+      console.log(index)
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
+// 头部logo区域样式
+.head {
+  transition: all 1s;
+  display: flex;
+  align-items: center;
+  margin: 21px 0 20px;
+  justify-content: center;
+  .logo {
+    width: 52px;
+    height: 39px;
+    img {
+      width: 100%;
+    }
+  }
+  h2 {
+    font-size: 18px;
+    color: #fff;
+    width: 70px;
+    text-align: center;
+  }
+}
 .contain {
   height: 100%;
 }
@@ -164,12 +185,12 @@ export default {
   box-sizing: border-box;
   background: #38414a;
 }
-.bAside {
-  width: 198px;
-}
-.sAside {
-  width: 68px;
-}
+// .bAside {
+//   width: 198px;
+// }
+// .sAside {
+//   width: 68px;
+// }
 .sAside,
 .bAside {
   scrollbar-width: none; /* firefox */
@@ -183,19 +204,27 @@ export default {
 }
 //导航展开全部样式start
 .el-menu {
+  // margin-right: 40px;
+  // margin-left: 28px;
   background: inherit;
-  width: 130px;
-  height: 100%;
+  width: 198px;
   border: 0;
-  margin-left: 28px;
-  //一级每个菜单
+  // border: 1px solid red;
   .el-menu-item {
-    padding-left: 20px !important;
-    color: #ffffff;
+    padding: 0;
+    // border: 1px solid red;
+    margin: 0 34px;
+  }
+  //一级导航样式
+  .primary {
+    // border: 1px solid red;
+    // padding-left: 20px !important;
+    color: #fff;
     height: 42px;
     line-height: 42px;
     border-radius: 5px;
     margin-bottom: 5px;
+    display: flex;
     //一级每个选中菜单
     &.is-active,
     &:focus,
@@ -205,36 +234,54 @@ export default {
       width: 130px;
       line-height: 42px;
       color: #38414a;
+      font-weight: bold;
+      i {
+        color: #38414a;
+      }
     }
     //图标
     i {
-      margin-right: 10px;
+      // border: 1px solid red;
       font-size: 14px;
+      flex-basis: 30px;
+
+      text-align: center;
+      color: #fff;
     }
     //标题
     span {
+      margin-left: 5px;
       font-size: 14px;
     }
   }
-  //二级菜单父级
+  //二级菜单父级选中样式
   /deep/.el-submenu.is-active {
     .el-submenu__title {
       box-shadow: 0px 4px 4px rgba(0, 47, 117, 0.27);
-      background: #ffffff;
+      background: #fff;
       width: 130px;
       line-height: 42px;
       color: #38414a;
+      font-weight: bold;
+      // border: 1px solid red;
+      i {
+        color: #38414a;
+      }
     }
   }
+  //二级菜单父样式
   .el-submenu {
-    padding-left: 0 !important;
-    color: #ffffff;
-    width: 130px;
+    // padding-left: 0 !important;
+    width: 198px;
     line-height: 42px;
     border-radius: 5px;
     margin-bottom: 5px;
-    //二级菜单父样式
+    padding: 0 34px;
+
+    // border: 1px solid red;
     /deep/.el-submenu__title {
+      // border: 1px solid red;
+      width: 130px;
       &.is-active,
       &:focus,
       &:hover {
@@ -242,6 +289,10 @@ export default {
         background: #ffffff;
         width: 130px;
         color: #38414a;
+        font-weight: bold;
+        i {
+          color: #38414a;
+        }
       }
       height: 42px;
       color: #ffffff;
@@ -253,8 +304,9 @@ export default {
       }
       i {
         //图标
+        color: #fff;
         &:first-child {
-          margin-right: 10px;
+          margin: 0 11px 0 2px;
           font-size: 14px;
           width: 14px;
         }
@@ -267,9 +319,14 @@ export default {
     //二级菜单全部子模块样式
     /deep/.el-menu--inline {
       background: inherit;
-      padding-left: 24px;
+      padding-left: 9px;
+      // border: 1px solid red;
+
       //二级菜单每个子菜单样式
       .el-menu-item {
+        // border: 1px solid red;
+        padding-left: 6px !important ;
+        color: #9ca0a5;
         //二级菜单每个子菜单选中样式
         &.is-active,
         &:hover,
@@ -293,20 +350,23 @@ export default {
   margin: 0;
   //一级菜单
   .el-menu-item {
-    width: 46px !important;
+    width: 42px !important;
     height: 42px;
     border-radius: 5px;
     margin: 0 0 5px 11px;
     padding: 0 !important;
-    //一级选中菜单
+    // border: 1px solid black;
+    //一级选中菜单样式
     &.is-active,
     &:hover,
     &:focus {
       background: #ffffff;
       box-shadow: 0px 4px 4px rgba(0, 47, 117, 0.27);
       border-radius: 5px;
+
       //图标
       /deep/.el-tooltip {
+        // border: 1px solid red;
         i {
           color: #38414a;
         }
@@ -314,11 +374,13 @@ export default {
     }
     //图标
     /deep/.el-tooltip {
-      padding-left: 12px !important;
+      // padding-left: 12px !important;
       display: flex !important;
+      justify-content: center;
       align-items: center;
+      // border: 1px solid red;
       i {
-        font-size: 22px;
+        // font-size: 22px;
         color: #ffffff;
       }
     }
@@ -335,6 +397,7 @@ export default {
       background: #ffffff;
       box-shadow: 0px 4px 4px rgba(0, 47, 117, 0.27);
       border-radius: 5px;
+      overflow: hidden;
       //图标
       /deep/.el-tooltip {
         i {
@@ -344,7 +407,7 @@ export default {
     }
     &.is-active {
       /deep/.el-submenu__title {
-        // padding: 0 !important;
+        // width: 46px !important;
       }
     }
     //二级父菜单样式修改
