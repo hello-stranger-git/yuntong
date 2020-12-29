@@ -65,7 +65,7 @@
             更多
           </span>
         </div>
-        <OutsideLineChart />
+        <OutLineChart />
       </div>
     </div>
 
@@ -111,7 +111,7 @@
 <script>
 import UserItem from './components/userItem'
 import InnerLineChart from './components/innerLineChart' // 引入店内折线图
-import OutsideLineChart from './components/outsideLineChart' // 引入店外客流折线图
+import OutLineChart from './components/outLineChart' // 引入店外客流折线图
 
 import CustomerCircularChart from './components/customerCircularChart' // 引入客群特征环形图
 export default {
@@ -119,7 +119,7 @@ export default {
     UserItem,
     InnerLineChart,
     CustomerCircularChart,
-    OutsideLineChart
+    OutLineChart
   },
   data() {
     return {
