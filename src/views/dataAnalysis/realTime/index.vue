@@ -77,6 +77,7 @@
             更多
           </span>
         </div>
+        <CustomerCircularChart />
       </div>
       <div class="heat">
         <div class="titleDiv">
@@ -106,11 +107,14 @@
 
 <script>
 import UserItem from './components/userItem'
-import InnerLineChart from './components/innerLineChart'
+import InnerLineChart from './components/innerLineChart' // 引入店内折线图
+
+import CustomerCircularChart from './components/customerCircularChart' // 引入客群特征环形图
 export default {
   components: {
     UserItem,
-    InnerLineChart
+    InnerLineChart,
+    CustomerCircularChart
   },
   data() {
     return {

@@ -1,5 +1,9 @@
 <template>
-  <div :id="id" :style="'height:' + height + ';' + 'width:' + width"></div>
+  <div
+    :class="id"
+    :id="id"
+    :style="'height:' + height + ';' + 'width:' + width"
+  ></div>
 </template>
 
 <script>
@@ -12,7 +16,7 @@ export default {
   },
   props: {
     // 唯一标识符
-    id: { type: String, default: 'lineChart' },
+    id: { type: String, default: 'circularChart' },
     // 宽
     width: {
       type: String,
@@ -31,7 +35,6 @@ export default {
   },
   methods: {
     drawChart() {
-      console.log(this.option)
       // 基于准备好的dom，初始化echarts实例
       const myChart = this.$echarts.init(document.getElementById(this.id))
       this.myChart = myChart
