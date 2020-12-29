@@ -52,6 +52,7 @@
             更多
           </span>
         </div>
+        <InnerLineChart />
       </div>
       <div class="out">
         <div class="titleDiv">
@@ -105,9 +106,11 @@
 
 <script>
 import UserItem from './components/userItem'
+import InnerLineChart from './components/innerLineChart'
 export default {
   components: {
-    UserItem
+    UserItem,
+    InnerLineChart
   },
   data() {
     return {
