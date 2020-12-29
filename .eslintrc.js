@@ -49,9 +49,13 @@ module.exports = {
     'brace-style': [2, '1tbs', {
       'allowSingleLine': true
     }],
-    'camelcase': [0, {
-      'properties': 'always'
-    }],
+    // 'camelcase': [0, {
+    //   'properties': 'always'
+    // }],
+    //关闭严重驼峰命名
+    camelcase: 'off',
+    '@typescript-eslint/camelcase': 0,
+
     'comma-dangle': [2, 'never'],
     'comma-spacing': [2, {
       'before': false,

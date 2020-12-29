@@ -10,6 +10,9 @@ Vue.config.productionTip = false
 
 // 引入全局矢量图
 import '@/assets/iconfont/iconfont.css'
+// 引入echarts挂载全局
+import * as echarts from 'echarts'
+Vue.prototype.$echarts = echarts
 
 new Vue({
   router,
