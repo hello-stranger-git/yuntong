@@ -4,6 +4,12 @@
 
 <script>
 export default {
+  data() {
+    return {
+      resizeTimer: null,
+      myChart: null
+    }
+  },
   props: {
     // 唯一标识符
     id: { type: String, default: 'lineChart' },
@@ -28,12 +34,20 @@ export default {
       console.log(this.option)
       // 基于准备好的dom，初始化echarts实例
       const myChart = this.$echarts.init(document.getElementById(this.id))
+      this.myChart = myChart
       const option = this.option
       myChart.setOption(option)
     }
   },
   mounted() {
     this.drawChart()
+    // const _this = this
+    window.addEventListener('resize', () => {
+      if (this.resizeTimer) clearTimeout(this.resizeTimer)
+      this.resizeTimer = setTimeout(() => {
+        this.myChart.resize()
+      }, 0)
+    })
   }
 }
 </script>
