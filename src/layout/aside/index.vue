@@ -7,6 +7,7 @@
       @open="handleOpen"
       @close="handleClose"
       :collapse-transition="true"
+      :unique-opened="true"
       router
     >
       <div class="head">
@@ -21,7 +22,7 @@
             :route="{ path: item.to }"
             class="primary"
             style="padding-left: 15px;"
-            :index="i"
+            :index="item.id"
           >
             <i :class="['iconfont', item.icon]"></i>
             <span slot="title">{{ item.value }}</span>
@@ -29,7 +30,7 @@
         </template>
         <!-- 带有子路由 -->
         <template v-else>
-          <el-submenu :key="i" :index="item.to">
+          <el-submenu :key="i" :index="item.id">
             <!-- 标题 -->
             <template slot="title">
               <i :class="['iconfont', item.icon]"></i>
@@ -65,76 +66,33 @@ export default {
       activeIndex: 0,
       // 只能嵌套两个childrens
       routes: [
+        { id: '1', value: '实时大屏', icon: 'iconzu831', to: '/realScreen' },
+        { id: '2', value: '门店分布', icon: 'iconzu683', to: '' },
         {
-          value: '实时大屏',
-          icon: 'iconzu831',
-          to: '/realScreen'
-        },
-        {
-          value: '门店分布',
-          icon: 'iconzu683',
-          to: ''
-        },
-        {
+          id: '3',
           value: '数据分析',
           icon: 'iconzu686',
           to: '',
-          childrens: [{ value: '实时分析', to: '/dataAnalysis/realTime' }]
+          childrens: [
+            { id: '3-1', value: '实时分析', to: '/dataAnalysis/realTime' }
+          ]
         },
+        { id: '4', to: '4', value: '实时视频', icon: 'iconzu690' },
+        { id: '5', value: '视频巡查', icon: 'iconzu688', to: '5' },
+        { id: '6', value: '语音巡查', icon: 'iconzu694', to: '6' },
+        { id: '7', value: '巡查任务', icon: 'iconzu695', to: '7' },
+        { id: '8', value: '门店管理', icon: 'iconzu697', to: '8' },
+        { id: '9', value: '运维管理', icon: 'iconzu699', to: '9' },
+        { id: '10', value: '参数配置', icon: 'iconzu705', to: '10' },
+        { id: '11', value: '工单', icon: 'iconzu73', to: '11' },
+        { id: '12', value: '流量与统计', icon: 'iconzu777', to: '12' },
         {
-          to: '4',
-          value: '实时视频',
-          icon: 'iconzu690'
-        },
-        {
-          value: '视频巡查',
-          icon: 'iconzu688',
-          to: '5'
-        },
-        {
-          value: '语音巡查',
-          icon: 'iconzu694',
-          to: '6'
-        },
-        {
-          value: '巡查任务',
-          icon: 'iconzu695',
-          to: '7'
-        },
-        {
-          value: '门店管理',
-          icon: 'iconzu697',
-          to: '8'
-        },
-        {
-          value: '运维管理',
-          icon: 'iconzu699',
-          to: '9'
-        },
-        {
-          value: '参数配置',
-          icon: 'iconzu705',
-          to: '10'
-        },
-        {
-          value: '工单',
-          icon: 'iconzu73',
-          to: '11'
-        },
-        {
-          value: '流量与统计',
-          icon: 'iconzu777',
-          to: '12'
-        },
-        {
+          id: '13',
           value: '系统管理',
           icon: 'iconzu804',
           to: '13',
           childrens: [
-            {
-              value: '集团管理',
-              to: '/systemManagement/group'
-            }
+            { id: '13-1', value: '集团管理', to: '/systemManagement/group' }
           ]
         }
       ]
