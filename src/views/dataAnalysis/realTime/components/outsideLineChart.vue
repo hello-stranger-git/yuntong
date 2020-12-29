@@ -1,7 +1,7 @@
 <template>
   <div>
     <LineChart
-      id="innerLineChart"
+      id="outsideLineChart"
       width="100%"
       height="450px"
       :option="option"
@@ -22,7 +22,6 @@ export default {
           icon: 'circle', //  控制形状
           right: '20px', // 右边距
           top: '20px', // 上边距
-          // show: true,
           data: ['今日', '昨天', '前天'] // 展现不同系列的颜色和名称
         },
         grid: {
@@ -61,7 +60,7 @@ export default {
         series: [
           {
             name: '今日',
-            data: [20, 70, 60, 80, 90, 120, 100, 30],
+            data: [20, 70, 60, 80, 90, 42, 100, 30],
             symbol: 'none', // 拐角圆点样式
 
             type: 'line',
