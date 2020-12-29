@@ -53,7 +53,14 @@
 
         <!-- 所属区域 -->
         <el-form-item label="所属区域" prop="area" class="must">
-          <el-input v-model="ruleForm.area" />
+          <el-cascader
+            v-model="ruleForm.area"
+            :options="options"
+            expand-trigger="hover"
+          />
+          <el-button type="primary" class="areaReset" @click="resetArea">
+            重置
+          </el-button>
         </el-form-item>
 
         <!-- 详细地址 -->
@@ -77,6 +84,7 @@
                 :key="i"
                 :class="'menuBox'"
                 :style="{ background: item }"
+                @click="changeMenuColor(item)"
               ></div>
 
               <div class="menuBox">
@@ -90,6 +98,7 @@
                 :key="i"
                 :class="'menuBox'"
                 :style="{ background: item }"
+                @click="changeButtonColor(item)"
               ></div>
               <div class="menuBox" :style="{ background: 'pink' }">
                 <el-color-picker v-model="color2" />
@@ -123,9 +132,6 @@
         <div class="control">
           <el-button type="primary" @click="submitForm">
             保存
-          </el-button>
-          <el-button type="primary" @click="resetForm">
-            清空
           </el-button>
         </div>
       </el-form>
@@ -186,38 +192,299 @@ export default {
         ],
         area: [
           {
+            type: 'array',
             required: true,
-            message: '请输入所属区域',
+            message: '请选择所欲区域',
             trigger: 'blur'
           }
         ],
         location: [
           { required: true, message: '请输入详细地址', trigger: 'blur' }
         ]
-      }
+      },
+      options: [
+        {
+          value: 'zhinan',
+          label: '指南',
+          children: [
+            {
+              value: 'shejiyuanze',
+              label: '设计原则',
+              children: [
+                {
+                  value: 'yizhi',
+                  label: '一致'
+                },
+                {
+                  value: 'fankui',
+                  label: '反馈'
+                },
+                {
+                  value: 'xiaolv',
+                  label: '效率'
+                },
+                {
+                  value: 'kekong',
+                  label: '可控'
+                }
+              ]
+            },
+            {
+              value: 'daohang',
+              label: '导航',
+              children: [
+                {
+                  value: 'cexiangdaohang',
+                  label: '侧向导航'
+                },
+                {
+                  value: 'dingbudaohang',
+                  label: '顶部导航'
+                }
+              ]
+            }
+          ]
+        },
+        {
+          value: 'zujian',
+          label: '组件',
+          children: [
+            {
+              value: 'basic',
+              label: 'Basic',
+              children: [
+                {
+                  value: 'layout',
+                  label: 'Layout 布局'
+                },
+                {
+                  value: 'color',
+                  label: 'Color 色彩'
+                },
+                {
+                  value: 'typography',
+                  label: 'Typography 字体'
+                },
+                {
+                  value: 'icon',
+                  label: 'Icon 图标'
+                },
+                {
+                  value: 'button',
+                  label: 'Button 按钮'
+                }
+              ]
+            },
+            {
+              value: 'form',
+              label: 'Form',
+              children: [
+                {
+                  value: 'radio',
+                  label: 'Radio 单选框'
+                },
+                {
+                  value: 'checkbox',
+                  label: 'Checkbox 多选框'
+                },
+                {
+                  value: 'input',
+                  label: 'Input 输入框'
+                },
+                {
+                  value: 'input-number',
+                  label: 'InputNumber 计数器'
+                },
+                {
+                  value: 'select',
+                  label: 'Select 选择器'
+                },
+                {
+                  value: 'cascader',
+                  label: 'Cascader 级联选择器'
+                },
+                {
+                  value: 'switch',
+                  label: 'Switch 开关'
+                },
+                {
+                  value: 'slider',
+                  label: 'Slider 滑块'
+                },
+                {
+                  value: 'time-picker',
+                  label: 'TimePicker 时间选择器'
+                },
+                {
+                  value: 'date-picker',
+                  label: 'DatePicker 日期选择器'
+                },
+                {
+                  value: 'datetime-picker',
+                  label: 'DateTimePicker 日期时间选择器'
+                },
+                {
+                  value: 'upload',
+                  label: 'Upload 上传'
+                },
+                {
+                  value: 'rate',
+                  label: 'Rate 评分'
+                },
+                {
+                  value: 'form',
+                  label: 'Form 表单'
+                }
+              ]
+            },
+            {
+              value: 'data',
+              label: 'Data',
+              children: [
+                {
+                  value: 'table',
+                  label: 'Table 表格'
+                },
+                {
+                  value: 'tag',
+                  label: 'Tag 标签'
+                },
+                {
+                  value: 'progress',
+                  label: 'Progress 进度条'
+                },
+                {
+                  value: 'tree',
+                  label: 'Tree 树形控件'
+                },
+                {
+                  value: 'pagination',
+                  label: 'Pagination 分页'
+                },
+                {
+                  value: 'badge',
+                  label: 'Badge 标记'
+                }
+              ]
+            },
+            {
+              value: 'notice',
+              label: 'Notice',
+              children: [
+                {
+                  value: 'alert',
+                  label: 'Alert 警告'
+                },
+                {
+                  value: 'loading',
+                  label: 'Loading 加载'
+                },
+                {
+                  value: 'message',
+                  label: 'Message 消息提示'
+                },
+                {
+                  value: 'message-box',
+                  label: 'MessageBox 弹框'
+                },
+                {
+                  value: 'notification',
+                  label: 'Notification 通知'
+                }
+              ]
+            },
+            {
+              value: 'navigation',
+              label: 'Navigation',
+              children: [
+                {
+                  value: 'menu',
+                  label: 'NavMenu 导航菜单'
+                },
+                {
+                  value: 'tabs',
+                  label: 'Tabs 标签页'
+                },
+                {
+                  value: 'breadcrumb',
+                  label: 'Breadcrumb 面包屑'
+                },
+                {
+                  value: 'dropdown',
+                  label: 'Dropdown 下拉菜单'
+                },
+                {
+                  value: 'steps',
+                  label: 'Steps 步骤条'
+                }
+              ]
+            },
+            {
+              value: 'others',
+              label: 'Others',
+              children: [
+                {
+                  value: 'dialog',
+                  label: 'Dialog 对话框'
+                },
+                {
+                  value: 'tooltip',
+                  label: 'Tooltip 文字提示'
+                },
+                {
+                  value: 'popover',
+                  label: 'Popover 弹出框'
+                },
+                {
+                  value: 'card',
+                  label: 'Card 卡片'
+                },
+                {
+                  value: 'carousel',
+                  label: 'Carousel 走马灯'
+                },
+                {
+                  value: 'collapse',
+                  label: 'Collapse 折叠面板'
+                }
+              ]
+            }
+          ]
+        },
+        {
+          value: 'ziyuan',
+          label: '资源',
+          children: [
+            {
+              value: 'axure',
+              label: 'Axure Components'
+            },
+            {
+              value: 'sketch',
+              label: 'Sketch Templates'
+            },
+            {
+              value: 'jiaohu',
+              label: '组件交互文档'
+            }
+          ]
+        }
+      ]
     }
   },
   computed: {
     flag() {
-      console.log('变化了')
-      return sessionStorage.getItem('aa')
+      return sessionStorage.getItem('menu')
     }
   },
-  mounted() {
-    setTimeout(() => {
-      sessionStorage.setItem('aa', '123')
-      console.log('完成赋值')
-      console.log(sessionStorage.getItem('aa'))
-    }, 5000)
-    console.log(this.flag)
+  beforeDestroy() {
+    sessionStorage.removeItem('buttonColor')
+    sessionStorage.removeItem('menuColor')
   },
   methods: {
     // logo成功上传
     handleAvatarSuccess(res, file, fl) {
-      // console.log(res)
-      console.log(file)
       this.imageUrl = URL.createObjectURL(file.raw)
-      console.log(this.imageUrl)
     },
     // logo校验图片格式
     beforeAvatarUpload(file) {
@@ -225,7 +492,6 @@ export default {
       const isJPG = file.type === 'image/jpeg' || file.type === 'image/png'
       // 小于2mb
       const isLt2M = file.size / 1024 / 1024 < 2
-      // console.log(file.size / 1024 / 1024)
       if (!isJPG) {
         this.$message.error('上传头像图片只能是 JPG 格式!')
       }
@@ -239,8 +505,6 @@ export default {
     // bg上传成功
     handleBgSuccess(res, file, fl) {
       console.log('成功上传')
-      console.log(file)
-      console.log(this.imageUrl1)
     },
     // 校验背景图片
     beforeBgUpload(file) {
@@ -274,6 +538,18 @@ export default {
     },
     changeBg(file) {
       this.imageUrl1 = URL.createObjectURL(file.raw)
+    },
+    handleChange(value) {
+      console.log(value)
+    },
+    changeMenuColor(item) {
+      console.log(item)
+    },
+    changeButtonColor(item) {
+      console.log(item)
+    },
+    resetArea() {
+      this.ruleForm.area = ''
     }
   }
 }
@@ -288,7 +564,14 @@ export default {
   padding-left: 349px;
   border-radius: 10px;
   .el-input {
-    width: 673px;
+    width: 679px;
+  }
+  .el-cascader {
+    width: 526px;
+  }
+  .areaReset {
+    float: right;
+    width: 90px;
   }
 }
 .el-form {
@@ -298,6 +581,7 @@ export default {
     position: relative;
     font-weight: bold;
   }
+
   .logoHeight {
     /deep/.el-form-item__label {
       height: 78px;
@@ -416,6 +700,9 @@ export default {
 .control {
   text-align: center;
   margin-top: 69px;
+  .el-button {
+    width: 90px;
+  }
 }
 /deep/.el-color-picker__trigger {
   border: none;
