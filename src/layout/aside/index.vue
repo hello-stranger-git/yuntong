@@ -1,9 +1,5 @@
 <template>
   <div :class="['contain', togAsid ? 'sAside' : 'bAside']">
-    <div class="head">
-      <div class="logo"><img :src="huaweiLogo" /></div>
-      <h2 v-if="!togAsid">云瞳</h2>
-    </div>
     <el-menu
       default-active="1"
       class="el-menu-vertical-demo"
@@ -13,6 +9,10 @@
       :collapse-transition="true"
       router
     >
+      <div class="head">
+        <div class="logo"><img :src="huaweiLogo" /></div>
+        <h2 v-if="!togAsid">云瞳</h2>
+      </div>
       <template v-for="(item, i) in routes">
         <!-- 独立路由 -->
         <template v-if="!item.childrens">
