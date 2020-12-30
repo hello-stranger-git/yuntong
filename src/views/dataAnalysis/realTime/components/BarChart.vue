@@ -12,27 +12,10 @@
 <script>
 import Bar from '@/components/bar.js'
 export default {
-  props: {
-    // width: {
-    //   type: Number,
-    //   default: 1610
-    // }
-  },
+  props: {},
   data() {
     return {}
   },
-  // watch: {
-  //   width: {
-  //     handler: function(val, oldval) {
-  //       if (val) {
-  //         document.getElementById('priceBarChart').width = val
-  //         this.width = val
-  //       }
-  //     },
-  //     // immediate: true, // 关键
-  //     deep: true
-  //   }
-  // },
   mounted() {
     this.draw()
   },

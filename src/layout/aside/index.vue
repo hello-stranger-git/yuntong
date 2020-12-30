@@ -78,7 +78,8 @@ export default {
           icon: 'iconzu686',
           to: '',
           childrens: [
-            { id: '3-1', value: '实时分析', to: '/dataAnalysis/realTime' }
+            { id: '3-1', value: '实时分析', to: '/dataAnalysis/realTime' },
+            { id: '3-2', value: '客流分析', to: '/dataAnalysis/flow' }
           ]
         },
         { id: '4', to: '4', value: '实时视频', icon: 'iconzu690' },

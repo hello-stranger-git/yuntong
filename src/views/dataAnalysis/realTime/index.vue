@@ -117,7 +117,7 @@ import InnerLineChart from './components/innerLineChart' // 引入店内折线�
 import OutLineChart from './components/outLineChart' // 引入店外客流折线图
 
 import CustomerCircularChart from './components/customerCircularChart' // 引入客群特征环形图
-import PriceBarChart from './components/priceBarChart'
+import PriceBarChart from './components/BarChart'
 export default {
   components: {
     UserItem,
