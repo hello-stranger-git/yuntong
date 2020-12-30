@@ -15,16 +15,17 @@
         <el-form-item label="集团logo" class="must logoHeight">
           <el-upload
             class="avatar-uploader"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :show-file-list="true"
+            action="/"
+            :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
             :before-remove="removeLogo"
-            :limit="1"
+            :auto-upload="true"
+            :on-change="uploadLogo"
           >
             <img
-              v-if="imageUrl"
-              :src="imageUrl"
+              v-if="getLogo ? getLogo : imageUrl"
+              :src="getLogo ? getLogo : imageUrl"
               class="avatar"
               title="当前头像"
             />
@@ -125,7 +126,7 @@
                 :before-remove="removeBgPic"
                 :auto-upload="true"
               >
-                <el-button type="primary">重置</el-button>
+                <el-button type="primary">更改</el-button>
               </el-upload>
             </div>
           </div>
@@ -144,6 +145,8 @@
 <script>
 import bgpic from '@/assets/img/login/background.png'
 import { mapMutations } from 'vuex'
+import { mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
@@ -151,6 +154,7 @@ export default {
       color1: '',
       color2: '',
       imageUrl: '',
+      logoName: '',
       imageUrl1: '',
       menuColorArr: ['red', 'blue', 'green', 'pink'],
       buttonColorArr: ['orange', 'yellow', 'purple', 'pink'],
@@ -475,6 +479,9 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapGetters(['getLogo'])
+  },
   watch: {
     color1() {
       if (this.color1) {
@@ -485,24 +492,26 @@ export default {
     }
   },
   mounted() {
-    // this.$store.commit('setAsideBgc', '#fff')
-    // console.log(this.$store.state.asideBgc)
     // setTimeout(() => {
-    //   console.log(this.$store.state.asideBgc)
+    //   console.log(this.$store.getters.getLogo)
     // }, 3000)
   },
   beforeDestroy() {
     this.clearPreviewBgc()
   },
   methods: {
-    ...mapMutations(['setAsideBgc', 'setPreviewBgc', 'clearPreviewBgc']),
+    ...mapMutations([
+      'setAsideBgc',
+      'setPreviewBgc',
+      'clearPreviewBgc',
+      'setLogo'
+    ]),
     // logo成功上传
     handleAvatarSuccess(res, file, fl) {
       this.imageUrl = URL.createObjectURL(file.raw)
     },
     // logo校验图片格式
     beforeAvatarUpload(file) {
-      // console.log(file)
       const isJPG = file.type === 'image/jpeg' || file.type === 'image/png'
       // 小于2mb
       const isLt2M = file.size / 1024 / 1024 < 2
@@ -512,9 +521,11 @@ export default {
       if (!isLt2M) {
         this.$message.error('上传头像图片大小不能超过 2MB!')
       }
-      // false会终止上传
-      console.log('校验格式' + isJPG && isLt2M)
       return isJPG && isLt2M
+    },
+    // 上传图片变化钩子
+    uploadLogo(file) {
+      this.imageUrl = URL.createObjectURL(file.raw)
     },
     // bg上传成功
     handleBgSuccess(res, file, fl) {
@@ -524,17 +535,21 @@ export default {
     beforeBgUpload(file) {
       console.log(file)
       this.imageUrl1 = URL.createObjectURL(file)
+      this.$store.commit('setBgPic', this.imageUrl1)
+      console.log(this.$store.state.bgPic)
       // 成功上传后这个url才生效
-      return false
+      return true
     },
     submitForm(formName) {
+      this.setLogo(this.logoName)
+      this.$store.commit('setLogo', this.imageUrl)
       this.setAsideBgc(this.$store.state.previewBgc)
       this.clearPreviewBgc()
-
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           if (!this.imageUrl) {
-            return this.$message.error('请选择logo')
+            this.$message.error('请选择logo')
+            return false
           }
           alert('submit!')
         } else {
@@ -551,14 +566,6 @@ export default {
     },
     removeLogo() {
       this.imageUrl = ''
-    },
-    handleChange(value) {
-      console.log(value)
-      console.log(1)
-    },
-
-    changeButtonColor(item) {
-      console.log(item)
     },
     resetArea() {
       this.ruleForm.area = ''

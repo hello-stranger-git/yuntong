@@ -14,7 +14,7 @@
       @close="handleClose"
     >
       <div class="head">
-        <div class="logo"><img :src="huaweiLogo" /></div>
+        <div class="logo"><img :src="getLogo ? getLogo : huaweiLogo" /></div>
         <h2 v-if="!togAsid">云瞳</h2>
       </div>
       <template v-for="(item, i) in routes">
@@ -87,7 +87,13 @@ export default {
         { id: '6', value: '语音巡查', icon: 'iconzu694', to: '6' },
         { id: '7', value: '巡查任务', icon: 'iconzu695', to: '7' },
         { id: '8', value: '门店管理', icon: 'iconzu697', to: '8' },
-        { id: '9', value: '运维管理', icon: 'iconzu699', to: '9' },
+        {
+          id: '9',
+          value: '运维管理',
+          icon: 'iconzu699',
+          to: '',
+          childrens: [{ id: '9-1', value: '设备管理', to: '/mochaITOM/device' }]
+        },
         { id: '10', value: '参数配置', icon: 'iconzu705', to: '10' },
         { id: '11', value: '工单', icon: 'iconzu73', to: '11' },
         { id: '12', value: '流量与统计', icon: 'iconzu777', to: '12' },
@@ -104,10 +110,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getAsideBgc', 'getPreviewBgc'])
-  },
-  mounted() {
-    console.log(this.$store)
+    ...mapGetters(['getAsideBgc', 'getPreviewBgc', 'getLogo'])
   },
   methods: {
     handleOpen(key, keyPath) {
@@ -313,7 +316,7 @@ export default {
 
 //导航收缩全部样式start
 .el-menu--collapse {
-  background-color: #38414a;
+  // background-color: #38414a;
   width: 68px;
   border-right: 0;
   margin: 0;
