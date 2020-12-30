@@ -568,22 +568,22 @@ export default {
       return true
     },
     submitForm(formName) {
-      // 侧边背景色、清除预览背景色
-      this.setAsideBgc(this.$store.state.previewBgc)
-      this.clearPreviewBgc()
-      // 保存按钮颜色、清除按钮预览色
-      this.setBtnBgColor(this.btnPreviewColor)
-      this.setBtnPreviewColor('')
-      // 保存登陆背景图
-      this.setBgPic(this.loginBgPic)
-      // 保存logo
-      this.setLogo(this.logoUrl)
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           if (!this.logoUrl) {
             this.$message.error('请选择logo')
             return false
           }
+          // 侧边背景色、清除预览背景色
+          this.setAsideBgc(this.$store.state.previewBgc)
+          this.clearPreviewBgc()
+          // 保存按钮颜色、清除按钮预览色
+          this.setBtnBgColor(this.btnPreviewColor)
+          this.setBtnPreviewColor('')
+          // 保存登陆背景图
+          this.setBgPic(this.loginBgPic)
+          // 保存logo
+          this.setLogo(this.logoUrl)
           this.$message.success('提交成功')
           this.resetForm()
         } else {
