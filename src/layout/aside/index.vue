@@ -70,40 +70,106 @@ export default {
       activeIndex: 0,
       // 只能嵌套两个childrens
       routes: [
-        { id: '1', value: '实时大屏', icon: 'iconzu831', to: '/realScreen' },
-        { id: '2', value: '门店分布', icon: 'iconzu683', to: '' },
         {
-          id: '3',
+          id: '1',
+          value: '门店分布',
+          icon: 'iconzu683',
+          to: '',
+          childrens: [{ id: '1-1', value: '门店分布', to: '/bpRetail' }]
+        },
+        {
+          id: '2',
           value: '数据分析',
           icon: 'iconzu686',
           to: '',
           childrens: [
-            { id: '3-1', value: '实时分析', to: '/dataAnalysis/realTime' },
-            { id: '3-2', value: '客流分析', to: '/dataAnalysis/flow' }
+            { id: '2-1', value: '实时分析', to: '/dataAnalysis/realTime' },
+            { id: '2-2', value: '客流分析', to: '/dataAnalysis/flow' },
+            { id: '2-3', value: '顾客分析', to: '/dataAnalysis/customer' },
+            { id: '2-4', value: '区域排行', to: '/dataAnalysis/region' },
+            { id: '2-5', value: '到店统计', to: '/dataAnalysis/toStore' },
+            { id: '2-6', value: '多店对比', to: '/dataAnalysis/moreStore' },
+            { id: '2-7', value: '统计报表', to: '/dataAnalysis/countForm' },
+            { id: '2-8', value: '考勤统计', to: '/dataAnalysis/checkCount' }
           ]
         },
-        { id: '4', to: '4', value: '实时视频', icon: 'iconzu690' },
-        { id: '5', value: '视频巡查', icon: 'iconzu688', to: '5' },
-        { id: '6', value: '语音巡查', icon: 'iconzu694', to: '6' },
-        { id: '7', value: '巡查任务', icon: 'iconzu695', to: '7' },
-        { id: '8', value: '门店管理', icon: 'iconzu697', to: '8' },
         {
-          id: '9',
+          id: '3',
+          to: '',
+          value: '实时视频',
+          icon: 'iconzu690',
+          childrens: [{ id: '3-1', value: '实时视频', to: '' }]
+        },
+        {
+          id: '4',
+          value: '视频巡查',
+          icon: 'iconzu688',
+          to: '',
+          childrens: [
+            { id: '4-1', value: '在线考评', to: '' },
+            { id: '4-2', value: '巡查记录', to: '' },
+            { id: '4-3', value: '图片点检', to: '' },
+            { id: '4-4', value: 'AI巡查', to: '' }
+          ]
+        },
+        {
+          id: '5',
+          value: '巡查任务',
+          icon: 'iconzu695',
+          to: '',
+          childrens: [
+            { id: '5-1', value: '待我处理', to: '' },
+            { id: '5-2', value: '我的任务', to: '' },
+            { id: '5-3', value: '与我相关', to: '' },
+            { id: '5-4', value: '处理意见管理', to: '' }
+          ]
+        },
+        {
+          id: '6',
+          value: '门店管理',
+          icon: 'iconzu697',
+          to: '',
+          childrens: [
+            { id: '6-1', value: '门店管理', to: '' },
+            { id: '6-2', value: '门店审核', to: '' }
+          ]
+        },
+        {
+          id: '7',
           value: '运维管理',
           icon: 'iconzu699',
           to: '',
-          childrens: [{ id: '9-1', value: '设备管理', to: '/mochaITOM/device' }]
-        },
-        { id: '10', value: '参数配置', icon: 'iconzu705', to: '10' },
-        { id: '11', value: '工单', icon: 'iconzu73', to: '11' },
-        { id: '12', value: '流量与统计', icon: 'iconzu777', to: '12' },
-        {
-          id: '13',
-          value: '系统管理',
-          icon: 'iconzu804',
-          to: '13',
           childrens: [
-            { id: '13-1', value: '集团管理', to: '/systemManagement/group' }
+            { id: '7-1', value: '设备管理', to: '/mochaITOM/device' },
+            { id: '7-1', value: '视频观看记录', to: '/mochaITOM/' },
+            { id: '7-3', value: '视频观看统计', to: '/mochaITOM/' }
+          ]
+        },
+        {
+          id: '8',
+          value: '参数配置',
+          icon: 'iconzu705',
+          to: '',
+          childrens: [
+            { id: '8-1', value: '考评任务配置', to: '' },
+
+            { id: '8-2', value: '巡查模板配置', to: '' },
+            { id: '8-3', value: '店外客流配置', to: '' },
+            { id: '8-4', value: '密度区域类型', to: '' },
+            { id: '8-4', value: '密度区域配置', to: '' }
+          ]
+        },
+        {
+          id: '9',
+          value: '系统设置',
+          icon: 'iconzu804',
+          to: '',
+          childrens: [
+            { id: '9-1', value: '用户管理', to: '/systemManagement/' },
+            { id: '9-2', value: '组织管理', to: '/systemManagement/' },
+            { id: '9-3', value: '职位管理', to: '/systemManagement/' },
+            { id: '9-4', value: '日志管理', to: '/systemManagement/' },
+            { id: '9-5', value: '集团管理', to: '/systemManagement/group' }
           ]
         }
       ]

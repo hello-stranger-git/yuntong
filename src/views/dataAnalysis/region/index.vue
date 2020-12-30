@@ -1,6 +1,7 @@
+<!--区域排行-->
 <template>
   <div>
-    实时大屏
+    区域排行
   </div>
 </template>
 
@@ -8,4 +9,4 @@
 export default {}
 </script>
 
-<style lang="less" scoped></style>
+<style lang="scss" scoped></style>

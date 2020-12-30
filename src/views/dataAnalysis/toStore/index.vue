@@ -1,5 +1,8 @@
+<!--到店统计-->
 <template>
-  <router-view />
+  <div>
+    到店统计
+  </div>
 </template>
 
 <script>

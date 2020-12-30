@@ -1,5 +1,8 @@
+<!--顾客分析-->
 <template>
-  <router-view />
+  <div>
+    顾客分析
+  </div>
 </template>
 
 <script>
