@@ -1,14 +1,17 @@
 <template>
-  <div :class="['contain', togAsid ? 'sAside' : 'bAside']">
+  <div
+    :class="['contain', togAsid ? 'sAside' : 'bAside']"
+    :style="{ background: getPreviewBgc ? getPreviewBgc : getAsideBgc }"
+  >
     <el-menu
       default-active="1"
       class="el-menu-vertical-demo"
       :collapse="togAsid"
-      @open="handleOpen"
-      @close="handleClose"
       :collapse-transition="true"
       :unique-opened="true"
       router
+      @open="handleOpen"
+      @close="handleClose"
     >
       <div class="head">
         <div class="logo"><img :src="huaweiLogo" /></div>
@@ -53,6 +56,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   props: {
     togAsid: {
@@ -97,6 +101,12 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapGetters(['getAsideBgc', 'getPreviewBgc'])
+  },
+  mounted() {
+    console.log(this.$store)
   },
   methods: {
     handleOpen(key, keyPath) {
@@ -363,11 +373,11 @@ export default {
         }
       }
     }
-    &.is-active {
-      /deep/.el-submenu__title {
-        // width: 46px !important;
-      }
-    }
+    // &.is-active {
+    //   /deep/.el-submenu__title {
+    //     // width: 46px !important;
+    //   }
+    // }
     //二级父菜单样式修改
     /deep/.el-submenu__title {
       padding-left: 12px !important;
@@ -397,8 +407,8 @@ export default {
       }
       //图标
       i {
-        &:first-child {
-        }
+        // &:first-child {
+        // }
         &:last-child {
           display: none;
         }

@@ -86,8 +86,8 @@ export default {
         ],
         xShowLine: false,
         legend: [
-          { color: '#E60012', title: '客单价', shape: 'arc' },
-          { color: '#56BE9B', title: '客流人数', shape: 'line' },
+          { color: '#E60012', title: '客单价', shape: 'line' },
+          { color: '#56BE9B', title: '客流人数', shape: 'arc' },
           { color: '#F8C498', title: '销售额', shape: 'arc' }
         ],
         xLabel: [

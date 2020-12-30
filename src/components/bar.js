@@ -25,7 +25,7 @@ export default class Bar {
       this.ctx.fillStyle = '#565656'
       this.ctx.textAlign = 'right'
       this.ctx.font = '16px MicrosoftYaHei'
-      const x = this.xAxisW - i * 150 - this.data.legend[i].title.length * 8
+      const x = this.xAxisW - i * 150 - this.data.legend[i].title.length * 10
       const y = this.cpadding
       // 画圆形
       if (this.data.legend[i].shape === 'arc') {

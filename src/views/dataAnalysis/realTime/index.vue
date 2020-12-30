@@ -43,6 +43,7 @@
     </div>
     <!--今日店内客流与今日店外客流-->
     <div class="flow">
+      <!-- 店内客流区域 -->
       <div class="inner">
         <div class="titleDiv">
           <span class="title">
@@ -54,6 +55,7 @@
         </div>
         <InnerLineChart />
       </div>
+      <!-- 店外客流区域 -->
       <div class="out">
         <div class="titleDiv">
           <span class="title">
@@ -63,6 +65,7 @@
             更多
           </span>
         </div>
+        <OutLineChart />
       </div>
     </div>
 
@@ -111,6 +114,7 @@
 <script>
 import UserItem from './components/userItem'
 import InnerLineChart from './components/innerLineChart' // 引入店内折线图
+import OutLineChart from './components/outLineChart' // 引入店外客流折线图
 
 import CustomerCircularChart from './components/customerCircularChart' // 引入客群特征环形图
 import PriceBarChart from './components/priceBarChart'
@@ -119,7 +123,8 @@ export default {
     UserItem,
     InnerLineChart,
     CustomerCircularChart,
-    PriceBarChart
+    PriceBarChart,
+    OutLineChart
   },
   data() {
     return {
@@ -327,6 +332,7 @@ export default {
   height: 497px;
   margin-top: 24px;
   display: flex;
+
   .customer {
     width: 50%;
     background-color: #ffffff;
