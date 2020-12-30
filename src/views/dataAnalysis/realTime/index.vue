@@ -17,7 +17,12 @@
           :value="item.value"
         />
       </el-select>
-      <el-button type="primary" class="searchBtn">查询</el-button>
+      <el-button
+        type="primary"
+        :style="`background-color:${this.$store.state.btnBgColor}`"
+        class="searchBtn"
+        >查询</el-button
+      >
       <el-button type="info" class="resetBtn">重置</el-button>
     </div>
     <!--今日进店板块-->
@@ -30,7 +35,7 @@
         <template v-for="item in user">
           <UserItem
             :key="item.id"
-            :userImg="item.userImg"
+            :user-img="item.userImg"
             :date="item.date"
             :age="item.age"
             :sex="item.sex"
@@ -104,6 +109,9 @@
           更多
         </span>
       </div>
+      <div id="priceBar" style="width:100%;text-align:center">
+        <PriceBarChart />
+      </div>
     </div>
   </div>
 </template>
@@ -114,11 +122,13 @@ import InnerLineChart from './components/innerLineChart' // 引入店内折线�
 import OutLineChart from './components/outLineChart' // 引入店外客流折线图
 
 import CustomerCircularChart from './components/customerCircularChart' // 引入客群特征环形图
+import PriceBarChart from './components/BarChart'
 export default {
   components: {
     UserItem,
     InnerLineChart,
     CustomerCircularChart,
+    PriceBarChart,
     OutLineChart
   },
   data() {
@@ -249,7 +259,16 @@ export default {
         }
       ]
       // 今日进店模块数据end
+
+      // 单价分析柱状图模块宽度
+      // priceBarWidth: 1600
     }
+  },
+  mounted() {
+    // this.priceBarWidth = document.getElementById('priceBar').clientWidth
+    // window.onresize = () => {
+    //   this.priceBarWidth = document.getElementById('priceBar').clientWidth
+    // }
   }
 }
 </script>

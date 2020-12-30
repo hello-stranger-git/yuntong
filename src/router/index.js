@@ -33,6 +33,12 @@ const routes = [
             path: '/dataAnalysis/realTime',
             name: 'RealTime',
             component: () => import('@/views/dataAnalysis/realTime')
+          },
+          // 客流分析
+          {
+            path: '/dataAnalysis/flow',
+            name: 'Flow',
+            component: () => import('@/views/dataAnalysis/flow')
           }
         ]
       },
@@ -70,7 +76,15 @@ const routes = [
       {
         path: '/mochaITOM',
         name: 'MochaITOM',
-        component: () => import('@/views/mochaITOM')
+        component: () => import('@/views/mochaITOM'),
+        children: [
+          // 设备管理
+          {
+            path: '/mochaITOM/device',
+            name: 'Device',
+            component: () => import('@/views/mochaITOM/device')
+          }
+        ]
       },
       // 参数配置
       {

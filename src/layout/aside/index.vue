@@ -78,7 +78,8 @@ export default {
           icon: 'iconzu686',
           to: '',
           childrens: [
-            { id: '3-1', value: '实时分析', to: '/dataAnalysis/realTime' }
+            { id: '3-1', value: '实时分析', to: '/dataAnalysis/realTime' },
+            { id: '3-2', value: '客流分析', to: '/dataAnalysis/flow' }
           ]
         },
         { id: '4', to: '4', value: '实时视频', icon: 'iconzu690' },
@@ -86,7 +87,13 @@ export default {
         { id: '6', value: '语音巡查', icon: 'iconzu694', to: '6' },
         { id: '7', value: '巡查任务', icon: 'iconzu695', to: '7' },
         { id: '8', value: '门店管理', icon: 'iconzu697', to: '8' },
-        { id: '9', value: '运维管理', icon: 'iconzu699', to: '9' },
+        {
+          id: '9',
+          value: '运维管理',
+          icon: 'iconzu699',
+          to: '',
+          childrens: [{ id: '9-1', value: '设备管理', to: '/mochaITOM/device' }]
+        },
         { id: '10', value: '参数配置', icon: 'iconzu705', to: '10' },
         { id: '11', value: '工单', icon: 'iconzu73', to: '11' },
         { id: '12', value: '流量与统计', icon: 'iconzu777', to: '12' },

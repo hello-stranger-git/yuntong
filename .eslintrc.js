@@ -17,7 +17,8 @@ module.exports = {
   // add your custom rules here
   //it is base on https://github.com/vuejs/eslint-config-vue
   rules: {
-
+    //函数名后面的括号
+    "space-before-function-paren": 0,
     //允许标签自动关上
     "no-unused-vars": "off",
     "vue/html-self-closing": ["error", {

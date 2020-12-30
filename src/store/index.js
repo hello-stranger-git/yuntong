@@ -7,8 +7,13 @@ export default new Vuex.Store({
   state: {
     asideBgc: '#38414a', // 默认颜色
     previewBgc: '', // 预览颜色
+<<<<<<< HEAD
     logo: '',
     bgPic: ''
+=======
+    btnBgColor: '#409EFF' // 页面按钮颜色
+
+>>>>>>> 4099b9b707cc0176eb0d2fb53c07b6c590871cfa
   },
   mutations: {
     setAsideBgc: (state, color) => { state.asideBgc = color },
