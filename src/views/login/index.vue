@@ -1,5 +1,8 @@
 <template>
-  <div class="login">
+  <div
+    class="login"
+    :style="{ backgroundImage: getBgPic ? 'url(' + getBgPic + ')' : '' }"
+  >
     <div class="loginDiv">
       <div class="imgDiv">
         <img :src="logo" width="125px" height="125px" />
@@ -60,6 +63,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -68,6 +72,9 @@ export default {
       username: '',
       password: ''
     }
+  },
+  computed: {
+    ...mapGetters(['getBgPic'])
   },
   methods: {
     // 点击登录按钮触发事件

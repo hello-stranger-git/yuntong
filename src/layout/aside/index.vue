@@ -14,7 +14,7 @@
       @close="handleClose"
     >
       <div class="head">
-        <div class="logo"><img :src="huaweiLogo" /></div>
+        <div class="logo"><img :src="getLogo ? getLogo : huaweiLogo" /></div>
         <h2 v-if="!togAsid">云瞳</h2>
       </div>
       <template v-for="(item, i) in routes">
@@ -103,10 +103,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getAsideBgc', 'getPreviewBgc'])
-  },
-  mounted() {
-    console.log(this.$store)
+    ...mapGetters(['getAsideBgc', 'getPreviewBgc', 'getLogo'])
   },
   methods: {
     handleOpen(key, keyPath) {
@@ -312,7 +309,7 @@ export default {
 
 //导航收缩全部样式start
 .el-menu--collapse {
-  background-color: #38414a;
+  // background-color: #38414a;
   width: 68px;
   border-right: 0;
   margin: 0;
