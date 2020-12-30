@@ -27,7 +27,15 @@
         placeholder="请输入设备名称"
         clearable
       />
-      <el-button type="primary" class="searchBtn">查询</el-button>
+      <el-button
+        type="primary"
+        :style="
+          `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
+        "
+        class="searchBtn"
+      >
+        查询
+      </el-button>
       <el-button type="info" class="resetBtn">重置</el-button>
     </div>
     <!--表格板块-->
