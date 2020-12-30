@@ -56,7 +56,8 @@
           <el-cascader
             v-model="ruleForm.area"
             :options="options"
-            expand-trigger="hover"
+            filterable
+            :props="{ expandTrigger: 'hover' }"
           />
           <el-button type="primary" class="areaReset" @click="resetArea">
             重置
@@ -84,9 +85,9 @@
                 :key="i"
                 :class="'menuBox'"
                 :style="{ background: item }"
-                @click="changeMenuColor(item)"
+                @click="setPreviewBgc(item)"
               ></div>
-
+              <!-- 颜色选择器 -->
               <div class="menuBox">
                 <el-color-picker v-model="color1" />
               </div>
@@ -98,8 +99,10 @@
                 :key="i"
                 :class="'menuBox'"
                 :style="{ background: item }"
-                @click="changeButtonColor(item)"
+                @click="setPreviewBgc(item)"
               ></div>
+              <!-- 颜色选择器 -->
+
               <div class="menuBox" :style="{ background: 'pink' }">
                 <el-color-picker v-model="color2" />
               </div>
@@ -120,8 +123,7 @@
                 :before-upload="beforeBgUpload"
                 :limit="1"
                 :before-remove="removeBgPic"
-                :on-change="changeBg"
-                :auto-upload="false"
+                :auto-upload="true"
               >
                 <el-button type="primary">重置</el-button>
               </el-upload>
@@ -141,6 +143,7 @@
 
 <script>
 import bgpic from '@/assets/img/login/background.png'
+import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -194,7 +197,7 @@ export default {
           {
             type: 'array',
             required: true,
-            message: '请选择所欲区域',
+            message: '请选择所属区域',
             trigger: 'blur'
           }
         ],
@@ -472,16 +475,27 @@ export default {
       ]
     }
   },
-  computed: {
-    flag() {
-      return sessionStorage.getItem('menu')
+  watch: {
+    color1() {
+      if (this.color1) {
+        this.setPreviewBgc(this.color1)
+      } else {
+        this.clearPreviewBgc()
+      }
     }
   },
+  mounted() {
+    // this.$store.commit('setAsideBgc', '#fff')
+    // console.log(this.$store.state.asideBgc)
+    // setTimeout(() => {
+    //   console.log(this.$store.state.asideBgc)
+    // }, 3000)
+  },
   beforeDestroy() {
-    sessionStorage.removeItem('buttonColor')
-    sessionStorage.removeItem('menuColor')
+    this.clearPreviewBgc()
   },
   methods: {
+    ...mapMutations(['setAsideBgc', 'setPreviewBgc', 'clearPreviewBgc']),
     // logo成功上传
     handleAvatarSuccess(res, file, fl) {
       this.imageUrl = URL.createObjectURL(file.raw)
@@ -508,13 +522,15 @@ export default {
     },
     // 校验背景图片
     beforeBgUpload(file) {
-      console.log('校验文件')
-      // this.imageUrl1 = URL.createObjectURL(file)
-      return true
+      console.log(file)
+      this.imageUrl1 = URL.createObjectURL(file)
+      // 成功上传后这个url才生效
+      return false
     },
-
     submitForm(formName) {
-      console.log(formName)
+      this.setAsideBgc(this.$store.state.previewBgc)
+      this.clearPreviewBgc()
+
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           if (!this.imageUrl) {
@@ -536,15 +552,11 @@ export default {
     removeLogo() {
       this.imageUrl = ''
     },
-    changeBg(file) {
-      this.imageUrl1 = URL.createObjectURL(file.raw)
-    },
     handleChange(value) {
       console.log(value)
+      console.log(1)
     },
-    changeMenuColor(item) {
-      console.log(item)
-    },
+
     changeButtonColor(item) {
       console.log(item)
     },
