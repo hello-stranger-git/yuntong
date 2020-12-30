@@ -118,16 +118,42 @@ const routes = [
           }]
       },
       // 语音巡查
-      {
-        path: '/voicePatrol',
-        name: 'VoicePatrol',
-        component: () => import('@/views/voicePatrol')
-      },
+      // {
+      //   path: '/voicePatrol',
+      //   name: 'VoicePatrol',
+      //   component: () => import('@/views/voicePatrol')
+      // },
       // 巡查任务
       {
         path: '/inspectionTask',
         name: 'InspectionTask',
-        component: () => import('@/views/inspectionTask')
+        component: () => import('@/views/inspectionTask'),
+        children: [
+          // 待我处理
+          {
+            path: '/inspectionTask/waitDeal',
+            name: 'WaitDeal',
+            component: () => import('@/views/inspectionTask/waitDeal')
+          },
+          // 我的任务
+          {
+            path: '/inspectionTask/myTask',
+            name: 'MyTask',
+            component: () => import('@/views/inspectionTask/myTask')
+          },
+          // 与我相关
+          {
+            path: '/inspectionTask/myRelevant',
+            name: 'MyRelevant',
+            component: () => import('@/views/inspectionTask/myRelevant')
+          },
+          // 处理意见管理
+          {
+            path: '/inspectionTask/dealOpinion',
+            name: 'DealOpinion',
+            component: () => import('@/views/inspectionTask/dealOpinion')
+          }
+        ]
       },
       // 门店管理
       {
@@ -168,18 +194,18 @@ const routes = [
         component: () => import('@/views/parameterConfig')
       },
       // 工单
-      {
-        path: '/workOrder',
-        name: 'WorkOrder',
-        component: () => import('@/views/workOrder')
-      },
+      // {
+      //   path: '/workOrder',
+      //   name: 'WorkOrder',
+      //   component: () => import('@/views/workOrder')
+      // },
       // 流量与计费
-      {
-        path: '/trafficStatistics',
-        name: 'TrafficStatistics',
-        component: () => import('@/views/trafficStatistics')
-      },
-      // 系统管理
+      // {
+      //   path: '/trafficStatistics',
+      //   name: 'TrafficStatistics',
+      //   component: () => import('@/views/trafficStatistics')
+      // },
+      // 系统设置
       {
         path: '/systemManagement',
         name: 'SystemManagement',

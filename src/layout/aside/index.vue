@@ -124,10 +124,14 @@ export default {
           icon: 'iconzu695',
           to: '',
           childrens: [
-            { id: '5-1', value: '待我处理', to: '' },
-            { id: '5-2', value: '我的任务', to: '' },
-            { id: '5-3', value: '与我相关', to: '' },
-            { id: '5-4', value: '处理意见管理', to: '' }
+            { id: '5-1', value: '待我处理', to: '/inspectionTask/waitDeal' },
+            { id: '5-2', value: '我的任务', to: '/inspectionTask/myTask' },
+            { id: '5-3', value: '与我相关', to: '/inspectionTask/myRelevant' },
+            {
+              id: '5-4',
+              value: '处理意见管理',
+              to: '/inspectionTask/dealOpinion'
+            }
           ]
         },
         {

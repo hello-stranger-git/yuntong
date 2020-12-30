@@ -1,5 +1,8 @@
+<!--待我处理-->
 <template>
-  <router-view />
+  <div>
+    待我处理
+  </div>
 </template>
 
 <script>
