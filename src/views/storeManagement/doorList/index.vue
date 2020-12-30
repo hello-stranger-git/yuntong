@@ -1,5 +1,6 @@
+<!--门店列表-->
 <template>
-  <router-view />
+  <div>门店列表</div>
 </template>
 
 <script>

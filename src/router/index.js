@@ -159,7 +159,21 @@ const routes = [
       {
         path: '/storeManagement',
         name: 'StoreManagement',
-        component: () => import('@/views/storeManagement')
+        component: () => import('@/views/storeManagement'),
+        children: [
+          // 门店列表
+          {
+            path: '/storeManagement/doorList',
+            name: 'DoorList',
+            component: () => import('@/views/storeManagement/doorList')
+          },
+          // 门店审核
+          {
+            path: '/storeManagement/doorExamine',
+            name: 'DoorExamine',
+            component: () => import('@/views/storeManagement/doorExamine')
+          }
+        ]
       },
       // 运维管理
       {

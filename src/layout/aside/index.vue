@@ -140,8 +140,8 @@ export default {
           icon: 'iconzu697',
           to: '',
           childrens: [
-            { id: '6-1', value: '门店管理', to: '' },
-            { id: '6-2', value: '门店审核', to: '' }
+            { id: '6-1', value: '门店列表', to: '/storeManagement/doorList' },
+            { id: '6-2', value: '门店审核', to: '/storeManagement/doorExamine' }
           ]
         },
         {
