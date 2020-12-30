@@ -19,7 +19,9 @@
       </el-select>
       <el-button
         type="primary"
-        :style="`background-color:${this.$store.state.btnBgColor}`"
+        :style="
+          `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
+        "
         class="searchBtn"
         >查询</el-button
       >
@@ -96,6 +98,7 @@
             更多
           </span>
         </div>
+        <HeatMap />
       </div>
     </div>
 
@@ -120,6 +123,7 @@
 import UserItem from './components/userItem'
 import InnerLineChart from './components/innerLineChart' // 引入店内折线图
 import OutLineChart from './components/outLineChart' // 引入店外客流折线图
+import HeatMap from './components/heatMap' // 热力图
 
 import CustomerCircularChart from './components/customerCircularChart' // 引入客群特征环形图
 import PriceBarChart from './components/BarChart'
@@ -129,7 +133,8 @@ export default {
     InnerLineChart,
     CustomerCircularChart,
     PriceBarChart,
-    OutLineChart
+    OutLineChart,
+    HeatMap
   },
   data() {
     return {
