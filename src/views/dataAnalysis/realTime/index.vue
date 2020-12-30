@@ -30,7 +30,7 @@
         <template v-for="item in user">
           <UserItem
             :key="item.id"
-            :userImg="item.userImg"
+            :user-img="item.userImg"
             :date="item.date"
             :age="item.age"
             :sex="item.sex"
@@ -101,6 +101,9 @@
           更多
         </span>
       </div>
+      <div id="priceBar" style="width:100%;text-align:center">
+        <PriceBarChart />
+      </div>
     </div>
   </div>
 </template>
@@ -110,11 +113,13 @@ import UserItem from './components/userItem'
 import InnerLineChart from './components/innerLineChart' // 引入店内折线图
 
 import CustomerCircularChart from './components/customerCircularChart' // 引入客群特征环形图
+import PriceBarChart from './components/priceBarChart'
 export default {
   components: {
     UserItem,
     InnerLineChart,
-    CustomerCircularChart
+    CustomerCircularChart,
+    PriceBarChart
   },
   data() {
     return {
@@ -244,7 +249,16 @@ export default {
         }
       ]
       // 今日进店模块数据end
+
+      // 单价分析柱状图模块宽度
+      // priceBarWidth: 1600
     }
+  },
+  mounted() {
+    // this.priceBarWidth = document.getElementById('priceBar').clientWidth
+    // window.onresize = () => {
+    //   this.priceBarWidth = document.getElementById('priceBar').clientWidth
+    // }
   }
 }
 </script>
