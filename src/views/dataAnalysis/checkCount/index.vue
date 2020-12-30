@@ -1,5 +1,8 @@
+<!--考勤统计-->
 <template>
-  <router-view />
+  <div>
+    考勤统计
+  </div>
 </template>
 
 <script>

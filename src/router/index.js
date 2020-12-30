@@ -8,15 +8,9 @@ const routes = [
   {
     path: '/',
     component: () => import('@/layout'),
-    redirect: '/realScreen',
+    redirect: '/bpRetail',
     children: [
-      // 实时大屏
-      {
-        path: '/realScreen',
-        name: 'RealScreen',
-        component: () => import('@/views/realScreen')
-      },
-      // 门店分析
+      // 门店分布
       {
         path: '/bpRetail',
         name: 'BPRetail',
@@ -39,6 +33,42 @@ const routes = [
             path: '/dataAnalysis/flow',
             name: 'Flow',
             component: () => import('@/views/dataAnalysis/flow')
+          },
+          // 顾客分析
+          {
+            path: '/dataAnalysis/customer',
+            name: 'Customer',
+            component: () => import('@/views/dataAnalysis/customer')
+          },
+          // 区域排行
+          {
+            path: '/dataAnalysis/region',
+            name: 'Region',
+            component: () => import('@/views/dataAnalysis/region')
+          },
+          // 到店统计
+          {
+            path: '/dataAnalysis/toStore',
+            name: 'ToStore',
+            component: () => import('@/views/dataAnalysis/toStore')
+          },
+          //  多店对比
+          {
+            path: '/dataAnalysis/moreStore',
+            name: 'MoreStore',
+            component: () => import('@/views/dataAnalysis/moreStore')
+          },
+          //  统计报表
+          {
+            path: '/dataAnalysis/countForm',
+            name: 'CountForm',
+            component: () => import('@/views/dataAnalysis/countForm')
+          },
+          //  考勤统计
+          {
+            path: '/dataAnalysis/checkCount',
+            name: 'CheckCount',
+            component: () => import('@/views/dataAnalysis/checkCount')
           }
         ]
       },
