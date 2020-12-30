@@ -26,7 +26,7 @@
         <span>{{ rightValue }}</span>
       </el-col>
       <!-- 右侧区域 -->
-      <el-col :span="5" class="region_right">
+      <el-col :span="5" class="region_right" v-if="rightText">
         <div>
           <span>{{ rightText }}</span
           ><img :src="rightIcon" />
@@ -37,31 +37,47 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      // // 图标
-      // userIcon: require('@/assets/img/icon/user.png'),
-      // boyIcon: require('@/assets/img/icon/boyIcon.png'),
-      // girlIcon: require('@/assets/img/icon/girlIcon.png'),
-      // huuiyuan: require('@/assets/img/icon/huuiyuan.png'),
-      // 左侧标题
-      letfText: '男性',
-      // 左侧图标
-      leftIcon: require('@/assets/img/icon/boyIcon.png'),
-      // 左侧数值:
-      leftValue: 203,
-      // 右侧标题
-      rightText: '女性',
-      // 右侧图标
-      rightIcon: require('@/assets/img/icon/girlIcon.png'),
-      // 右侧数值:
-      rightValue: 44,
-      // 比例宽度
-      width: '50%',
-      // 背景颜色
-      bgColor: '#FF8181',
-      // 比例条颜色
-      proportionColor: '#4A92FF'
+  props: {
+    // 左侧标题
+    letfText: {
+      type: String,
+      default: ''
+    },
+    // 左侧图标
+    leftIcon: {
+      type: String
+    },
+    // 左侧数值:
+    leftValue: {
+      type: Number
+    },
+    // 右侧标题
+    rightText: {
+      type: String,
+      default: ''
+    },
+    // 右侧图标
+    rightIcon: {
+      type: String
+    },
+    // 右侧数值:
+    rightValue: {
+      type: Number
+    },
+    // 比例宽度
+    width: {
+      type: String,
+      default: ''
+    },
+    // 背景颜色
+    bgColor: {
+      type: String,
+      default: '#F1F1F1'
+    },
+    // 比例条颜色
+    proportionColor: {
+      type: String,
+      default: '#4A92FF'
     }
   }
 }
@@ -75,9 +91,11 @@ export default {
   .region_left,
   .region_right {
     font-size: 16px;
+    line-height: 16px;
     img {
       width: 13px;
       height: 13px;
+      margin-left: 5px;
     }
   }
   .region_left {
@@ -100,11 +118,18 @@ export default {
       font-size: 14px;
       margin: 0 10px;
       line-height: 19px;
+      color: #fff;
     }
     & > span {
       position: absolute;
       top: 0;
       right: 1px;
+    }
+    div {
+      span {
+        display: block;
+        line-height: 19px;
+      }
     }
   }
 }

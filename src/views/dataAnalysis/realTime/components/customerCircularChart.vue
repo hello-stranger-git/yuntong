@@ -10,7 +10,19 @@
     </div>
     <div class="proportion">
       <ul>
-        <li><Proportional /></li>
+        <li v-for="(item, i) of proportionalData" :key="i">
+          <Proportional
+            :letfText="item.letfText"
+            :leftIcon="item.leftIcon"
+            :leftValue="item.leftValue"
+            :rightText="item.rightText"
+            :rightIcon="item.rightIcon"
+            :rightValue="item.rightValue"
+            :width="item.width"
+            :bgColor="item.bgColor"
+            :proportionColor="item.proportionColor"
+          />
+        </li>
       </ul>
     </div>
   </div>
@@ -22,6 +34,7 @@ import Proportional from '@/components/proportional'
 export default {
   data() {
     return {
+      // 环形图数据
       option: {
         tooltip: {
           trigger: 'item',
@@ -70,7 +83,44 @@ export default {
             ]
           }
         ]
-      }
+      },
+      // 比例图数据
+      proportionalData: [
+        {
+          // 左侧标题
+          letfText: '男性',
+          // 左侧图标
+          leftIcon: require('@/assets/img/icon/boyIcon.png'),
+          // 左侧数值:
+          leftValue: 203,
+          // 右侧标题
+          rightText: '女性',
+          // 右侧图标
+          rightIcon: require('@/assets/img/icon/girlIcon.png'),
+          // 右侧数值:
+          rightValue: 44,
+          // 比例宽度
+          width: '50%',
+          // 背景颜色
+          bgColor: '#FF8181',
+          // 比例条颜色
+          proportionColor: '#4A92FF'
+        },
+        {
+          letfText: '回头客',
+          leftIcon: require('@/assets/img/icon/user.png'),
+          leftValue: 203,
+          width: '90%',
+          proportionColor: '#56BE9B'
+        },
+        {
+          letfText: '会员',
+          leftIcon: require('@/assets/img/icon/huuiyuan.png'),
+          leftValue: 203,
+          width: '30%',
+          proportionColor: '#F8C498'
+        }
+      ]
     }
   },
 
@@ -109,6 +159,10 @@ export default {
   .proportion {
     // border: 1px solid red;
     flex: 1;
+    padding-top: 50px;
+    ul li {
+      margin-bottom: 47px;
+    }
   }
 }
 </style>

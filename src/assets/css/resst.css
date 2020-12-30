@@ -18,7 +18,10 @@ ul {
   margin: 0;
 }
 h2,
-h3 {
+h3,
+dl,
+dt,
+dd {
   margin: 0;
   padding: 0;
 }
