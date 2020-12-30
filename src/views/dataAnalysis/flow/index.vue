@@ -89,9 +89,6 @@
         <span class="title">
           客流单价分析
         </span>
-        <span class="more">
-          更多
-        </span>
       </div>
       <div id="priceBar" style="width:100%;text-align:center">
         <PriceBarChart />

@@ -76,7 +76,15 @@ const routes = [
       {
         path: '/mochaITOM',
         name: 'MochaITOM',
-        component: () => import('@/views/mochaITOM')
+        component: () => import('@/views/mochaITOM'),
+        children: [
+          // 设备管理
+          {
+            path: '/mochaITOM/device',
+            name: 'Device',
+            component: () => import('@/views/mochaITOM/device')
+          }
+        ]
       },
       // 参数配置
       {
