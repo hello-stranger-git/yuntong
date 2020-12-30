@@ -1,9 +1,6 @@
 <template>
-  <div>
-    <LineChart id="outLineChart" width="100%" height="450px" :option="option" />
-  </div>
+  <LineChart id="outLineChart" width="100%" height="450px" :option="option" />
 </template>
-
 <script>
 import LineChart from '@/components/lineChart'
 export default {
