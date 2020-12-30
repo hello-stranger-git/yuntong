@@ -98,7 +98,9 @@ export default {
           to: '',
           value: '实时视频',
           icon: 'iconzu690',
-          childrens: [{ id: '3-1', value: '实时视频', to: '' }]
+          childrens: [
+            { id: '3-1', value: '实时视频', to: '/realVideo/realTimeVideo' }
+          ]
         },
         {
           id: '4',

@@ -76,7 +76,15 @@ const routes = [
       {
         path: '/realVideo',
         name: 'RealVideo',
-        component: () => import('@/views/realVideo')
+        component: () => import('@/views/realVideo'),
+        children: [
+          // 实时视频
+          {
+            path: '/realVideo/realTimeVideo',
+            name: 'RealTimeVideo',
+            component: () => import('@/views/realVideo/realTimeVideo')
+          }
+        ]
       },
       // 视频巡查
       {
