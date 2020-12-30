@@ -9,15 +9,17 @@ export default new Vuex.Store({
     previewBgc: '', // 预览颜色
     logo: '',
     bgPic: '',
-    btnBgColor: '#409EFF' // 页面按钮颜色
-
+    btnBgColor: '#409EFF', // 页面按钮颜色
+    btnPreviewColor: ''
   },
   mutations: {
     setAsideBgc: (state, color) => { state.asideBgc = color },
     setPreviewBgc: (state, color) => { state.previewBgc = color },
     clearPreviewBgc: state => { state.previewBgc = '' },
     setLogo: (state, path) => { state.logo = path },
-    setBgPic: (state, path) => { state.bgPic = path }
+    setBgPic: (state, path) => { state.bgPic = path },
+    setBtnPreviewColor: (state, color) => { state.btnPreviewColor = color },
+    setBtnBgColor: (state, color) => { state.btnBgColor = state.btnPreviewColor }
   },
   actions: {
   },
