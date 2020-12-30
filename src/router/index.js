@@ -90,7 +90,32 @@ const routes = [
       {
         path: '/videoInspection',
         name: 'VideoInspection',
-        component: () => import('@/views/videoInspection')
+        component: () => import('@/views/videoInspection'),
+        children: [
+          // 在线考评
+          {
+            path: '/videoInspection/onLine',
+            name: 'OnLine',
+            component: () => import('@/views/videoInspection/onLine')
+          },
+          // 巡查记录
+          {
+            path: '/videoInspection/inspectionRecord',
+            name: 'InspectionRecord',
+            component: () => import('@/views/videoInspection/inspectionRecord')
+          },
+          // 图片点检
+          {
+            path: '/videoInspection/imageCheck',
+            name: 'ImageCheck',
+            component: () => import('@/views/videoInspection/imageCheck')
+          },
+          // AI巡查
+          {
+            path: '/videoInspection/aiInspection',
+            name: 'AiInspection',
+            component: () => import('@/views/videoInspection/aiInspection')
+          }]
       },
       // 语音巡查
       {

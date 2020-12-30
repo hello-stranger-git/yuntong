@@ -108,10 +108,14 @@ export default {
           icon: 'iconzu688',
           to: '',
           childrens: [
-            { id: '4-1', value: '在线考评', to: '' },
-            { id: '4-2', value: '巡查记录', to: '' },
-            { id: '4-3', value: '图片点检', to: '' },
-            { id: '4-4', value: 'AI巡查', to: '' }
+            { id: '4-1', value: '在线考评', to: '/videoInspection/onLine' },
+            {
+              id: '4-2',
+              value: '巡查记录',
+              to: '/videoInspection/inspectionRecord'
+            },
+            { id: '4-3', value: '图片点检', to: '/videoInspection/imageCheck' },
+            { id: '4-4', value: 'AI巡查', to: '/videoInspection/aiInspection' }
           ]
         },
         {
