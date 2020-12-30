@@ -141,8 +141,8 @@ export default {
           to: '',
           childrens: [
             { id: '7-1', value: '设备管理', to: '/mochaITOM/device' },
-            { id: '7-1', value: '视频观看记录', to: '/mochaITOM/' },
-            { id: '7-3', value: '视频观看统计', to: '/mochaITOM/' }
+            { id: '7-1', value: '视频观看记录', to: '/mochaITOM/history' },
+            { id: '7-3', value: '视频观看统计', to: '/mochaITOM/count' }
           ]
         },
         {

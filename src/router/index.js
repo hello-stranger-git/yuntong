@@ -113,6 +113,18 @@ const routes = [
             path: '/mochaITOM/device',
             name: 'Device',
             component: () => import('@/views/mochaITOM/device')
+          },
+          // 视频观看记录
+          {
+            path: '/mochaITOM/history',
+            name: 'History',
+            component: () => import('@/views/mochaITOM/history')
+          },
+          // 视频观看统计
+          {
+            path: '/mochaITOM/count',
+            name: 'Count',
+            component: () => import('@/views/mochaITOM/count')
           }
         ]
       },
