@@ -33,6 +33,12 @@ const routes = [
             path: '/dataAnalysis/realTime',
             name: 'RealTime',
             component: () => import('@/views/dataAnalysis/realTime')
+          },
+          // 客流分析
+          {
+            path: '/dataAnalysis/flow',
+            name: 'Flow',
+            component: () => import('@/views/dataAnalysis/flow')
           }
         ]
       },
