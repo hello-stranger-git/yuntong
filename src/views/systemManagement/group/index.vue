@@ -15,17 +15,16 @@
         <el-form-item label="集团logo" class="must logoHeight">
           <el-upload
             class="avatar-uploader"
-            action="/"
+            action=""
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
-            :before-remove="removeLogo"
             :auto-upload="true"
             :on-change="uploadLogo"
           >
             <img
-              v-if="getLogo ? getLogo : imageUrl"
-              :src="getLogo ? getLogo : imageUrl"
+              v-if="getLogo ? getLogo : logoUrl"
+              :src="getLogo ? getLogo : logoUrl"
               class="avatar"
               title="当前头像"
             />
@@ -60,7 +59,14 @@
             filterable
             :props="{ expandTrigger: 'hover' }"
           />
-          <el-button type="primary" class="areaReset" @click="resetArea">
+          <el-button
+            type="primary"
+            class="areaReset"
+            :style="{
+              backgroundColor: btnPreviewColor ? btnPreviewColor : btnBgColor
+            }"
+            @click="resetArea"
+          >
             重置
           </el-button>
         </el-form-item>
@@ -88,9 +94,9 @@
                 :style="{ background: item }"
                 @click="setPreviewBgc(item)"
               ></div>
-              <!-- 颜色选择器 -->
+              <!-- 菜单颜色选择器 -->
               <div class="menuBox">
-                <el-color-picker v-model="color1" />
+                <el-color-picker v-model="menuPickColor" />
               </div>
             </div>
             <div class="buttonColor">
@@ -100,12 +106,12 @@
                 :key="i"
                 :class="'menuBox'"
                 :style="{ background: item }"
-                @click="setPreviewBgc(item)"
+                @click="setBtnPreviewColor(item)"
               ></div>
-              <!-- 颜色选择器 -->
+              <!-- 按钮颜色选择器 -->
 
-              <div class="menuBox" :style="{ background: 'pink' }">
-                <el-color-picker v-model="color2" />
+              <div class="menuBox" :style="{ background: '#eee' }">
+                <el-color-picker v-model="buttonPickColor" />
               </div>
             </div>
           </div>
@@ -113,27 +119,41 @@
           <div class="diyBg">
             <div class="label">自定义登陆页背景</div>
             <div class="bgpic">
-              <img :src="imageUrl1 ? imageUrl1 : bgpic" alt="" />
+              <img :src="loginBgPic ? loginBgPic : bgpic" alt="" />
               <div class="picSize">建议图片尺寸 1920*1080</div>
               <!-- 上传背景图片 -->
               <el-upload
                 class="avatar-uploader"
-                action="https://jsonplaceholder.typicode.com/posts/"
+                action=""
                 :show-file-list="true"
                 :on-success="handleBgSuccess"
                 :before-upload="beforeBgUpload"
                 :limit="1"
-                :before-remove="removeBgPic"
                 :auto-upload="true"
               >
-                <el-button type="primary">更改</el-button>
+                <el-button
+                  type="primary"
+                  :style="{
+                    backgroundColor: btnPreviewColor
+                      ? btnPreviewColor
+                      : btnBgColor
+                  }"
+                >
+                  更改
+                </el-button>
               </el-upload>
             </div>
           </div>
         </div>
         <!-- 按钮 -->
         <div class="control">
-          <el-button type="primary" @click="submitForm">
+          <el-button
+            type="primary"
+            :style="{
+              backgroundColor: btnPreviewColor ? btnPreviewColor : btnBgColor
+            }"
+            @click="submitForm"
+          >
             保存
           </el-button>
         </div>
@@ -146,16 +166,16 @@
 import bgpic from '@/assets/img/login/background.png'
 import { mapMutations } from 'vuex'
 import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   data() {
     return {
       bgpic,
-      color1: '',
-      color2: '',
-      imageUrl: '',
-      logoName: '',
-      imageUrl1: '',
+      menuPickColor: '',
+      buttonPickColor: '',
+      logoUrl: '',
+      loginBgPic: '',
       menuColorArr: ['red', 'blue', 'green', 'pink'],
       buttonColorArr: ['orange', 'yellow', 'purple', 'pink'],
       ruleForm: {
@@ -480,35 +500,45 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getLogo'])
+    ...mapGetters(['getLogo']),
+    ...mapState(['btnBgColor', 'btnPreviewColor'])
   },
   watch: {
-    color1() {
-      if (this.color1) {
-        this.setPreviewBgc(this.color1)
+    // 监听菜单和按钮选择器的颜色
+    menuPickColor() {
+      if (this.menuPickColor) {
+        this.setPreviewBgc(this.menuPickColor)
       } else {
         this.clearPreviewBgc()
       }
+    },
+    buttonPickColor() {
+      if (this.buttonPickColor) {
+        this.setBtnPreviewColor(this.buttonPickColor)
+      } else {
+        this.setBtnPreviewColor('')
+      }
     }
   },
-  mounted() {
-    // setTimeout(() => {
-    //   console.log(this.$store.getters.getLogo)
-    // }, 3000)
-  },
+  // 清除未保存的颜色
   beforeDestroy() {
     this.clearPreviewBgc()
+    this.setBtnPreviewColor('')
   },
   methods: {
     ...mapMutations([
       'setAsideBgc',
       'setPreviewBgc',
       'clearPreviewBgc',
-      'setLogo'
+      'setLogo',
+      'setBtnPreviewColor',
+      'setBtnBgColor',
+      'setBgPic'
     ]),
+
     // logo成功上传
     handleAvatarSuccess(res, file, fl) {
-      this.imageUrl = URL.createObjectURL(file.raw)
+      this.logoUrl = URL.createObjectURL(file.raw)
     },
     // logo校验图片格式
     beforeAvatarUpload(file) {
@@ -525,7 +555,7 @@ export default {
     },
     // 上传图片变化钩子
     uploadLogo(file) {
-      this.imageUrl = URL.createObjectURL(file.raw)
+      this.logoUrl = URL.createObjectURL(file.raw)
     },
     // bg上传成功
     handleBgSuccess(res, file, fl) {
@@ -533,39 +563,38 @@ export default {
     },
     // 校验背景图片
     beforeBgUpload(file) {
-      console.log(file)
-      this.imageUrl1 = URL.createObjectURL(file)
-      this.$store.commit('setBgPic', this.imageUrl1)
-      console.log(this.$store.state.bgPic)
-      // 成功上传后这个url才生效
+      this.loginBgPic = URL.createObjectURL(file)
+
       return true
     },
     submitForm(formName) {
-      this.setLogo(this.logoName)
-      this.$store.commit('setLogo', this.imageUrl)
+      // 侧边背景色、清除预览背景色
       this.setAsideBgc(this.$store.state.previewBgc)
       this.clearPreviewBgc()
+      // 保存按钮颜色、清除按钮预览色
+      this.setBtnBgColor(this.btnPreviewColor)
+      this.setBtnPreviewColor('')
+      // 保存登陆背景图
+      this.setBgPic(this.loginBgPic)
+      // 保存logo
+      this.setLogo(this.logoUrl)
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
-          if (!this.imageUrl) {
+          if (!this.logoUrl) {
             this.$message.error('请选择logo')
             return false
           }
-          alert('submit!')
+          this.$message.success('提交成功')
+          this.resetForm()
         } else {
           console.log('error submit!!')
           return false
         }
       })
     },
+    // 清空表单
     resetForm(formName) {
       this.$refs.ruleForm.resetFields()
-    },
-    removeBgPic() {
-      this.imageUrl1 = ''
-    },
-    removeLogo() {
-      this.imageUrl = ''
     },
     resetArea() {
       this.ruleForm.area = ''
@@ -592,6 +621,9 @@ export default {
     float: right;
     width: 90px;
   }
+}
+.el-button {
+  border: none;
 }
 .el-form {
   width: 779px;
