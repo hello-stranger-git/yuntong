@@ -1,5 +1,8 @@
+<!--与我相关-->
 <template>
-  <router-view />
+  <div>
+    与我相关
+  </div>
 </template>
 
 <script>

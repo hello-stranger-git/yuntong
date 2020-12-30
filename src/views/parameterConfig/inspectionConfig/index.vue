@@ -1,5 +1,6 @@
+<!--巡查模板配置-->
 <template>
-  <div>工单</div>
+  <div>巡查模板配置</div>
 </template>
 
 <script>

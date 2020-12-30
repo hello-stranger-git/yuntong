@@ -1,5 +1,5 @@
 <template>
-  <div>门店管理</div>
+  <router-view />
 </template>
 
 <script>

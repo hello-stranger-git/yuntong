@@ -1,5 +1,8 @@
+<!--处理意见管理-->
 <template>
-  <router-view />
+  <div>
+    处理意见管理
+  </div>
 </template>
 
 <script>

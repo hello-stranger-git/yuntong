@@ -76,31 +76,98 @@ const routes = [
       {
         path: '/realVideo',
         name: 'RealVideo',
-        component: () => import('@/views/realVideo')
+        component: () => import('@/views/realVideo'),
+        children: [
+          // 实时视频
+          {
+            path: '/realVideo/realTimeVideo',
+            name: 'RealTimeVideo',
+            component: () => import('@/views/realVideo/realTimeVideo')
+          }
+        ]
       },
       // 视频巡查
       {
         path: '/videoInspection',
         name: 'VideoInspection',
-        component: () => import('@/views/videoInspection')
-      },
-      // 语音巡查
-      {
-        path: '/voicePatrol',
-        name: 'VoicePatrol',
-        component: () => import('@/views/voicePatrol')
+        component: () => import('@/views/videoInspection'),
+        children: [
+          // 在线考评
+          {
+            path: '/videoInspection/onLine',
+            name: 'OnLine',
+            component: () => import('@/views/videoInspection/onLine')
+          },
+          // 巡查记录
+          {
+            path: '/videoInspection/inspectionRecord',
+            name: 'InspectionRecord',
+            component: () => import('@/views/videoInspection/inspectionRecord')
+          },
+          // 图片点检
+          {
+            path: '/videoInspection/imageCheck',
+            name: 'ImageCheck',
+            component: () => import('@/views/videoInspection/imageCheck')
+          },
+          // AI巡查
+          {
+            path: '/videoInspection/aiInspection',
+            name: 'AiInspection',
+            component: () => import('@/views/videoInspection/aiInspection')
+          }]
       },
       // 巡查任务
       {
         path: '/inspectionTask',
         name: 'InspectionTask',
-        component: () => import('@/views/inspectionTask')
+        component: () => import('@/views/inspectionTask'),
+        children: [
+          // 待我处理
+          {
+            path: '/inspectionTask/waitDeal',
+            name: 'WaitDeal',
+            component: () => import('@/views/inspectionTask/waitDeal')
+          },
+          // 我的任务
+          {
+            path: '/inspectionTask/myTask',
+            name: 'MyTask',
+            component: () => import('@/views/inspectionTask/myTask')
+          },
+          // 与我相关
+          {
+            path: '/inspectionTask/myRelevant',
+            name: 'MyRelevant',
+            component: () => import('@/views/inspectionTask/myRelevant')
+          },
+          // 处理意见管理
+          {
+            path: '/inspectionTask/dealOpinion',
+            name: 'DealOpinion',
+            component: () => import('@/views/inspectionTask/dealOpinion')
+          }
+        ]
       },
       // 门店管理
       {
         path: '/storeManagement',
         name: 'StoreManagement',
-        component: () => import('@/views/storeManagement')
+        component: () => import('@/views/storeManagement'),
+        children: [
+          // 门店列表
+          {
+            path: '/storeManagement/doorList',
+            name: 'DoorList',
+            component: () => import('@/views/storeManagement/doorList')
+          },
+          // 门店审核
+          {
+            path: '/storeManagement/doorExamine',
+            name: 'DoorExamine',
+            component: () => import('@/views/storeManagement/doorExamine')
+          }
+        ]
       },
       // 运维管理
       {
@@ -132,26 +199,71 @@ const routes = [
       {
         path: '/parameterConfig',
         name: 'ParameterConfig',
-        component: () => import('@/views/parameterConfig')
+        component: () => import('@/views/parameterConfig'),
+        children: [
+          // 考评任务配置
+          {
+            path: '/parameterConfig/evaluationConfig',
+            name: 'EvaluationConfig',
+            component: () => import('@/views/parameterConfig/evaluationConfig')
+          },
+          // 巡查模板配置
+          {
+            path: '/parameterConfig/inspectionConfig',
+            name: 'InspectionConfig',
+            component: () => import('@/views/parameterConfig/inspectionConfig')
+          },
+          // 店外客流配置
+          {
+            path: '/parameterConfig/innerFlowConfig',
+            name: 'InnerFlowConfig',
+            component: () => import('@/views/parameterConfig/innerFlowConfig')
+          },
+          // 密度区域类型
+          {
+            path: '/parameterConfig/densityAreaType',
+            name: 'DensityAreaType',
+            component: () => import('@/views/parameterConfig/densityAreaType')
+          },
+
+          // 密度区域配置
+          {
+            path: '/parameterConfig/densityAreaConfig',
+            name: 'densityAreaConfig',
+            component: () => import('@/views/parameterConfig/densityAreaConfig')
+          }
+        ]
       },
-      // 工单
-      {
-        path: '/workOrder',
-        name: 'WorkOrder',
-        component: () => import('@/views/workOrder')
-      },
-      // 流量与计费
-      {
-        path: '/trafficStatistics',
-        name: 'TrafficStatistics',
-        component: () => import('@/views/trafficStatistics')
-      },
-      // 系统管理
+      // 系统设置
       {
         path: '/systemManagement',
         name: 'SystemManagement',
         component: () => import('@/views/systemManagement'),
         children: [
+          // 用户管理
+          {
+            path: '/systemManagement/userManagement',
+            name: 'UserManagement',
+            component: () => import('@/views/systemManagement/userManagement')
+          },
+          // 组织管理
+          {
+            path: '/systemManagement/organizationManagement',
+            name: 'OrganizationManagement',
+            component: () => import('@/views/systemManagement/organizationManagement')
+          },
+          // 职位管理
+          {
+            path: '/systemManagement/positionManagement',
+            name: 'PositionManagement',
+            component: () => import('@/views/systemManagement/positionManagement')
+          },
+          // 日志管理
+          {
+            path: '/systemManagement/logManagement',
+            name: 'LogManagement',
+            component: () => import('@/views/systemManagement/logManagement')
+          },
           // 集团管理
           {
             path: '/systemManagement/group',

@@ -1,5 +1,6 @@
+<!--门店审核-->
 <template>
-  <router-view />
+  <div>门店审核</div>
 </template>
 
 <script>

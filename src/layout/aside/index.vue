@@ -98,7 +98,9 @@ export default {
           to: '',
           value: '实时视频',
           icon: 'iconzu690',
-          childrens: [{ id: '3-1', value: '实时视频', to: '' }]
+          childrens: [
+            { id: '3-1', value: '实时视频', to: '/realVideo/realTimeVideo' }
+          ]
         },
         {
           id: '4',
@@ -106,10 +108,14 @@ export default {
           icon: 'iconzu688',
           to: '',
           childrens: [
-            { id: '4-1', value: '在线考评', to: '' },
-            { id: '4-2', value: '巡查记录', to: '' },
-            { id: '4-3', value: '图片点检', to: '' },
-            { id: '4-4', value: 'AI巡查', to: '' }
+            { id: '4-1', value: '在线考评', to: '/videoInspection/onLine' },
+            {
+              id: '4-2',
+              value: '巡查记录',
+              to: '/videoInspection/inspectionRecord'
+            },
+            { id: '4-3', value: '图片点检', to: '/videoInspection/imageCheck' },
+            { id: '4-4', value: 'AI巡查', to: '/videoInspection/aiInspection' }
           ]
         },
         {
@@ -118,10 +124,14 @@ export default {
           icon: 'iconzu695',
           to: '',
           childrens: [
-            { id: '5-1', value: '待我处理', to: '' },
-            { id: '5-2', value: '我的任务', to: '' },
-            { id: '5-3', value: '与我相关', to: '' },
-            { id: '5-4', value: '处理意见管理', to: '' }
+            { id: '5-1', value: '待我处理', to: '/inspectionTask/waitDeal' },
+            { id: '5-2', value: '我的任务', to: '/inspectionTask/myTask' },
+            { id: '5-3', value: '与我相关', to: '/inspectionTask/myRelevant' },
+            {
+              id: '5-4',
+              value: '处理意见管理',
+              to: '/inspectionTask/dealOpinion'
+            }
           ]
         },
         {
@@ -130,8 +140,8 @@ export default {
           icon: 'iconzu697',
           to: '',
           childrens: [
-            { id: '6-1', value: '门店管理', to: '' },
-            { id: '6-2', value: '门店审核', to: '' }
+            { id: '6-1', value: '门店列表', to: '/storeManagement/doorList' },
+            { id: '6-2', value: '门店审核', to: '/storeManagement/doorExamine' }
           ]
         },
         {
@@ -151,12 +161,32 @@ export default {
           icon: 'iconzu705',
           to: '',
           childrens: [
-            { id: '8-1', value: '考评任务配置', to: '' },
+            {
+              id: '8-1',
+              value: '考评任务配置',
+              to: '/parameterConfig/evaluationConfig'
+            },
 
-            { id: '8-2', value: '巡查模板配置', to: '' },
-            { id: '8-3', value: '店外客流配置', to: '' },
-            { id: '8-4', value: '密度区域类型', to: '' },
-            { id: '8-4', value: '密度区域配置', to: '' }
+            {
+              id: '8-2',
+              value: '巡查模板配置',
+              to: '/parameterConfig/inspectionConfig'
+            },
+            {
+              id: '8-3',
+              value: '店外客流配置',
+              to: '/parameterConfig/innerFlowConfig'
+            },
+            {
+              id: '8-4',
+              value: '密度区域类型',
+              to: '/parameterConfig/densityAreaType'
+            },
+            {
+              id: '8-4',
+              value: '密度区域配置',
+              to: '/parameterConfig/densityAreaConfig'
+            }
           ]
         },
         {
@@ -165,10 +195,26 @@ export default {
           icon: 'iconzu804',
           to: '',
           childrens: [
-            { id: '9-1', value: '用户管理', to: '/systemManagement/' },
-            { id: '9-2', value: '组织管理', to: '/systemManagement/' },
-            { id: '9-3', value: '职位管理', to: '/systemManagement/' },
-            { id: '9-4', value: '日志管理', to: '/systemManagement/' },
+            {
+              id: '9-1',
+              value: '用户管理',
+              to: '/systemManagement/userManagement'
+            },
+            {
+              id: '9-2',
+              value: '组织管理',
+              to: '/systemManagement/organizationManagement'
+            },
+            {
+              id: '9-3',
+              value: '职位管理',
+              to: '/systemManagement/positionManagement'
+            },
+            {
+              id: '9-4',
+              value: '日志管理',
+              to: '/systemManagement/logManagement'
+            },
             { id: '9-5', value: '集团管理', to: '/systemManagement/group' }
           ]
         }

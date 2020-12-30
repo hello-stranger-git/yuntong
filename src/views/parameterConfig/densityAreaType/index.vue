@@ -1,5 +1,6 @@
+<!--密度区域类型-->
 <template>
-  <router-view />
+  <div>密度区域类型</div>
 </template>
 
 <script>

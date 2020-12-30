@@ -1,5 +1,5 @@
 <template>
-  <div>参数配置</div>
+  <router-view />
 </template>
 
 <script>

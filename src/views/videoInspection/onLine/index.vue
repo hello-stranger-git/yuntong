@@ -1,5 +1,8 @@
+<!--在线考评-->
 <template>
-  <router-view />
+  <div>
+    在线考评
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,8 @@
+<!--图片点检-->
 <template>
-  <router-view />
+  <div>
+    图片点检
+  </div>
 </template>
 
 <script>

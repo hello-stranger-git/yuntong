@@ -1,5 +1,6 @@
+<!--考评任务配置-->
 <template>
-  <router-view />
+  <div>考评任务配置</div>
 </template>
 
 <script>

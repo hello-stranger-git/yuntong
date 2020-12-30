@@ -1,5 +1,5 @@
 <template>
-  <div>视频巡查</div>
+  <router-view />
 </template>
 
 <script>
