@@ -12,9 +12,15 @@
         class="demo-ruleForm"
       >
         <!-- logo上传 -->
-        <el-form-item label="集团logo" class="must logoHeight">
+        <el-form-item
+          ref="uploadLogo"
+          label="集团logo"
+          class="must logoHeight"
+          prop="logo"
+        >
           <el-upload
-            class="avatar-uploader"
+            v-model="ruleForm.logo"
+            :class="['avatar-uploader']"
             action=""
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
@@ -28,8 +34,15 @@
               class="avatar"
               title="当前头像"
             />
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            <i
+              v-else
+              :class="[
+                'el-icon-plus avatar-uploader-icon',
+                uploadLogoTip ? 'logoTip' : ''
+              ]"
+            ></i>
           </el-upload>
+          <!-- <div class="tip">请</div> -->
         </el-form-item>
         <!-- 集团名称 -->
         <el-form-item label="集团名称" prop="name" class="must">
@@ -52,12 +65,13 @@
         </el-form-item>
 
         <!-- 所属区域 -->
-        <el-form-item label="所属区域" prop="area" class="must">
+        <el-form-item ref="area" label="所属区域" prop="area" class="must">
           <el-cascader
             v-model="ruleForm.area"
             :options="options"
             filterable
             :props="{ expandTrigger: 'hover' }"
+            @change="changeArea"
           />
           <el-button
             type="primary"
@@ -176,9 +190,11 @@ export default {
       buttonPickColor: '',
       logoUrl: '',
       loginBgPic: '',
+      uploadLogoTip: false,
       menuColorArr: ['red', 'blue', 'green', 'pink'],
       buttonColorArr: ['orange', 'yellow', 'purple', 'pink'],
       ruleForm: {
+        logo: '',
         name: '',
         ID: '',
         linkMan: '',
@@ -188,6 +204,13 @@ export default {
         introduce: ''
       },
       rules: {
+        logo: [
+          {
+            required: true,
+            message: '请选择logo',
+            trigger: 'change'
+          }
+        ],
         name: [
           {
             required: true,
@@ -535,10 +558,15 @@ export default {
       'setBtnBgColor',
       'setBgPic'
     ]),
-
+    changeArea() {
+      if (this.ruleForm.area) {
+        this.$refs.area.clearValidate()
+      }
+    },
     // logo成功上传
     handleAvatarSuccess(res, file, fl) {
-      this.logoUrl = URL.createObjectURL(file.raw)
+      // this.logoUrl = URL.createObjectURL(file.raw)
+      // console.log(this.logoUrl)
     },
     // logo校验图片格式
     beforeAvatarUpload(file) {
@@ -556,6 +584,7 @@ export default {
     // 上传图片变化钩子
     uploadLogo(file) {
       this.logoUrl = URL.createObjectURL(file.raw)
+      this.$refs.uploadLogo.clearValidate()
     },
     // bg上传成功
     handleBgSuccess(res, file, fl) {
@@ -567,6 +596,7 @@ export default {
 
       return true
     },
+    // 提交
     submitForm(formName) {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
@@ -596,6 +626,7 @@ export default {
     resetForm(formName) {
       this.$refs.ruleForm.resetFields()
     },
+    //
     resetArea() {
       this.ruleForm.area = ''
     }
@@ -632,11 +663,13 @@ export default {
     position: relative;
     font-weight: bold;
   }
-
   .logoHeight {
     /deep/.el-form-item__label {
       height: 78px;
       line-height: 78px;
+    }
+    .logoTip {
+      border: 1px solid #f56c6c;
     }
   }
 
