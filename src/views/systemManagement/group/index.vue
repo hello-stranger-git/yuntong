@@ -118,7 +118,7 @@
               <!-- 上传背景图片 -->
               <el-upload
                 class="avatar-uploader"
-                action="https://jsonplaceholder.typicode.com/posts/"
+                action=""
                 :show-file-list="true"
                 :on-success="handleBgSuccess"
                 :before-upload="beforeBgUpload"
