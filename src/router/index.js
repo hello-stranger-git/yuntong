@@ -117,12 +117,6 @@ const routes = [
             component: () => import('@/views/videoInspection/aiInspection')
           }]
       },
-      // 语音巡查
-      // {
-      //   path: '/voicePatrol',
-      //   name: 'VoicePatrol',
-      //   component: () => import('@/views/voicePatrol')
-      // },
       // 巡查任务
       {
         path: '/inspectionTask',
@@ -205,26 +199,71 @@ const routes = [
       {
         path: '/parameterConfig',
         name: 'ParameterConfig',
-        component: () => import('@/views/parameterConfig')
+        component: () => import('@/views/parameterConfig'),
+        children: [
+          // 考评任务配置
+          {
+            path: '/parameterConfig/evaluationConfig',
+            name: 'EvaluationConfig',
+            component: () => import('@/views/parameterConfig/evaluationConfig')
+          },
+          // 巡查模板配置
+          {
+            path: '/parameterConfig/inspectionConfig',
+            name: 'InspectionConfig',
+            component: () => import('@/views/parameterConfig/inspectionConfig')
+          },
+          // 店外客流配置
+          {
+            path: '/parameterConfig/innerFlowConfig',
+            name: 'InnerFlowConfig',
+            component: () => import('@/views/parameterConfig/innerFlowConfig')
+          },
+          // 密度区域类型
+          {
+            path: '/parameterConfig/densityAreaType',
+            name: 'DensityAreaType',
+            component: () => import('@/views/parameterConfig/densityAreaType')
+          },
+
+          // 密度区域配置
+          {
+            path: '/parameterConfig/densityAreaConfig',
+            name: 'densityAreaConfig',
+            component: () => import('@/views/parameterConfig/densityAreaConfig')
+          }
+        ]
       },
-      // 工单
-      // {
-      //   path: '/workOrder',
-      //   name: 'WorkOrder',
-      //   component: () => import('@/views/workOrder')
-      // },
-      // 流量与计费
-      // {
-      //   path: '/trafficStatistics',
-      //   name: 'TrafficStatistics',
-      //   component: () => import('@/views/trafficStatistics')
-      // },
       // 系统设置
       {
         path: '/systemManagement',
         name: 'SystemManagement',
         component: () => import('@/views/systemManagement'),
         children: [
+          // 用户管理
+          {
+            path: '/systemManagement/userManagement',
+            name: 'UserManagement',
+            component: () => import('@/views/systemManagement/userManagement')
+          },
+          // 组织管理
+          {
+            path: '/systemManagement/organizationManagement',
+            name: 'OrganizationManagement',
+            component: () => import('@/views/systemManagement/organizationManagement')
+          },
+          // 职位管理
+          {
+            path: '/systemManagement/positionManagement',
+            name: 'PositionManagement',
+            component: () => import('@/views/systemManagement/positionManagement')
+          },
+          // 日志管理
+          {
+            path: '/systemManagement/logManagement',
+            name: 'LogManagement',
+            component: () => import('@/views/systemManagement/logManagement')
+          },
           // 集团管理
           {
             path: '/systemManagement/group',

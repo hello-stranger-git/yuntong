@@ -1,5 +1,6 @@
+<!--店外客流配置-->
 <template>
-  <router-view />
+  <div>店外客流配置</div>
 </template>
 
 <script>

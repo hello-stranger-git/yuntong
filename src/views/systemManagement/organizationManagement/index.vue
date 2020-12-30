@@ -1,5 +1,6 @@
+<!--组织管理-->
 <template>
-  <router-view />
+  <div>组织管理</div>
 </template>
 
 <script>

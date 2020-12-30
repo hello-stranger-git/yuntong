@@ -161,12 +161,32 @@ export default {
           icon: 'iconzu705',
           to: '',
           childrens: [
-            { id: '8-1', value: '考评任务配置', to: '' },
+            {
+              id: '8-1',
+              value: '考评任务配置',
+              to: '/parameterConfig/evaluationConfig'
+            },
 
-            { id: '8-2', value: '巡查模板配置', to: '' },
-            { id: '8-3', value: '店外客流配置', to: '' },
-            { id: '8-4', value: '密度区域类型', to: '' },
-            { id: '8-4', value: '密度区域配置', to: '' }
+            {
+              id: '8-2',
+              value: '巡查模板配置',
+              to: '/parameterConfig/inspectionConfig'
+            },
+            {
+              id: '8-3',
+              value: '店外客流配置',
+              to: '/parameterConfig/innerFlowConfig'
+            },
+            {
+              id: '8-4',
+              value: '密度区域类型',
+              to: '/parameterConfig/densityAreaType'
+            },
+            {
+              id: '8-4',
+              value: '密度区域配置',
+              to: '/parameterConfig/densityAreaConfig'
+            }
           ]
         },
         {
@@ -175,10 +195,26 @@ export default {
           icon: 'iconzu804',
           to: '',
           childrens: [
-            { id: '9-1', value: '用户管理', to: '/systemManagement/' },
-            { id: '9-2', value: '组织管理', to: '/systemManagement/' },
-            { id: '9-3', value: '职位管理', to: '/systemManagement/' },
-            { id: '9-4', value: '日志管理', to: '/systemManagement/' },
+            {
+              id: '9-1',
+              value: '用户管理',
+              to: '/systemManagement/userManagement'
+            },
+            {
+              id: '9-2',
+              value: '组织管理',
+              to: '/systemManagement/organizationManagement'
+            },
+            {
+              id: '9-3',
+              value: '职位管理',
+              to: '/systemManagement/positionManagement'
+            },
+            {
+              id: '9-4',
+              value: '日志管理',
+              to: '/systemManagement/logManagement'
+            },
             { id: '9-5', value: '集团管理', to: '/systemManagement/group' }
           ]
         }

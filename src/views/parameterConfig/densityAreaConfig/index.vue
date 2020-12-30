@@ -1,5 +1,6 @@
+<!--密度区域配置-->
 <template>
-  <router-view />
+  <div>密度区域配置</div>
 </template>
 
 <script>

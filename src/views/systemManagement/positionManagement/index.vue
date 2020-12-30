@@ -1,5 +1,6 @@
+<!--职位管理-->
 <template>
-  <div>语音巡查</div>
+  <div>职位管理</div>
 </template>
 
 <script>
