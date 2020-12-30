@@ -64,7 +64,7 @@
           style="width: 100%"
           :row-class-name="tableRowClassName"
         >
-          <el-table-column type="selection" width="40" />
+          <el-table-column type="selection" width="25" />
           <el-table-column prop="teamName" label="集团名称" width="100" />
           <el-table-column prop="deviceNum" label="设备序列号" width="148" />
           <el-table-column prop="deviceName" label="设备名称" width="100" />
@@ -118,6 +118,18 @@
           </el-table-column>
         </el-table>
       </div>
+      <!--分页组件-->
+      <div style="text-align:center;margin-top:55px">
+        <el-pagination
+          background
+          layout="total,prev, pager, next"
+          :total="total"
+          :page-size="pageSize"
+          :current-page="currentPage"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -130,6 +142,11 @@ export default {
       name: '', // 请输入门店名称
       number: '', // 请输入门店编号
       deviceName: '', // 请输入设备名称
+      // 分页数据start
+      total: 100, // 总共多少条数据
+      pageSize: 10, // 每页显示条数
+      currentPage: 1, // 当前在哪一页
+      // 分页数据start
       // 表格数据
       tableData: [
         {
@@ -265,7 +282,17 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.total = this.tableData.length
+  },
   methods: {
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`)
+    },
+    handleCurrentChange(val) {
+      this.currentPage = val
+      console.log(`当前页: ${val}`)
+    },
     // 修改表格隔行颜色
     tableRowClassName({ row, rowIndex }) {
       if (rowIndex % 2 === 0) {
@@ -335,7 +362,7 @@ export default {
       padding-left: 9px;
     }
     /deep/.el-table-column--selection {
-      padding-left: 10px;
+      padding-left: 5px;
     }
   }
 }
