@@ -46,7 +46,6 @@
       <!--表格-->
       <div class="table">
         <el-table
-          border
           :data="tableData"
           style="width: 100%"
           :row-class-name="tableRowClassName"
@@ -434,12 +433,13 @@ export default {
 //搜索板块
 .search {
   box-sizing: border-box;
-  padding: 20px 24px;
+  padding: 20px 0px;
   height: 80px;
   background: #ffffff;
   border-radius: 10px;
   display: flex;
-  /deep/.el-input {
+  .el-input,
+  .el-select {
     width: 280px;
     margin-left: 24px;
   }
@@ -456,6 +456,10 @@ export default {
 /deep/.el-popper__dropdown {
   margin-left: 24px;
 }
+.el-cascader {
+  width: 280px;
+  margin-left: 24px;
+}
 //表格板块
 .module {
   background-color: #ffffff;
@@ -466,7 +470,7 @@ export default {
     margin-top: 24px;
     /deep/.el-table {
       .warning-row {
-        background: #f1f1f1;
+        background: #ebebeb;
       }
     }
 

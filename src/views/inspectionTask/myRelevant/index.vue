@@ -16,7 +16,7 @@
         start-placeholder="开始日期"
         end-placeholder="结束日期"
       />
-      <el-select v-model="value" placeholder="请选择状态">
+      <el-select v-model="value" placeholder="请选择状态" clearable>
         <el-option
           v-for="item in options1"
           :key="item.value"
@@ -40,7 +40,6 @@
       <!--表格-->
       <div class="table">
         <el-table
-          border
           :data="tableData"
           style="width: 100%"
           :row-class-name="tableRowClassName"
@@ -148,7 +147,7 @@ export default {
 //搜索板块
 .search {
   box-sizing: border-box;
-  padding: 20px 24px;
+  padding: 20px 0px;
   height: 80px;
   background: #ffffff;
   border-radius: 10px;
@@ -183,7 +182,7 @@ export default {
     margin-top: 24px;
     /deep/.el-table {
       .warning-row {
-        background: #f1f1f1;
+        background: #ebebeb;
       }
     }
 
