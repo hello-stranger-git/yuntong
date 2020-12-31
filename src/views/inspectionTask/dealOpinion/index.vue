@@ -184,10 +184,6 @@ export default {
       }
     }
 
-    /deep/.el-button--mini,
-    /deep/.el-button--mini.is-round {
-      padding-left: 9px;
-    }
     /deep/.el-table-column--selection {
       padding-left: 5px;
     }
