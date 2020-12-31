@@ -1,5 +1,8 @@
+<!--实时视频-->
 <template>
-  <router-view />
+  <div>
+    实时视频
+  </div>
 </template>
 
 <script>

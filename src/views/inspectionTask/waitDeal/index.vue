@@ -1,5 +1,8 @@
+<!--待我处理-->
 <template>
-  <div>语音巡查</div>
+  <div>
+    待我处理
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,8 @@
+<!--统计报表-->
 <template>
-  <router-view />
+  <div>
+    统计报表
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,8 @@
+<!--AI巡查-->
 <template>
-  <router-view />
+  <div>
+    AI巡查
+  </div>
 </template>
 
 <script>

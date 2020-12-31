@@ -1,6 +1,7 @@
+<!--我的任务-->
 <template>
   <div>
-    实时大屏
+    我的任务
   </div>
 </template>
 
@@ -8,4 +9,4 @@
 export default {}
 </script>
 
-<style lang="less" scoped></style>
+<style lang="scss" scoped></style>

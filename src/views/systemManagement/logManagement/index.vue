@@ -1,5 +1,6 @@
+<!--日志管理-->
 <template>
-  <router-view />
+  <div>日志管理</div>
 </template>
 
 <script>

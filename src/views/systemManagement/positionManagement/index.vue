@@ -1,5 +1,6 @@
+<!--职位管理-->
 <template>
-  <router-view />
+  <div>职位管理</div>
 </template>
 
 <script>

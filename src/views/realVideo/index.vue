@@ -1,5 +1,5 @@
 <template>
-  <div>实时视频</div>
+  <router-view />
 </template>
 
 <script>

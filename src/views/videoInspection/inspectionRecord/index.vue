@@ -1,5 +1,8 @@
+<!--巡查记录-->
 <template>
-  <router-view />
+  <div>
+    巡查记录
+  </div>
 </template>
 
 <script>

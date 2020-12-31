@@ -1,5 +1,8 @@
+<!--多店对比-->
 <template>
-  <router-view />
+  <div>
+    多店对比
+  </div>
 </template>
 
 <script>
