@@ -29,18 +29,12 @@
             :on-change="uploadLogo"
           >
             <img
-              v-if="getLogo ? getLogo : logoUrl"
-              :src="getLogo ? getLogo : logoUrl"
+              v-if="logoUrl"
+              :src="logoUrl"
               class="avatar"
               title="当前头像"
             />
-            <i
-              v-else
-              :class="[
-                'el-icon-plus avatar-uploader-icon',
-                uploadLogoTip ? 'logoTip' : ''
-              ]"
-            ></i>
+            <i v-else :class="['el-icon-plus avatar-uploader-icon']"></i>
           </el-upload>
           <!-- <div class="tip">请</div> -->
         </el-form-item>
@@ -190,9 +184,9 @@ export default {
       buttonPickColor: '',
       logoUrl: '',
       loginBgPic: '',
-      uploadLogoTip: false,
-      menuColorArr: ['red', 'blue', 'green', 'pink'],
-      buttonColorArr: ['orange', 'yellow', 'purple', 'pink'],
+      // uploadLogoTip: false,
+      menuColorArr: ['#f37b1d', '#8dc63f', '#8799a3', '#0081ff'],
+      buttonColorArr: ['#e54d42', '#39b54a', '#e03997', '#6739b6'],
       ruleForm: {
         logo: '',
         name: '',
@@ -584,6 +578,8 @@ export default {
     // 上传图片变化钩子
     uploadLogo(file) {
       this.logoUrl = URL.createObjectURL(file.raw)
+      this.ruleForm.logo = this.logoUrl
+      // 清除了验证消息
       this.$refs.uploadLogo.clearValidate()
     },
     // bg上传成功
@@ -593,17 +589,12 @@ export default {
     // 校验背景图片
     beforeBgUpload(file) {
       this.loginBgPic = URL.createObjectURL(file)
-
       return true
     },
     // 提交
     submitForm(formName) {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
-          if (!this.logoUrl) {
-            this.$message.error('请选择logo')
-            return false
-          }
           // 侧边背景色、清除预览背景色
           this.setAsideBgc(this.$store.state.previewBgc)
           this.clearPreviewBgc()
@@ -614,10 +605,11 @@ export default {
           this.setBgPic(this.loginBgPic)
           // 保存logo
           this.setLogo(this.logoUrl)
+          this.logoUrl = ''
           this.$message.success('提交成功')
           this.resetForm()
         } else {
-          console.log('error submit!!')
+          console.log(this.ruleForm.logo)
           return false
         }
       })

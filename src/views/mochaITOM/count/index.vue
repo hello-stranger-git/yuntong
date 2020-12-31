@@ -35,6 +35,7 @@
       <!--表格-->
       <div class="table">
         <el-table
+          border
           :data="tableData"
           style="width: 100%"
           :row-class-name="tableRowClassName"
@@ -217,9 +218,6 @@ export default {
       .success-row {
         background: #ffffff;
       }
-    }
-    /deep/.el-table .cell {
-      padding: 0;
     }
     /deep/.el-button--mini,
     /deep/.el-button--mini.is-round {

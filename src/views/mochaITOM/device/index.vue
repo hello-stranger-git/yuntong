@@ -70,7 +70,7 @@
           <el-table-column prop="deviceName" label="设备名称" width="100" />
           <el-table-column prop="deviceType" label="设备类型" width="75" />
           <el-table-column prop="deviceModel" label="设备型号" width="108" />
-          <el-table-column prop="devicePath" label="设备路径" width="258" />
+          <el-table-column prop="devicePath" label="设备路径" width="250" />
           <el-table-column prop="doorNum" label="门店编号" width="75" />
           <el-table-column prop="doorName" label="门店名称" width="126" />
           <el-table-column prop="wayNum" label="通道号" width="66" />
@@ -356,13 +356,25 @@ export default {
     }
     /deep/.el-table .cell {
       padding: 0;
+      color: #141414;
     }
-    /deep/.el-button--mini,
-    /deep/.el-button--mini.is-round {
-      padding-left: 9px;
+    /deep/.el-button--mini {
+      margin-left: 4px;
+      border-radius: 8px;
+      &:first-child {
+        margin-left: 0px;
+      }
     }
     /deep/.el-table-column--selection {
       padding-left: 5px;
+    }
+    /deep/.el-table th > .cell {
+      color: #141414;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    /deep/.el-checkbox__inner {
+      background-color: #cfcfcf;
     }
   }
 }
