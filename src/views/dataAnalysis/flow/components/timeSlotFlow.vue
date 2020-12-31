@@ -7,6 +7,9 @@
 <script>
 import LineChart from '@/components/lineChart'
 export default {
+  components: {
+    LineChart
+  },
   data() {
     return {
       option: {
@@ -196,9 +199,6 @@ export default {
         ]
       }
     }
-  },
-  components: {
-    LineChart
   }
 }
 </script>

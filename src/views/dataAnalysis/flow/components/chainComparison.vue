@@ -6,9 +6,9 @@
         <h3>{{ item.text }}</h3>
         <span>{{ item.number }}</span>
         <p>
-          <span>环比</span><img :src="item.rise ? shangsheng : xiajiang" /><span
-            >{{ item.ChainComparison }}</span
-          >
+          <span>环比</span>
+          <img :src="item.rise ? shangsheng : xiajiang" />
+          <span>{{ item.ChainComparison }}</span>
         </p>
       </dd>
     </dl>
