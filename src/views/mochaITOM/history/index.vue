@@ -222,7 +222,7 @@ export default {
     margin-top: 24px;
     /deep/.el-table {
       .warning-row {
-        background: #f1f1f1;
+        background: #ebebeb;
       }
     }
 

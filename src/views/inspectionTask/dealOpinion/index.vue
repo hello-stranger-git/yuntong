@@ -32,7 +32,6 @@
       <!--表格-->
       <div class="table">
         <el-table
-          border
           :data="tableData"
           style="width: 100%"
           :row-class-name="tableRowClassName"
@@ -140,7 +139,7 @@ export default {
 //搜索板块
 .search {
   box-sizing: border-box;
-  padding: 20px 24px;
+  padding: 20px 0px;
   height: 80px;
   background: #ffffff;
   border-radius: 10px;
@@ -175,7 +174,7 @@ export default {
     margin-top: 24px;
     /deep/.el-table {
       .warning-row {
-        background: #f1f1f1;
+        background: #ebebeb;
       }
     }
 
@@ -185,10 +184,6 @@ export default {
       }
     }
 
-    /deep/.el-button--mini,
-    /deep/.el-button--mini.is-round {
-      padding-left: 9px;
-    }
     /deep/.el-table-column--selection {
       padding-left: 5px;
     }

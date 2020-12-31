@@ -2,63 +2,54 @@
 <template>
   <div style="padding:24px">
     <!--搜索板块-->
-    <div class="search">
-      <el-input
-        v-model="storeName"
-        class="deviceNmu"
-        placeholder="请输入门店名称"
-        clearable
-      />
-      <el-date-picker
-        v-model="date"
-        type="daterange"
-        range-separator="至"
-        start-placeholder="开始日期"
-        end-placeholder="结束日期"
-      />
-      <el-select v-model="value" placeholder="巡查模板">
-        <el-option
-          v-for="item in options1"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
+    <div class="searchBox">
+      <div class="search">
+        <el-input v-model="storeName" placeholder="请输入门店名称" clearable />
+        <el-date-picker
+          v-model="date"
+          type="daterange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
         />
-      </el-select>
+        <el-select v-model="model" placeholder="巡查模板" clearable>
+          <el-option
+            v-for="item in options1"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
 
-      <el-input
-        v-model="task"
-        class="deviceNmu"
-        placeholder="请输入任务名称"
-        clearable
-      />
-    </div>
-    <div class="search">
-      <el-select v-model="value" placeholder="待处理">
-        <el-option
-          v-for="item in options1"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
+        <el-input v-model="task" placeholder="请输入任务名称" clearable />
+      </div>
+      <div class="search">
+        <el-select v-model="waitDeal" placeholder="待处理" clearable>
+          <el-option
+            v-for="item in options1"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
 
-      <el-button
-        type="primary"
-        :style="
-          `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
-        "
-        class="searchBtn"
-      >
-        查询
-      </el-button>
-      <el-button type="info" class="resetBtn">重置</el-button>
+        <el-button
+          type="primary"
+          :style="
+            `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
+          "
+          class="searchBtn"
+        >
+          查询
+        </el-button>
+        <el-button type="info" class="resetBtn">重置</el-button>
+      </div>
     </div>
     <!--表格板块-->
     <div class="module">
       <!--表格-->
       <div class="table">
         <el-table
-          border
           :data="tableData"
           style="width: 100%"
           :row-class-name="tableRowClassName"
@@ -94,7 +85,9 @@ export default {
     return {
       storeName: '', // 店名
       task: '',
+      model: '',
       date: '',
+      waitDeal: '',
       // 分页数据start
       total: 100, // 总共多少条数据
       pageSize: 10, // 每页显示条数
@@ -104,10 +97,7 @@ export default {
       tableData: [
         // {
         //   storeName: '百信广场苹果专卖店',
-        //   date: new Date().toLocaleString(),
-        //   checkType: '在线考评转点检',
-        //   statu: '待整改',
-        //   checkSuggest: '“视频3，6，7，8摄像头无法打开”点检不合格'
+        //   task:'',
         // }
       ],
       options1: [
@@ -131,8 +121,7 @@ export default {
           value: '选项5',
           label: '北京烤鸭'
         }
-      ],
-      value: ''
+      ]
     }
   },
   mounted() {
@@ -164,12 +153,15 @@ export default {
 
 <style lang="less" scoped>
 //搜索板块
+.searchBox {
+  border-radius: 10px;
+  overflow: hidden;
+}
 .search {
   box-sizing: border-box;
-  padding: 20px 24px;
+  padding: 20px 0px;
   height: 80px;
   background: #ffffff;
-  border-radius: 10px;
   display: flex;
   /deep/.el-input {
     width: 280px;
@@ -198,7 +190,7 @@ export default {
     margin-top: 24px;
     /deep/.el-table {
       .warning-row {
-        background: #f1f1f1;
+        background: #ebebeb;
       }
     }
 
