@@ -1,5 +1,5 @@
 <template>
-  <div class="customerCircularChart">
+  <div class="customers">
     <!-- 环形图 -->
     <div class="customer_left">
       <div class="annular">
@@ -143,8 +143,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.customerCircularChart {
+.customers {
   display: flex;
+  margin-top: 90px;
   // 左侧样式
 
   .customer_left {
