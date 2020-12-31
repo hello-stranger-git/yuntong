@@ -58,7 +58,7 @@
             年龄趋势
           </span>
         </div>
-        <div class="ageTrends">
+        <div class="ageTrends" style="display: flex;justify-content: center;">
           <AgeTrendsLineChart />
         </div>
       </div>
@@ -92,7 +92,9 @@
           顾客平均滞留时长
         </span>
       </div>
-      <RetentionLineChart />
+      <div style="display: flex;justify-content: center;">
+        <RetentionLineChart />
+      </div>
     </div>
   </div>
 </template>

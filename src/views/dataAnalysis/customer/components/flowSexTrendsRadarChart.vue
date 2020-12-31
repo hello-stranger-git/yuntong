@@ -3,7 +3,7 @@
     <RadarChart
       id="flowSexTrendsRadarChart"
       width="100%"
-      height="100%"
+      height="320px"
       :option="option"
     />
   </div>
@@ -18,45 +18,72 @@ export default {
   data() {
     return {
       option: {
-        title: {
-          text: '基础雷达图'
-        },
-        tooltip: {},
-        legend: {
-          data: ['预算分配（Allocated Budget）', '实际开销（Actual Spending）']
+        tooltip: {
+          trigger: 'item',
+          borderWidth: 0,
+          borderColor: '#ffffff',
+          textStyle: { color: '#141414', fontSize: 14, fontWeight: 'normal' }
+          // formatter: function(params) {
+          //   let Html = ''
+          //   for (let i = 0; i < params.value.length; i++) {
+          //     Html += `<br/><span style="display:inline-block;margin-right:4px;border-radius:50%;width:10px;height:10px;background-color:#FF0000;"></span>${params.value[i]}`
+          //   }
+          //   // return result
+          //   return `${params.name}${Html}`
+          // }
         },
         radar: {
-          // shape: 'circle',
           name: {
             textStyle: {
-              color: '#fff',
-              backgroundColor: '#999',
-              borderRadius: 3,
-              padding: [3, 5]
+              color: '#141414',
+              fontSize: 14
             }
           },
           indicator: [
-            { name: '销售（sales）', max: 6500 },
-            { name: '管理（Administration）', max: 16000 },
-            { name: '信息技术（Information Techology）', max: 30000 },
-            { name: '客服（Customer Support）', max: 38000 },
-            { name: '研发（Development）', max: 52000 },
-            { name: '市场（Marketing）', max: 25000 }
+            { name: '2020-12-19', max: 100 },
+            { name: '2020-12-20', max: 100 },
+            { name: '2020-12-21', max: 100 },
+            { name: '2020-12-22', max: 100 },
+            { name: '2020-12-23', max: 100 },
+            { name: '2020-12-24', max: 100 }
           ]
         },
         series: [
           {
-            name: '预算 vs 开销（Budget vs spending）',
             type: 'radar',
-            // areaStyle: {normal: {}},
+            tooltip: {
+              extraCssText: 'box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);'
+            },
             data: [
               {
-                value: [4300, 10000, 28000, 35000, 50000, 19000],
-                name: '预算分配（Allocated Budget）'
+                value: [25, 30, 40, 40, 40, 10, 13],
+                name: '男',
+                symbol: 'none',
+                lineStyle: {
+                  color: '#FF0000'
+                }
+                // tooltip: {
+                //   textStyle: {
+                //     fontWeight: 'normal',
+                //     fontSize: 14,
+                //     color: '#000000'
+                //   }
+                // }
               },
               {
-                value: [5000, 14000, 28000, 31000, 42000, 21000],
-                name: '实际开销（Actual Spending）'
+                value: [30, 70, 50, 70, 30, 25, 15, 25],
+                name: '女',
+                symbol: 'none',
+                lineStyle: {
+                  color: '#FF0000'
+                },
+                tooltip: {
+                  textStyle: {
+                    fontWeight: 'normal',
+                    fontSize: 14,
+                    color: '#000000'
+                  }
+                }
               }
             ]
           }

@@ -3,8 +3,8 @@
   <div>
     <LineChart
       id="innerLineChart"
-      width="100%"
-      height="450px"
+      width="715px"
+      height="360px"
       :option="option"
     />
   </div>
@@ -25,9 +25,10 @@ export default {
         legend: {
           icon: 'circle', //  控制形状
           right: '20px', // 右边距
-          top: '20px', // 上边距
+          top: '-5px', // 上边距
           // show: true,
-          data: ['今日', '昨天', '前天'] // 展现不同系列的颜色和名称
+          width: '270px',
+          data: ['少年11-17岁', '青年20-30岁', '中年40-59岁', '老年60岁以上'] // 展现不同系列的颜色和名称
         },
         grid: {
           // 绘图区域大小设置
@@ -36,15 +37,23 @@ export default {
         },
         xAxis: {
           type: 'category', // 坐标轴类型
+          axisLine: {
+            lineStyle: {
+              color: '#707070'
+            }
+          },
+          axisLabel: {
+            color: '#141414',
+            fontSize: 14
+          },
           data: [
-            '8:00',
-            '10:00',
-            '12:00',
-            '14:00',
-            '16:00',
-            '18:00',
-            '20::00',
-            '22:00'
+            '2020-12-19',
+            '2020-12-20',
+            '2020-12-21',
+            '2020-12-22',
+            '2020-12-23',
+            '2020-12-24',
+            '2020-12-25'
           ],
           axisTick: {
             show: false // 是否显示坐标轴刻度
@@ -52,19 +61,32 @@ export default {
         },
         yAxis: {
           type: 'value',
+          name: '客流数',
+          nameGap: 25,
+          nameTextStyle: {
+            color: '#7A7A7A',
+            fontSize: 14,
+            align: 'center'
+          },
+
+          axisLabel: {
+            color: '#141414',
+            fontSize: 13,
+            margin: 5
+          },
           splitLine: {
-            show: false // 是否显示分隔线
+            lineStyle: {
+              type: 'dashed',
+              width: 1
+            }
           },
           axisTick: {
             show: false // 是否显示坐标轴刻度
-          },
-          axisLabel: {
-            show: false // 是否显示刻度标签
           }
         },
         series: [
           {
-            name: '今日',
+            name: '少年11-17岁',
             data: [20, 70, 60, 80, 90, 120, 100, 30],
             symbol: 'none', // 拐角圆点样式
 
@@ -96,7 +118,7 @@ export default {
             }
           },
           {
-            name: '昨天',
+            name: '青年20-30岁',
             data: [10, 50, 25, 32, 70, 42],
             symbol: 'none', // 拐角圆点样式
 
@@ -128,7 +150,7 @@ export default {
             }
           },
           {
-            name: '前天',
+            name: '中年40-59岁',
             data: [10, 30, 25, 50, 40, 30, 49, 20],
             symbol: 'none', // 拐角圆点样式
 
@@ -149,6 +171,39 @@ export default {
                     //  区域填充样式
                     offset: 1,
                     color: '#FEA8C5' // 0% 处的颜色
+                  },
+                  {
+                    offset: 0,
+                    color: '#fff' // 100% 处的颜色
+                  }
+                ],
+                global: false // 缺省为 false
+              }
+            }
+          },
+
+          {
+            name: '老年60岁以上',
+            data: [15, 35, 40, 30, 80, 50, 30, 42],
+            symbol: 'none', // 拐角圆点样式
+
+            type: 'line',
+            smooth: true,
+            itemStyle: {
+              color: '#F8C498' // 折线颜色
+            },
+            areaStyle: {
+              color: {
+                type: 'linear',
+                x: 1,
+                y: 1,
+                x2: 1,
+                y2: 0,
+                colorStops: [
+                  {
+                    //  区域填充样式
+                    offset: 1,
+                    color: '#F8C498' // 0% 处的颜色
                   },
                   {
                     offset: 0,

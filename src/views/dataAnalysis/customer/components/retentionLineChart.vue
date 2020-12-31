@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <LineChart
-      id="retentionLineChart"
-      width="100%"
-      height="450px"
-      :option="option"
-    />
-  </div>
+  <LineChart
+    id="retentionLineChart"
+    width="100%"
+    height="450px"
+    :option="option"
+  />
 </template>
 
 <script>
@@ -25,8 +23,8 @@ export default {
           icon: 'circle', //  控制形状
           right: '20px', // 右边距
           top: '20px', // 上边距
-          // show: true,
-          data: ['今日', '昨天', '前天'] // 展现不同系列的颜色和名称
+          show: false,
+          data: ['今日'] // 展现不同系列的颜色和名称
         },
         grid: {
           // 绘图区域大小设置
@@ -36,41 +34,59 @@ export default {
         xAxis: {
           type: 'category', // 坐标轴类型
           data: [
-            '8:00',
-            '10:00',
-            '12:00',
-            '14:00',
-            '16:00',
-            '18:00',
-            '20::00',
-            '22:00'
+            '2020-12-19',
+            '2020-12-20',
+            '2020-12-21',
+            '2020-12-22',
+            '2020-12-23',
+            '2020-12-24',
+            '2020-12-25',
+            '2020-12-26',
+            '2020-12-27',
+            '2020-12-28'
           ],
           axisTick: {
             show: false // 是否显示坐标轴刻度
           }
         },
-        yAxis: {
-          type: 'value',
-          splitLine: {
-            show: false // 是否显示分隔线
-          },
-          axisTick: {
-            show: false // 是否显示坐标轴刻度
-          },
-          axisLabel: {
-            show: false // 是否显示刻度标签
+        yAxis: [
+          {
+            min: 0,
+            max: 200,
+            type: 'value',
+            name: '客流量',
+            nameGap: 25,
+            nameTextStyle: {
+              color: '#7A7A7A',
+              fontSize: 14,
+              align: 'center'
+            },
+            splitLine: {
+              lineStyle: {
+                type: 'dashed',
+                width: 1
+              }
+            },
+            axisTick: {
+              show: false // 是否显示坐标轴刻度
+            },
+            axisLabel: {
+              color: '#141414',
+              fontSize: 13,
+              margin: 3
+            }
           }
-        },
+        ],
         series: [
           {
             name: '今日',
-            data: [20, 70, 60, 80, 90, 120, 100, 30],
+            data: [20, 70, 60, 80, 90, 100, 100, 30, 80, 60],
             symbol: 'none', // 拐角圆点样式
 
             type: 'line',
             smooth: true,
             itemStyle: {
-              color: '#74d2c6' // 折线颜色
+              color: '#4A92FF' // 折线颜色
             },
             areaStyle: {
               color: {
@@ -83,71 +99,7 @@ export default {
                   {
                     //  区域填充样式
                     offset: 1,
-                    color: '#56BE9B' // 0% 处的颜色
-                  },
-                  {
-                    offset: 0,
-                    color: '#fff' // 100% 处的颜色
-                  }
-                ],
-                global: false // 缺省为 false
-              }
-            }
-          },
-          {
-            name: '昨天',
-            data: [10, 50, 25, 32, 70, 42],
-            symbol: 'none', // 拐角圆点样式
-
-            type: 'line',
-            smooth: true,
-            itemStyle: {
-              color: '#e8b299' // 折线颜色
-            },
-            areaStyle: {
-              color: {
-                type: 'linear',
-                x: 1,
-                y: 1,
-                x2: 1,
-                y2: 0,
-                colorStops: [
-                  {
-                    //  区域填充样式
-                    offset: 1,
-                    color: '#F1835B' // 0% 处的颜色
-                  },
-                  {
-                    offset: 0,
-                    color: '#fff' // 100% 处的颜色
-                  }
-                ],
-                global: false // 缺省为 false
-              }
-            }
-          },
-          {
-            name: '前天',
-            data: [10, 30, 25, 50, 40, 30, 49, 20],
-            symbol: 'none', // 拐角圆点样式
-
-            type: 'line',
-            smooth: true,
-            itemStyle: {
-              color: '#f7a3c0' // 折线颜色
-            },
-            areaStyle: {
-              color: {
-                type: 'linear',
-                x: 1,
-                y: 1,
-                x2: 1,
-                y2: 0,
-                colorStops: [
-                  {
-                    //  区域填充样式
-                    offset: 1,
-                    color: '#FEA8C5' // 0% 处的颜色
+                    color: '#4A92FF' // 0% 处的颜色
                   },
                   {
                     offset: 0,
