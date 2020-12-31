@@ -58,6 +58,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .heatMap {
+  margin-top: 90px;
   dl {
     display: flex;
     margin-top: 52px;
