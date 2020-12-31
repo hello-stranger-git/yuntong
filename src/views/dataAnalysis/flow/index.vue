@@ -26,7 +26,14 @@
         style="margin-left:24px"
       />
 
-      <el-button type="primary" class="searchBtn">查询</el-button>
+      <el-button
+        type="primary"
+        class="searchBtn"
+        :style="
+          `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
+        "
+        >查询</el-button
+      >
       <el-button type="info" class="resetBtn">重置</el-button>
     </div>
     <!--客流分析-->
@@ -38,9 +45,12 @@
             客流分析
           </span>
         </div>
+        <PassengerFlow />
       </div>
       <!-- 右边 -->
-      <div class="right"></div>
+      <div class="right">
+        <ChainComparison />
+      </div>
     </div>
 
     <!--店外和时间段-->
@@ -52,6 +62,7 @@
             店外客流分析
           </span>
         </div>
+        <OutPassengerFlow />
       </div>
       <!-- 右边 -->
       <div class="right">
@@ -60,6 +71,7 @@
             时间段客流
           </span>
         </div>
+        <TimeSlotFlow />
       </div>
     </div>
 
@@ -72,6 +84,7 @@
             客群特征
           </span>
         </div>
+        <Customers />
       </div>
       <!-- 右边 -->
       <div class="right">
@@ -80,6 +93,7 @@
             热力图
           </span>
         </div>
+        <HeatMap />
       </div>
     </div>
 
@@ -97,7 +111,9 @@
 
     <div style="text-align:center;margin-top:24px">
       <span
-        style="font-size: 16px;color: #FFFFFF;display:inline-block;width: 166px;height: 59px;background: #4A92FF;border-radius: 8px;line-height:59px;text-align:center"
+        :style="
+          `font-size: 16px;color: #FFFFFF;display:inline-block;width: 166px;height: 59px;background: #4A92FF;border-radius: 8px;line-height:59px;text-align:center;background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
+        "
       >
         导出报表
       </span>
@@ -106,10 +122,23 @@
 </template>
 
 <script>
+import PassengerFlow from './components/passengerFlow' // 客流分析
+import OutPassengerFlow from './components/outPassengerFlow' // 店外客流分析
+import TimeSlotFlow from './components/timeSlotFlow' // 时间段客流
+import Customers from './components/customers' // 客群特征
+import HeatMap from './components/heatMap' // 热力图
+import ChainComparison from './components/chainComparison'
+
 import PriceBarChart from '../realTime/components/BarChart' // 引入最后一个柱状图
 export default {
   components: {
-    PriceBarChart
+    PriceBarChart,
+    PassengerFlow,
+    OutPassengerFlow,
+    TimeSlotFlow,
+    Customers,
+    HeatMap,
+    ChainComparison
   },
   data() {
     return {
@@ -209,6 +238,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  float: left;
   .title {
     font-size: 28px;
     font-weight: bold;
