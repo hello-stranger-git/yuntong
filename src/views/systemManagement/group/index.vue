@@ -593,7 +593,6 @@ export default {
     // 校验背景图片
     beforeBgUpload(file) {
       this.loginBgPic = URL.createObjectURL(file)
-
       return true
     },
     // 提交
