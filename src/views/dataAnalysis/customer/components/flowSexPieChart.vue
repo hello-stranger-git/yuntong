@@ -2,8 +2,9 @@
   <div>
     <CircularChart
       id="flowSexPieChart"
+      class="flowSexPieChart"
       width="100%"
-      height="100%"
+      height="360px"
       :option="option"
     />
   </div>
@@ -18,40 +19,51 @@ export default {
   data() {
     return {
       option: {
-        title: {
-          text: '某站点用户访问来源',
-          subtext: '纯属虚构',
-          left: 'center'
-        },
         tooltip: {
           trigger: 'item',
           formatter: '{a} <br/>{b} : {c} ({d}%)'
         },
         legend: {
           orient: 'vertical',
-          left: 'left',
-          data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+          left: '73%',
+          top: '25%',
+          data: ['女性', '男性'],
+          textStyle: {
+            color: '#000000',
+            fontSize: 16
+          },
+          icon: 'circle',
+          itemGap: 30
         },
         series: [
           {
             name: '访问来源',
             type: 'pie',
-            radius: '55%',
-            center: ['50%', '60%'],
+            radius: '65%',
+            center: ['35%', '40%'],
             data: [
-              { value: 335, name: '直接访问' },
-              { value: 310, name: '邮件营销' },
-              { value: 234, name: '联盟广告' },
-              { value: 135, name: '视频广告' },
-              { value: 1548, name: '搜索引擎' }
-            ],
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
+              {
+                value: 10,
+                name: '女性',
+                itemStyle: {
+                  color: '#FF8181'
+                },
+                label: {
+                  color: '#FF8181'
+                }
+              },
+              {
+                value: 100,
+                name: '男性',
+
+                itemStyle: {
+                  color: '#4A92FF'
+                },
+                label: {
+                  color: '#4A92FF'
+                }
               }
-            }
+            ]
           }
         ]
       }
@@ -60,4 +72,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="less" scoped>
+.flowSexPieChart {
+  margin-top: 26px;
+}
+</style>
