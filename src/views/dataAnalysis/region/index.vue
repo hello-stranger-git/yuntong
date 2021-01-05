@@ -17,7 +17,7 @@
       <el-button type="info" class="resetBtn">重置</el-button>
     </div>
     <!--客流排行-->
-    <div class="module">
+    <div class="module" style="height:790px">
       <div class="flow">
         <div class="titleDiv">
           <span class="title">
@@ -29,6 +29,7 @@
             </span>
           </span>
         </div>
+        <FlowRankingBarChart />
       </div>
     </div>
     <!--区域排行和占比-->
@@ -45,6 +46,7 @@
             </span>
           </span>
         </div>
+        <RegionRankingBarChart />
       </div>
       <!-- 占比 -->
       <div class="right">
@@ -60,6 +62,7 @@
               </span>
             </span>
           </div>
+          <PersonalCircularChart />
         </div>
         <!--人数占比-->
         <div>
@@ -73,6 +76,7 @@
               </span>
             </span>
           </div>
+          <PeopleNumberCircularChart />
         </div>
       </div>
     </div>
@@ -80,7 +84,19 @@
 </template>
 
 <script>
+import FlowRankingBarChart from './components/flowRankingBarChart' // 客流排行柱状图
+import RegionRankingBarChart from './components/regionRankingBarChart' // 区域排行柱状图
+
+import PersonalCircularChart from './components/personalCircularChart' // 人次占比饼状图
+
+import PeopleNumberCircularChart from './components/peopleNumberCircularChart' // 人数占比饼状图
 export default {
+  components: {
+    FlowRankingBarChart,
+    RegionRankingBarChart,
+    PersonalCircularChart,
+    PeopleNumberCircularChart
+  },
   data() {
     return {
       searchValue: '', // 搜索输入
@@ -118,7 +134,7 @@ export default {
 
 //客流排行、区域排行和占比
 .module {
-  height: 497px;
+  height: 668px;
   margin-top: 24px;
   display: flex;
   .flow {
