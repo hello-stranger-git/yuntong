@@ -3,9 +3,12 @@
   <div class="header">
     <i class="iconfont iconzu778" style="cursor: pointer;" @click="tog"></i>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>数据分析</el-breadcrumb-item>
-      <el-breadcrumb-item>实时分析</el-breadcrumb-item>
+      <!-- <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item> -->
+      <!-- <el-breadcrumb-item>数据分析</el-breadcrumb-item>
+      <el-breadcrumb-item>实时分析</el-breadcrumb-item> -->
+      <el-breadcrumb-item v-for="item in list" :key="item.path + item.name">
+        {{ item.meta.breadcrumb }}
+      </el-breadcrumb-item>
     </el-breadcrumb>
     <div class="header_right">
       <span>集团二维码</span>
@@ -23,6 +26,11 @@ export default {
   data() {
     return {
       togAsid: false
+    }
+  },
+  computed: {
+    list() {
+      return this.$route.matched
     }
   },
   methods: {
@@ -55,6 +63,9 @@ export default {
   /deep/.el-breadcrumb__inner {
     color: #141414;
     opacity: 0.5;
+    &:hover {
+      color: #141414;
+    }
   }
   /deep/.el-icon-arrow-right {
     margin: 0;
