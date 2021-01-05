@@ -360,7 +360,7 @@ export default {
     }
     /deep/.el-button--mini {
       margin-left: 4px;
-      border-radius: 8px;
+      border-radius: 4px;
       &:first-child {
         margin-left: 0px;
       }
