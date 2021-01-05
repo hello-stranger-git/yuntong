@@ -42,6 +42,10 @@
 import CircularChart from '@/components/circularChart'
 import Proportional from '@/components/proportional'
 export default {
+  components: {
+    CircularChart,
+    Proportional
+  },
   data() {
     return {
       // 环形图数据
@@ -133,11 +137,6 @@ export default {
         }
       ]
     }
-  },
-
-  components: {
-    CircularChart,
-    Proportional
   }
 }
 </script>

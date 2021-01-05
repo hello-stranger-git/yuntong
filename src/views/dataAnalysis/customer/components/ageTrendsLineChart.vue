@@ -1,6 +1,12 @@
+<!--年龄趋势折线图-->
 <template>
-  <div class="timeSlotFlow">
-    <LineChart id="timeSlotFlow" width="100%" height="100%" :option="option" />
+  <div>
+    <LineChart
+      id="innerLineChart"
+      width="715px"
+      height="360px"
+      :option="option"
+    />
   </div>
 </template>
 
@@ -19,25 +25,27 @@ export default {
         legend: {
           icon: 'circle', //  控制形状
           right: '20px', // 右边距
-          top: '32px', // 上边距
-          width: '301px',
+          top: '-5px', // 上边距
           // show: true,
-          data: [
-            '上午  09:00-12:00',
-            '中午  12:00-14:00',
-            '下午  14:00-18:00',
-            '晚上  18:00-23:00'
-          ] // 展现不同系列的颜色和名称
+          width: '270px',
+          data: ['少年11-17岁', '青年20-30岁', '中年40-59岁', '老年60岁以上'] // 展现不同系列的颜色和名称
         },
         grid: {
           // 绘图区域大小设置
-          left: '45px',
-          right: '35px',
-          top: '130px',
-          show: false
+          left: '25px',
+          right: '25px'
         },
         xAxis: {
           type: 'category', // 坐标轴类型
+          axisLine: {
+            lineStyle: {
+              color: '#707070'
+            }
+          },
+          axisLabel: {
+            color: '#141414',
+            fontSize: 14
+          },
           data: [
             '2020-12-19',
             '2020-12-20',
@@ -54,22 +62,31 @@ export default {
         yAxis: {
           type: 'value',
           name: '客流数',
+          nameGap: 25,
+          nameTextStyle: {
+            color: '#7A7A7A',
+            fontSize: 14,
+            align: 'center'
+          },
+
+          axisLabel: {
+            color: '#141414',
+            fontSize: 13,
+            margin: 5
+          },
           splitLine: {
-            show: true, // 是否显示分隔线
             lineStyle: {
-              type: 'dashed' // 虚线
+              type: 'dashed',
+              width: 1
             }
           },
           axisTick: {
             show: false // 是否显示坐标轴刻度
-          },
-          axisLabel: {
-            show: true // 是否显示刻度标签
           }
         },
         series: [
           {
-            name: '上午  09:00-12:00',
+            name: '少年11-17岁',
             data: [20, 70, 60, 80, 90, 120, 100, 30],
             symbol: 'none', // 拐角圆点样式
 
@@ -101,7 +118,7 @@ export default {
             }
           },
           {
-            name: '中午  12:00-14:00',
+            name: '青年20-30岁',
             data: [10, 50, 25, 32, 70, 42],
             symbol: 'none', // 拐角圆点样式
 
@@ -133,7 +150,7 @@ export default {
             }
           },
           {
-            name: '下午  14:00-18:00',
+            name: '中年40-59岁',
             data: [10, 30, 25, 50, 40, 30, 49, 20],
             symbol: 'none', // 拐角圆点样式
 
@@ -164,15 +181,16 @@ export default {
               }
             }
           },
+
           {
-            name: '晚上  18:00-23:00',
-            data: [10, 35, 41, 35, 40, 30, 60, 20],
+            name: '老年60岁以上',
+            data: [15, 35, 40, 30, 80, 50, 30, 42],
             symbol: 'none', // 拐角圆点样式
 
             type: 'line',
             smooth: true,
             itemStyle: {
-              color: '#79b2f4' // 折线颜色
+              color: '#F8C498' // 折线颜色
             },
             areaStyle: {
               color: {
@@ -185,7 +203,7 @@ export default {
                   {
                     //  区域填充样式
                     offset: 1,
-                    color: '#4A92FF' // 0% 处的颜色
+                    color: '#F8C498' // 0% 处的颜色
                   },
                   {
                     offset: 0,
@@ -203,8 +221,4 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-.timeSlotFlow {
-  height: 100%;
-}
-</style>
+<style lang="scss" scoped></style>

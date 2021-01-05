@@ -19,7 +19,9 @@
           align="middle"
           class="ranking_content "
         >
-          <el-col :span="6"><img :src="item.icon"/></el-col>
+          <el-col :span="6">
+            <img :src="item.icon" />
+          </el-col>
           <el-col :span="12">{{ item.region }}</el-col>
           <el-col :span="6">{{ item.heat }}</el-col>
         </el-row>
