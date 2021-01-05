@@ -146,7 +146,7 @@ export default {
       total: 100, // 总共多少条数据
       pageSize: 10, // 每页显示条数
       currentPage: 1, // 当前在哪一页
-      // 分页数据start
+      // 分页数据end
       // 表格数据
       tableData: [
         {
