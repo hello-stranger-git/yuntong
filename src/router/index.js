@@ -14,9 +14,9 @@ const routes = [
   {
     path: '/',
     component: () => import('@/layout'),
-    meta: {
-      breadcrumb: '首页'
-    },
+    // meta: {
+    //   breadcrumb: '首页'
+    // },
     redirect: '/bpRetail',
     children: [
       // 门店分布

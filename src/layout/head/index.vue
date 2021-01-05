@@ -3,10 +3,13 @@
   <div class="header">
     <i class="iconfont iconzu778" style="cursor: pointer;" @click="tog"></i>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <!-- <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item> -->
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <!-- <el-breadcrumb-item>数据分析</el-breadcrumb-item>
       <el-breadcrumb-item>实时分析</el-breadcrumb-item> -->
-      <el-breadcrumb-item v-for="item in list" :key="item.path + item.name">
+      <el-breadcrumb-item
+        v-for="item in list.slice(1)"
+        :key="item.path + item.name"
+      >
         {{ item.meta.breadcrumb }}
       </el-breadcrumb-item>
     </el-breadcrumb>
@@ -30,6 +33,7 @@ export default {
   },
   computed: {
     list() {
+      console.log(this.$route.matched)
       return this.$route.matched
     }
   },
