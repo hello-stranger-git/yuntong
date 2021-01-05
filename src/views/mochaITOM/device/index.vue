@@ -373,9 +373,9 @@ export default {
       font-weight: bold;
       font-size: 14px;
     }
-    /deep/.el-checkbox__inner {
-      background-color: #cfcfcf;
-    }
   }
+}
+/deep/.el-checkbox__inner {
+  background-color: #cfcfcf;
 }
 </style>
