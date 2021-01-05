@@ -12,37 +12,60 @@ export default {
   data() {
     return {
       option: {
-        legend: {},
-        tooltip: {},
-        dataset: {
-          dimensions: ['product', '2015', '2016', '2017'],
-          source: [
-            {
-              product: 'Matcha Latte',
-              '2015': 43.3,
-              '2016': 85.8,
-              '2017': 93.7
-            },
-            { product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1 },
-            {
-              product: 'Cheese Cocoa',
-              '2015': 86.4,
-              '2016': 65.2,
-              '2017': 82.5
-            },
-            {
-              product: 'Walnut Brownie',
-              '2015': 72.4,
-              '2016': 53.9,
-              '2017': 39.1
-            }
-          ]
+        tooltip: {
+          trigger: 'axis'
         },
-        xAxis: { type: 'category' },
-        yAxis: {},
-        // Declare several bar series, each will be mapped
-        // to a column of dataset.source by default.
-        series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
+
+        grid: {
+          show: false,
+          left: '93px',
+          right: '45px',
+          top: '100px',
+          bottom: '100px'
+        },
+        calculable: true,
+        xAxis: [
+          {
+            type: 'category',
+            data: ['白云区', '天河区', '番禺区', '荔湾区', '越秀区'],
+            axisTick: {
+              show: false // 隐藏坐标轴刻度
+            }
+          }
+        ],
+        yAxis: {
+          type: 'value',
+          name: '客流数',
+          splitLine: {
+            lineStyle: {
+              type: 'dashed'
+            }
+          },
+          nameTextStyle: {
+            align: 'right', // 名称对齐方式
+            padding: [0, 9, 0, 0]
+          }
+        },
+        series: [
+          {
+            name: '人次',
+            type: 'bar',
+            data: [2.0, 4.9, 7.0, 23.2, 25.6],
+            barWidth: 24, // 柱形宽度
+            itemStyle: {
+              color: '#F8C498' // 柱形颜色
+            }
+          },
+          {
+            name: '人数',
+            type: 'bar',
+            data: [2.6, 5.9, 9.0, 26.4, 28.7],
+            barWidth: 24, // 柱形宽度
+            itemStyle: {
+              color: '#56BE9B' // 柱形颜色
+            }
+          }
+        ]
       }
     }
   }

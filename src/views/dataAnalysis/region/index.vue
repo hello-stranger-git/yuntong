@@ -152,6 +152,10 @@ export default {
     width: 40%;
     background-color: #ffffff;
     border-radius: 10px;
+    & > div {
+      height: 50%;
+      overflow: hidden;
+    }
   }
 }
 
