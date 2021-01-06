@@ -46,13 +46,117 @@
       <el-button type="primary" class="searchBtn">查询</el-button>
       <el-button type="info" class="resetBtn">重置</el-button>
     </div>
+
+    <!--下面类容板块-->
+    <div class="imgCheck">
+      <div class="context">
+        <template v-for="item in imgCheckData">
+          <el-col :key="item.id" :span="6">
+            <ImgCheckItem
+              :title="item.title"
+              :type="item.type"
+              :address="item.address"
+              :time="item.time"
+              :image="item.img"
+              style="width:364px;margin:25px"
+            />
+          </el-col>
+        </template>
+      </div>
+      <!--分页组件-->
+      <div style="text-align:center;margin-top:50px">
+        <el-pagination
+          background
+          layout="total,prev, pager, next"
+          :total="total"
+          :page-size="pageSize"
+          :current-page="currentPage"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import ImgCheckItem from './components/imgCheckItem'
 export default {
+  components: {
+    ImgCheckItem
+  },
   data() {
     return {
+      // 分页数据start
+      total: 8, // 总共多少条数据
+      pageSize: 8, // 每页显示条数
+      currentPage: 1, // 当前在哪一页
+      // 分页数据end
+      imgCheckData: [
+        {
+          id: 1,
+          title: '业务咨询台枪机',
+          type: '定时抓拍',
+          address: '南宁移动园湖营业厅',
+          time: '2021-01-05 14:01:52',
+          img: require('@/assets/img/videoInspection/imageCheck/imgCheck1.png')
+        },
+        {
+          id: 2,
+          title: '业务咨询台枪机',
+          type: '定时抓拍',
+          address: '南宁移动园湖营业厅',
+          time: '2021-01-05 14:01:52',
+          img: require('@/assets/img/videoInspection/imageCheck/imgCheck1.png')
+        },
+        {
+          id: 3,
+          title: '业务咨询台枪机',
+          type: '定时抓拍',
+          address: '南宁移动园湖营业厅',
+          time: '2021-01-05 14:01:52',
+          img: require('@/assets/img/videoInspection/imageCheck/imgCheck1.png')
+        },
+        {
+          id: 4,
+          title: '业务咨询台枪机',
+          type: '定时抓拍',
+          address: '南宁移动园湖营业厅',
+          time: '2021-01-05 14:01:52',
+          img: require('@/assets/img/videoInspection/imageCheck/imgCheck1.png')
+        },
+        {
+          id: 5,
+          title: '业务咨询台枪机',
+          type: '定时抓拍',
+          address: '南宁移动园湖营业厅',
+          time: '2021-01-05 14:01:52',
+          img: require('@/assets/img/videoInspection/imageCheck/imgCheck1.png')
+        },
+        {
+          id: 6,
+          title: '业务咨询台枪机',
+          type: '定时抓拍',
+          address: '南宁移动园湖营业厅',
+          time: '2021-01-05 14:01:52',
+          img: require('@/assets/img/videoInspection/imageCheck/imgCheck1.png')
+        },
+        {
+          id: 7,
+          title: '业务咨询台枪机',
+          type: '定时抓拍',
+          address: '南宁移动园湖营业厅',
+          time: '2021-01-05 14:01:52',
+          img: require('@/assets/img/videoInspection/imageCheck/imgCheck1.png')
+        },
+        {
+          id: 8,
+          title: '业务咨询台枪机',
+          type: '定时抓拍',
+          address: '南宁移动园湖营业厅',
+          time: '2021-01-05 14:01:52',
+          img: require('@/assets/img/videoInspection/imageCheck/imgCheck1.png')
+        }
+      ],
+
       pickerOptions: {
         shortcuts: [
           {
@@ -165,6 +269,24 @@ export default {
   /deep/.el-input__inner.el-date-editor--daterange {
     width: 280px;
     margin-left: 24px;
+  }
+}
+
+//内容板块
+.imgCheck {
+  background: #ffffff;
+  opacity: 1;
+  border-radius: 10px;
+  margin-top: 24px;
+  padding: 20px 0 36px 0;
+  .context {
+    &::after {
+      content: '';
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+    }
   }
 }
 </style>
