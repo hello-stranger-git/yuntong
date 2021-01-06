@@ -27,7 +27,7 @@
       </span>
     </div>
     <!--地址与时间-->
-    <div style="margin-top:8pxdisplay: flex;justify-content: space-between;">
+    <div style="margin-top:8px;display: flex;justify-content: space-between;">
       <span style="font-size: 14px;font-weight: 400;color: #141414;">
         {{ address }}
       </span>
