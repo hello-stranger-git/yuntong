@@ -6,6 +6,7 @@ export default class Bar {
     this.ctx = this.canvas.getContext('2d')
     // 内边距
     this.cpadding = 50
+    this.setRatio()
     this.yAxisH = this.canvas.height - this.cpadding * 2// y轴高度
     this.xAxisW = this.canvas.width - this.cpadding * 2// x轴高度
     this.originX = this.cpadding + 20 // x轴原点
@@ -18,6 +19,20 @@ export default class Bar {
     // 画标题
     this.drawLegend()
   }
+
+  // 解决模糊
+  setRatio() {
+    const device = window.devicePixelRatio || 1
+    const canDevice = this.ctx.backingStorePixelRatio || 1
+    this.ratio = device / canDevice
+    const oldW = this.canvas.width
+    const oldH = this.canvas.height
+    this.canvas.width = this.ratio * oldW
+    this.canvas.height = this.ratio * oldH
+    this.canvas.style.width = oldW + 'px'
+    this.canvas.style.height = oldH + 'px'
+  }
+
   drawLegend() {
     for (let i = 0; i < this.data.legend.length; i++) {
       this.ctx.beginPath()
@@ -56,6 +71,8 @@ export default class Bar {
 
     this.yAxisNum = Math.ceil(this.data.yMaxMark / this.data.yMaxMarkAverage) + 1// y轴段数,yMaxMark y轴最大刻度
     this.xAxisNum = 12 // x轴段数
+
+    this.yAxisNum1 = Math.ceil(this.data.yMaxMark1 / this.data.yMaxMarkAverage1) + 1// y2轴段数,yMaxMark y2轴最大刻度
     this.init()
   }
   // 画横线
@@ -67,12 +84,14 @@ export default class Bar {
     this.ctx.closePath()
   }
   drawMarker() {
-    // 画y轴刻度
+    // 画y1轴刻度
     this.drawyAxis()
+    // 画y2轴刻度
+    this.drawyAxis2()
     // 画x轴刻度
     this.drawxAxis()
   }
-  // 画y轴
+  // 画y1轴
   drawyAxis() {
     const oneVal = this.yAxisH / this.yAxisNum// y轴每个刻度所占的高度
     // 画y轴label
@@ -97,6 +116,31 @@ export default class Bar {
       this.ctx.closePath()
     }
   }
+
+  // 画y2轴
+  drawyAxis2() {
+    const oneVal = this.yAxisH / this.yAxisNum1// y轴每个刻度所占的高度
+    // 画y轴label
+    for (let i = 0; i < this.yAxisNum1; i++) {
+      this.ctx.save()
+      this.ctx.fillStyle = '#141414'
+      this.ctx.textAlign = 'left'
+      this.ctx.font = '13px MicrosoftYaHei'
+      let price = 0
+      if (i * this.data.yMaxMarkAverage1 >= 1000000) {
+        price = i * this.data.yMaxMarkAverage1 / 10000 + 'w'
+      } else {
+        price = i * this.data.yMaxMarkAverage1
+      }
+      this.ctx.fillText(price, this.canvas.width - this.cpadding + 10, this.originY - i * oneVal + 5)
+      this.ctx.restore()
+      this.ctx.beginPath()
+      this.ctx.save()
+      this.ctx.restore()
+      this.ctx.closePath()
+    }
+  }
+
   // 画x轴
   drawxAxis() {
     const oneVal = this.xAxisW / this.xAxisNum// x轴每个刻度所占的宽度
@@ -111,13 +155,13 @@ export default class Bar {
       this.ctx.fillText(this.data.xLabel[i], this.originX + i * oneVal + 25, this.originY + 10)
       this.ctx.restore()
       // 画x轴其他label
-      this.ctx.save()
-      this.ctx.fillStyle = '#141414'
-      this.ctx.textBaseline = 'top'
-      this.ctx.textAlign = 'center'
-      this.ctx.font = '14px MicrosoftYaHei'
-      this.ctx.fillText(this.data.otherLabel[i], this.originX + i * oneVal + 40, this.originY + 38)
-      this.ctx.restore()
+      // this.ctx.save()
+      // this.ctx.fillStyle = '#141414'
+      // this.ctx.textBaseline = 'top'
+      // this.ctx.textAlign = 'center'
+      // this.ctx.font = '14px MicrosoftYaHei'
+      // this.ctx.fillText(this.data.otherLabel[i], this.originX + i * oneVal + 40, this.originY + 38)
+      // this.ctx.restore()
     }
   }
   // 画柱状图
@@ -125,22 +169,23 @@ export default class Bar {
     const oneVal = this.xAxisW / this.xAxisNum
     const barW = 20
     // y轴的最大刻度
-    const yMaxMark = this.data.yMaxMark + this.data.yMaxMarkAverage
-    // 画第一个柱状图
+    const yMaxMark1 = this.data.yMaxMark1 + this.data.yMaxMarkAverage1
+    // 画第一个柱状图(销售额)
     for (let i = 0; i < this.xAxisNum; i++) {
-      console.log()
-      const barH = this.data.data1[i] * this.yAxisH / yMaxMark
+      const barH = this.data.data1[i] * this.yAxisH / yMaxMark1
       const x = this.originX + i * oneVal
       const y = this.originY - barH
-      this.drawRect(x + 25, y, barW, barH, this.data.data1[i], '#F8C498')
+      this.drawRect(x + 25, y, barW, barH, this.data.data1[i], 'money', '#f8c49880')
     }
 
-    // 画第二个柱状图
+    // y2轴的最大刻度
+    const yMaxMark = this.data.yMaxMark + this.data.yMaxMarkAverage
+    // 画第二个柱状图(客流)
     for (let i = 0; i < this.xAxisNum; i++) {
       const barH = this.data.data2[i] * this.yAxisH / yMaxMark
       const x = this.originX + i * oneVal
       const y = this.originY - barH
-      this.drawRect(x + 25 + 20, y, barW, barH, '', '#56BE9B')
+      this.drawRect(x + 25 + 20, y, barW, barH, this.data.data2[i], 'people', '#56be9b80')
     }
 
     // 画第三条虚线
@@ -179,7 +224,7 @@ export default class Bar {
     this.ctx.closePath()
   }
   // 画矩形
-  drawRect(x, y, w, h, text, color) {
+  drawRect(x, y, w, h, text, type, color) {
     text = text || ''
     this.ctx.beginPath()
     this.ctx.fillStyle = color
@@ -189,13 +234,21 @@ export default class Bar {
     this.ctx.stroke()
     this.ctx.closePath()
     this.ctx.save()
-    this.ctx.fillStyle = '#F8C498'
     this.ctx.textBaseline = 'bottom'
     this.ctx.textAlign = 'left'
     this.ctx.font = '14px MicrosoftYaHei'
     // 画数值
     if (text) {
-      this.ctx.fillText('￥' + text, x - 10, y - 5)
+      if (text >= 1000000) {
+        text = (text / 10000).toFixed(2) + 'w'
+      }
+      if (type === 'money') {
+        this.ctx.fillStyle = '#F1835B'
+        this.ctx.fillText('￥' + text, x - 30, y - 5)
+      } else if (type === 'people') {
+        this.ctx.fillStyle = '#18A274'
+        this.ctx.fillText(text, x, y - 5)
+      }
     }
     this.ctx.restore()
   }
