@@ -328,7 +328,7 @@ export default {
       padding: 0 5px;
       margin-left: 20px;
       background: lightcoral;
-      border-radius: 10px;
+      border-radius: 4px;
       font-size: 12px;
       font-weight: bold;
       text-align: center;
@@ -336,7 +336,7 @@ export default {
     }
   }
   .table {
-    margin-top: 24px;
+    margin-top: 36px;
     /deep/.el-table {
       .warning-row {
         background: #ebebeb;
@@ -347,9 +347,39 @@ export default {
         background: #ffffff;
       }
     }
+    /deep/.el-table {
+      th {
+        & > .cell {
+          color: #141414;
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+    }
   }
   .el-button {
     text-align: center;
   }
+}
+
+//tab样式，调整
+/deep/.el-tabs--border-card {
+  background: #e9eef3;
+  border: 0;
+  box-shadow: none;
+  .el-tabs__nav-scroll {
+    // padding-left: 24px;
+    background-color: #e9eef3;
+  }
+}
+/deep/.el-tabs--border-card > .el-tabs__content {
+  padding: 24px 0 0 0;
+}
+/deep/.el-tabs__item {
+  &.is-active,
+  &:hover {
+    border-radius: 4px;
+  }
+  margin-right: 8px;
 }
 </style>
