@@ -1,6 +1,6 @@
 <!--人次占比饼状图-->
 <template>
-  <CircularChart id="personalCircularChart" :option="option" />
+  <CircularChart id="personalCircularChart" :option="option" height="270px" />
 </template>
 
 <script>
@@ -13,8 +13,8 @@ export default {
     return {
       option: {
         title: {
-          text: '某站点用户访问来源',
-          subtext: '纯属虚构',
+          // text: '某站点用户访问来源',
+          // subtext: '纯属虚构',
           left: 'center'
         },
         tooltip: {
@@ -23,21 +23,46 @@ export default {
         },
         legend: {
           orient: 'vertical',
-          left: 'left',
-          data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+          right: '50px',
+          top: '30px',
+          icon: 'circle',
+          itemGap: 15,
+          itemWidth: 10,
+          data: ['白云区', '荔湾区', '番禺区', '天河区', '越秀区']
         },
+
         series: [
           {
-            name: '访问来源',
+            name: '人次占比',
             type: 'pie',
-            radius: '55%',
-            center: ['50%', '60%'],
+            radius: '80%',
+            center: ['50%', '50%'],
             data: [
-              { value: 335, name: '直接访问' },
-              { value: 310, name: '邮件营销' },
-              { value: 234, name: '联盟广告' },
-              { value: 135, name: '视频广告' },
-              { value: 1548, name: '搜索引擎' }
+              {
+                value: 335,
+                name: '白云区',
+                label: { show: false }
+              },
+              {
+                value: 310,
+                name: '荔湾区',
+                label: { show: false }
+              },
+              {
+                value: 234,
+                name: '番禺区',
+                label: { show: false }
+              },
+              {
+                value: 135,
+                name: '天河区',
+                label: { show: false }
+              },
+              {
+                value: 1548,
+                name: '越秀区',
+                label: { show: false }
+              }
             ],
             emphasis: {
               itemStyle: {
