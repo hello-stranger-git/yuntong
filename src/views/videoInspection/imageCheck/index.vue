@@ -43,7 +43,15 @@
         />
       </el-select>
 
-      <el-button type="primary" class="searchBtn">查询</el-button>
+      <el-button
+        type="primary"
+        class="searchBtn"
+        :style="
+          `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
+        "
+      >
+        查询
+      </el-button>
       <el-button type="info" class="resetBtn">重置</el-button>
     </div>
 
