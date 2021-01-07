@@ -63,7 +63,16 @@
             </el-select>
             <i class="el-icon-error" @click="dlt(i)"></i>
           </div>
-          <p><el-button type="primary" @click="submit">提交</el-button></p>
+          <p>
+            <el-button
+              type="primary"
+              @click="submit"
+              :style="
+                `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
+              "
+              >提交</el-button
+            >
+          </p>
         </div>
       </div>
     </div>
