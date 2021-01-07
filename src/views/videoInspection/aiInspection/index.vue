@@ -12,6 +12,10 @@
         </div>
         <div class="value">{{ item.value }}</div>
         <div class="openServe">启用此项</div>
+        <div v-if="i === 3" class="tip">
+          <span>时间间隔：60分钟/次</span>
+          <span>抓拍时间段：09:00-18:00</span>
+        </div>
       </div>
     </div>
   </div>
@@ -21,10 +25,6 @@
 export default {
   data() {
     return {
-      icon1: require('@/assets/img/icon/aiIcon1.png'),
-      icon2: require('@/assets/img/icon/aiIcon1.png'),
-      icon3: require('@/assets/img/icon/aiIcon1.png'),
-      icon4: require('@/assets/img/icon/aiIcon1.png'),
       dataArr: [
         {
           title: '空岗巡查',
@@ -57,32 +57,26 @@ export default {
 
 <style lang="less" scoped>
 .contain {
-  // height: 800px;
-  // background-color: pink;
   margin: 24px;
-  // border-radius: 10px;
-  // overflow: hidden;
   .title {
     padding-left: 15px;
-    height: 40px;
-    line-height: 40px;
+    height: 55px;
+    line-height: 55px;
     font-size: 14px;
     color: #141414;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #fff;
   }
   .serve {
-    height: 600px;
     background-color: #fff;
     border-radius: 10px;
     margin-top: 24px;
-    padding: 15px;
+    padding: 15px 15px 63px;
     .item {
       position: relative;
-      height: 125px;
+      height: 135px;
       padding-left: 120px;
-      border: 1px solid #e2e2e2;
       border-radius: 23px;
       margin-top: 20px;
       &:first-child {
@@ -90,10 +84,10 @@ export default {
       }
       .icon {
         position: absolute;
-        left: 40px;
-        top: 30px;
-        width: 60px;
-        height: 60px;
+        left: 32px;
+        top: 48px;
+        width: 62px;
+        height: 62px;
         img {
           width: 100%;
           height: 100%;
@@ -101,29 +95,44 @@ export default {
       }
       .type {
         font-size: 18px;
-        margin-top: 35px;
+        padding-top: 48px;
         font-weight: bold;
+        color: #141414;
         span {
           display: inline-block;
           font-size: 14px;
-          color: #3ac47d;
+          color: #4a92ff;
         }
       }
       .value {
-        margin-top: 10px;
+        margin-top: 14px;
         font-size: 14px;
-        color: #141414;
+        color: #a7a7a7;
       }
       .openServe {
         position: absolute;
         right: 30px;
-        top: 46%;
+        top: 59px;
+        width: 90px;
+        height: 48px;
+        line-height: 48px;
         font-size: 14px;
         font-weight: bold;
-        color: #409eff;
+        color: #fff;
+        background-color: #4a92ff;
+        border-radius: 8px;
+        text-align: center;
         cursor: pointer;
         &:hover {
           color: paleturquoise;
+        }
+      }
+      .tip {
+        span {
+          margin-top: 14px;
+          display: inline-block;
+          font-size: 14px;
+          color: #4a92ff;
         }
       }
     }
