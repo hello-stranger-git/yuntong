@@ -28,7 +28,12 @@
     <div class="module">
       <!--按钮组-->
       <div>
-        <el-button type="primary">
+        <el-button
+          type="primary"
+          :style="
+            `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
+          "
+        >
           导出
         </el-button>
       </div>

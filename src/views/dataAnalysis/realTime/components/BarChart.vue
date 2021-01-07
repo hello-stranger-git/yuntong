@@ -1,5 +1,5 @@
 <template>
-  <div style="width:100%">
+  <div id="barDiv" style="width:100%;text-align: center;">
     <canvas
       id="priceBarChart"
       width="1600"
@@ -17,55 +17,62 @@ export default {
     return {}
   },
   mounted() {
+    const bar = document.getElementById('priceBarChart')
+    bar.width = document.getElementById('barDiv').clientWidth
+
+    bar.height = document.getElementById('barDiv').clientHeight
     this.draw()
   },
   methods: {
     draw() {
       const bar = new Bar('priceBarChart')
       bar.setData({
-        yMaxMark: 8000,
-        yMaxMarkAverage: 1000,
-        data1: [
-          5000,
-          4000,
-          4500,
-          0,
-          5000,
-          4000,
-          5000,
-          4200,
-          3500,
-          3500,
-          4000,
-          4300
-        ],
+        yMaxMark: 8000, // 第一条y轴最大的刻度
+        yMaxMarkAverage: 1000, // 第一条y轴每个刻度显示大小
+
+        yMaxMark1: 8000000, // 第二条y轴最大的刻度
+        yMaxMarkAverage1: 1000000, // 第二条y轴每个刻度显示大小
         data2: [
-          3000,
-          2000,
-          3500,
-          0,
-          3000,
-          3000,
+          5000,
+          4000,
           4500,
-          3000,
-          3100,
-          3200,
-          3200,
-          3000
-        ],
-        dashLine: [
-          2500,
-          1000,
-          175,
           0,
-          1050,
-          2000,
-          2050,
-          2020,
-          1050,
-          1600,
-          1600,
-          1500
+          5000,
+          4000,
+          5000,
+          6000,
+          5000,
+          4000,
+          5500,
+          6000
+        ], // 人数
+        data1: [
+          7000000,
+          6000000,
+          5000500,
+          0,
+          4000000,
+          6000000,
+          4500000,
+          5000000,
+          6000000,
+          5000000,
+          4000000,
+          5500000
+        ], // 销售额
+        dashLine: [
+          parseInt(7000000 / 5000),
+          parseInt(6000000 / 4000),
+          parseInt(5000500 / 4500),
+          0,
+          parseInt(4000000 / 5000),
+          parseInt(6000000 / 4000),
+          parseInt(4500000 / 5000),
+          parseInt(5000000 / 6000),
+          parseInt(6000000 / 5000),
+          parseInt(5000000 / 4000),
+          parseInt(4000000 / 5500),
+          parseInt(5500000 / 6000)
         ],
         xShowLine: false,
         legend: [
@@ -74,10 +81,10 @@ export default {
           { color: '#F8C498', title: '销售额', shape: 'arc' }
         ],
         xLabel: [
-          '今日',
-          '日',
-          '六',
-          '歇',
+          '11-16',
+          '11-15',
+          '11-14',
+          '11-13',
           '11-12',
           '11-11',
           '11-10',
@@ -86,8 +93,8 @@ export default {
           '11-07',
           '11-06',
           '11-05'
-        ],
-        otherLabel: [47, 47, 47, 47, 47, 47, 47, 47, 47, 47, 47, 47]
+        ]
+        // otherLabel: [47, 47, 47, 47, 47, 47, 47]
       })
     }
   }
