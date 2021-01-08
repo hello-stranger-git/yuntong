@@ -13,7 +13,14 @@
         style="margin-left:24px"
       />
 
-      <el-button type="primary" class="searchBtn">查询</el-button>
+      <el-button
+        type="primary"
+        :style="
+          `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
+        "
+        class="searchBtn"
+        >查询</el-button
+      >
       <el-button type="info" class="resetBtn">重置</el-button>
     </div>
     <!--客流排行-->
