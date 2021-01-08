@@ -11,17 +11,24 @@
           {{ item.title }} <span>{{ item.description }}</span>
         </div>
         <div class="value">{{ item.value }}</div>
-        <div class="openServe" @click="openMessage(i)">启用此项</div>
+        <div v-if="i !== 3" class="openServe" @click="openMessage(i)">
+          启用此项
+        </div>
         <div v-if="i === 3" class="tip">
-          <span>时间间隔：{{ interval }}</span>
-          <span>抓拍时间段：{{ startTime }}-{{ endTime }}</span>
+          <div class="openServe" @click="openMessage(i)">
+            {{ showCapture ? '关闭此项' : '启用此项' }}
+          </div>
+          <template v-if="showCapture">
+            <span>时间间隔：{{ interval }}</span>
+            <span>抓拍时间段：{{ startTime }}-{{ endTime }}</span>
+          </template>
         </div>
       </div>
     </div>
     <!--dialog-->
     <el-dialog title="定时抓拍" :visible.sync="dialogFormVisible">
-      <el-form :model="form" label-position="cneter">
-        <el-form-item label="抓拍时间段">
+      <el-form ref="form" :model="form" label-position="cneter" :rules="rules">
+        <el-form-item label="抓拍时间段" prop="time">
           <el-time-picker
             v-model="form.time"
             is-range
@@ -31,7 +38,7 @@
             placeholder="选择时间范围"
           />
         </el-form-item>
-        <el-form-item label="抓拍时间间隔">
+        <el-form-item label="抓拍时间间隔" prop="interval">
           <el-select v-model="form.interval" placeholder="请选择抓拍时间间隔">
             <el-option
               v-for="item in option"
@@ -48,7 +55,7 @@
           :style="
             `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
           "
-          @click="submit"
+          @click="submit()"
         >
           设置
         </el-button>
@@ -102,28 +109,68 @@ export default {
       dialogFormVisible: false, // 是否打开dialog
       startTime: '09:00', // start抓拍时间段
       endTime: '18:00', // end抓拍时间段
-      interval: '60分钟/次' // 抓拍时间间隔
+      interval: '60分钟/次', // 抓拍时间间隔
+      showCapture: true,
+      rules: {
+        time: [{ required: true, message: '请选择时间段', trigger: 'blur' }],
+        interval: [
+          { required: true, message: '请选择时间间隔', trigger: 'blur' }
+        ]
+      }
     }
   },
   methods: {
     openMessage(i) {
       if (i === 3) {
-        this.dialogFormVisible = true
+        if (this.showCapture) {
+          this.$confirm('是否关闭?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          })
+            .then(() => {
+              this.showCapture = false
+              this.$message({
+                type: 'success',
+                message: '关闭成功!'
+              })
+            })
+            .catch(() => {
+              this.$message({
+                type: 'info',
+                message: '取消关闭'
+              })
+            })
+        } else {
+          this.dialogFormVisible = true
+        }
       } else {
         this.$message('功能开发中')
       }
     },
     submit() {
-      console.log(this.form)
-      const startTime = this.form.time[0]
-      const start = this.timeFormat(startTime)
-      this.startTime = start
+      // if (!this.form.time) return
+      // if (!this.form.time[0] || !this.form.time[1] || !this.form.interval) {
+      //   return
+      // }
+      this.$refs['form'].validate(valid => {
+        if (valid) {
+          const startTime = this.form.time[0]
+          const start = this.timeFormat(startTime)
+          this.startTime = start
 
-      const endTime = this.form.time[1]
-      const end = this.timeFormat(endTime)
-      this.endTime = end
-      this.interval = this.form.interval
-      this.dialogFormVisible = false
+          const endTime = this.form.time[1]
+          const end = this.timeFormat(endTime)
+          this.endTime = end
+          this.interval = this.form.interval
+          this.dialogFormVisible = false
+
+          this.showCapture = true
+        } else {
+          // console.log('error submit!!')
+          return false
+        }
+      })
     },
     timeFormat(data) {
       const time = data
@@ -240,8 +287,8 @@ export default {
   .el-form-item__label {
     font-size: 14px;
     font-weight: bold;
-    color: #141414;
-    width: 100px;
+    color: #6e6c6c;
+    width: 120px;
   }
   .el-date-editor--timerange.el-input__inner {
     width: 462px;
@@ -257,10 +304,10 @@ export default {
     }
   }
   .el-form {
-    margin-left: 44px;
+    margin-left: 24px;
     .el-form-item {
       &:first-child {
-        margin-bottom: 16px;
+        margin-bottom: 20px;
       }
       &:last-child {
         margin-bottom: 24px;
@@ -276,6 +323,9 @@ export default {
   }
   .el-dialog__footer {
     padding-top: 0;
+  }
+  .el-form-item__error {
+    left: 120px;
   }
 }
 </style>
