@@ -11,13 +11,50 @@
           {{ item.title }} <span>{{ item.description }}</span>
         </div>
         <div class="value">{{ item.value }}</div>
-        <div class="openServe">启用此项</div>
+        <div class="openServe" @click="openMessage(i)">启用此项</div>
         <div v-if="i === 3" class="tip">
-          <span>时间间隔：60分钟/次</span>
-          <span>抓拍时间段：09:00-18:00</span>
+          <span>时间间隔：{{ interval }}</span>
+          <span>抓拍时间段：{{ startTime }}-{{ endTime }}</span>
         </div>
       </div>
     </div>
+    <!--dialog-->
+    <el-dialog title="定时抓拍" :visible.sync="dialogFormVisible">
+      <el-form :model="form" label-position="cneter">
+        <el-form-item label="抓拍时间段">
+          <el-time-picker
+            v-model="form.time"
+            is-range
+            range-separator="至"
+            start-placeholder="开始时间"
+            end-placeholder="结束时间"
+            placeholder="选择时间范围"
+          />
+        </el-form-item>
+        <el-form-item label="抓拍时间间隔">
+          <el-select v-model="form.interval" placeholder="请选择抓拍时间间隔">
+            <el-option
+              v-for="item in option"
+              :key="item.id"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button
+          type="primary"
+          :style="
+            `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
+          "
+          @click="submit"
+        >
+          设置
+        </el-button>
+        <el-button @click="dialogFormVisible = false">关闭</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -49,7 +86,56 @@ export default {
           icon: require('@/assets/img/icon/aiIcon4.png'),
           description: '完善抓拍标准'
         }
-      ]
+      ],
+      // diaolg表单数据
+      form: {
+        time: '',
+        interval: ''
+      },
+      option: [
+        { id: 1, label: '5分钟/次', value: '5分钟/次' },
+        { id: 2, label: '10分钟/次', value: '10分钟/次' },
+        { id: 3, label: '15分钟/次', value: '15分钟/次' },
+        { id: 4, label: '30分钟/次', value: '30分钟/次' },
+        { id: 5, label: '一小时/次', value: '一小时/次' }
+      ],
+      dialogFormVisible: false, // 是否打开dialog
+      startTime: '09:00', // start抓拍时间段
+      endTime: '18:00', // end抓拍时间段
+      interval: '60分钟/次' // 抓拍时间间隔
+    }
+  },
+  methods: {
+    openMessage(i) {
+      if (i === 3) {
+        this.dialogFormVisible = true
+      } else {
+        this.$message('功能开发中')
+      }
+    },
+    submit() {
+      console.log(this.form)
+      const startTime = this.form.time[0]
+      const start = this.timeFormat(startTime)
+      this.startTime = start
+
+      const endTime = this.form.time[1]
+      const end = this.timeFormat(endTime)
+      this.endTime = end
+      this.interval = this.form.interval
+      this.dialogFormVisible = false
+    },
+    timeFormat(data) {
+      const time = data
+      let hour = time.getHours() + ''
+      let minutes = time.getMinutes() + ''
+      if (hour.length < 2) {
+        hour = '0' + hour
+      }
+      if (minutes.length < 2) {
+        minutes = '0' + minutes
+      }
+      return `${hour}:${minutes}`
     }
   }
 }
@@ -136,6 +222,60 @@ export default {
         }
       }
     }
+  }
+}
+
+// diaolg样式
+/deep/.el-dialog {
+  width: 678px;
+  height: 264px;
+  background: #ffffff;
+  border-radius: 10px;
+  .el-dialog__title {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 24px;
+    color: #141414;
+  }
+  .el-form-item__label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #141414;
+    width: 100px;
+  }
+  .el-date-editor--timerange.el-input__inner {
+    width: 462px;
+  }
+  .el-select {
+    .el-input__inner {
+      width: 462px;
+    }
+  }
+  .el-dialog__footer {
+    .dialog-footer {
+      text-align: center;
+    }
+  }
+  .el-form {
+    margin-left: 44px;
+    .el-form-item {
+      &:first-child {
+        margin-bottom: 16px;
+      }
+      &:last-child {
+        margin-bottom: 24px;
+      }
+    }
+  }
+  .el-dialog__header {
+    padding-top: 24px;
+  }
+  .el-dialog__body {
+    padding-top: 22px;
+    padding-bottom: 0;
+  }
+  .el-dialog__footer {
+    padding-top: 0;
   }
 }
 </style>
