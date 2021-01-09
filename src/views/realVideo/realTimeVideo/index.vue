@@ -362,7 +362,7 @@ export default {
 .contain {
   display: flex;
   background-color: #f5f5f5;
-  height: 100%;
+  // height: 100%;
   .aside {
     width: 322px;
     margin: 24px 0 24px 24px;
