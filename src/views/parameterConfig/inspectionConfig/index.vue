@@ -52,13 +52,14 @@
           <el-table-column prop="creationTime" label="	创建时间" width="300" />
 
           <el-table-column label="操作">
-            <template>
+            <template slot-scope="scoped">
               <el-button
                 size="mini"
                 type="primary"
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
+                @click="jumpConfig(scoped.row)"
               >
                 编辑
               </el-button>
@@ -155,6 +156,12 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    jumpConfig(row) {
+      this.$router.push({
+        path: '/parameterConfig/inspectionConfig/inspectionEdit',
+        query: { data: row }
+      })
     }
   }
 }
