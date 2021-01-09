@@ -3,7 +3,16 @@
   <div style="padding:24px">
     <!--搜索板块-->
     <div class="search">
-      <el-input v-model="searchValue" placeholder="请输入内容" clearable />
+      <!-- 区域选择 -->
+      <span @click="drawer">
+        <el-input
+          v-model="searchValue"
+          placeholder="请选择机构"
+          readonly="readonly"
+        />
+      </span>
+      <!-- 侧边弹出层 -->
+      <SingleChoice ref="singleChoice" @change="obtain" />
       <el-date-picker
         v-model="dateTime"
         type="daterange"
@@ -21,7 +30,7 @@
         class="searchBtn"
         >查询</el-button
       >
-      <el-button type="info" class="resetBtn">重置</el-button>
+      <el-button type="info" class="resetBtn" @click="reset">重置</el-button>
     </div>
     <!--客流排行-->
     <div class="module" style="height:790px">
@@ -91,6 +100,8 @@
 </template>
 
 <script>
+import SingleChoice from '@/components/popupTree/singleChoice.vue' // 单选弹出层
+
 import FlowRankingBarChart from './components/flowRankingBarChart' // 客流排行柱状图
 import RegionRankingBarChart from './components/regionRankingBarChart' // 区域排行柱状图
 
@@ -102,12 +113,28 @@ export default {
     FlowRankingBarChart,
     RegionRankingBarChart,
     PersonalCircularChart,
-    PeopleNumberCircularChart
+    PeopleNumberCircularChart,
+    SingleChoice
   },
   data() {
     return {
       searchValue: '', // 搜索输入
       dateTime: '' // 日期选择器
+    }
+  },
+  methods: {
+    // 触发调用子组件方法
+    drawer() {
+      this.$refs.singleChoice.show()
+    },
+    // 获取子组件选择数据
+    obtain(i) {
+      this.searchValue = i
+    },
+    // 触发重置输入框
+    reset() {
+      this.searchValue = ''
+      this.dateTime = ''
     }
   }
 }

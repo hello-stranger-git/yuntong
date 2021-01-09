@@ -9,13 +9,13 @@
         placeholder="请输入门店名称"
         clearable
       />
-      <el-cascader
+      <!-- <el-cascader
         v-model="city"
         :options="options"
         filterable
         :props="{ expandTrigger: 'hover' }"
         placeholder="请选择省市"
-      />
+      /> -->
       <el-input
         v-model="storeTel"
         class="deviceName"
@@ -67,6 +67,7 @@
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
+                @click="checkId(scoped.row.number)"
               >
                 丽的华为ID
               </el-button>
@@ -95,6 +96,29 @@
           @current-change="handleCurrentChange"
         />
       </div>
+    </div>
+
+    <!--丽的华为ID-->
+    <div class="id">
+      <el-dialog title="丽的华为ID" :visible.sync="idFormShow">
+        <el-form :model="idForm">
+          <el-form-item label="丽的华为ID" label-width="100px">
+            <el-input v-model="idForm.id" />
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button
+            type="primary"
+            :style="
+              `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
+            "
+            @click="idFormShow = false"
+          >
+            提交
+          </el-button>
+          <el-button @click="idFormShow = false">取 消</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -390,7 +414,13 @@ export default {
             }
           ]
         }
-      ]
+      ],
+
+      // 查看丽的Id dialog
+      idForm: {
+        id: ''
+      },
+      idFormShow: false
     }
   },
   mounted() {
@@ -422,6 +452,11 @@ export default {
         path: '/storeManagement/doorList/doorDetail',
         query: { data: data }
       })
+    },
+    // 查看丽的Id
+    checkId(id) {
+      this.idForm.id = id
+      this.idFormShow = true
     }
   }
 }
@@ -478,6 +513,41 @@ export default {
     }
     /deep/.el-table-column--selection {
       padding-left: 5px;
+    }
+  }
+}
+
+//丽的华为Id dialog
+.id {
+  /deep/.el-dialog {
+    width: 546px;
+    border-radius: 10px;
+    height: 205px;
+    .el-dialog__header {
+      padding: 24px 24px 0 24px;
+    }
+    .el-dialog__body {
+      padding-top: 36px;
+      padding-bottom: 24px;
+    }
+    .el-form-item {
+      margin-bottom: 0;
+    }
+    .el-dialog__title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #141414;
+    }
+    .dialog-footer {
+      text-align: center;
+    }
+    .el-dialog__footer {
+      padding-top: 0;
+    }
+    .el-form-item__label {
+      font-size: 14px;
+      font-weight: bold;
+      color: #141414;
     }
   }
 }

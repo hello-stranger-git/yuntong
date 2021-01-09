@@ -63,13 +63,14 @@
           <el-table-column prop="state" label="整改状态" width="200" />
           <el-table-column prop="assessor" label="考评人" width="200" />
           <el-table-column label="详情">
-            <template>
+            <template slot-scope="scoped">
               <el-button
                 size="mini"
                 type="primary"
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
+                @click="jumpCheckDetail(scoped.row)"
               >
                 查看
               </el-button>
@@ -333,6 +334,13 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    // 跳转到点检详情界面
+    jumpCheckDetail(row) {
+      this.$router.push({
+        path: '/videoInspection/inspectionRecord/checkDetail',
+        query: { data: row }
+      })
     }
   }
 }

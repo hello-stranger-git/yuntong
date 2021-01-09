@@ -3,13 +3,21 @@
   <div style="padding:24px">
     <!--搜索板块-->
     <div class="search">
-      <el-input
-        v-model="storeArea"
-        class="deviceNmu"
-        placeholder="请选择地区"
-        clearable
-      />
-      <el-select v-model="value" placeholder="请选择店铺">
+      <!-- 区域选择 -->
+      <span @click="drawer">
+        <el-input
+          v-model="storeArea"
+          placeholder="请选择机构"
+          readonly="readonly"
+        />
+      </span>
+      <!-- 侧边弹出层 -->
+      <SingleChoice ref="singleChoice" @change="obtain" />
+      <el-select
+        v-model="value"
+        placeholder="请选择店铺"
+        :disabled="storeArea ? false : true"
+      >
         <el-option
           v-for="item in options1"
           :key="item.value"
@@ -17,9 +25,18 @@
           :value="item.value"
         />
       </el-select>
-      <el-button type="danger" class="resetBtn">月报表</el-button>
-      <el-button type="warning" class="resetBtn">年报表</el-button>
-      <el-date-picker v-model="value1" type="month" placeholder="选择日期" />
+      <el-button type="danger" class="resetBtn" @click="years = 'month'">
+        月报表
+      </el-button>
+      <el-button type="warning" class="resetBtn" @click="years = 'year'">
+        年报表
+      </el-button>
+      <el-date-picker
+        v-model="value1"
+        :type="years"
+        :disabled="storeArea ? false : true"
+        placeholder="选择日期"
+      />
       <el-button
         type="primary"
         :style="
@@ -29,7 +46,7 @@
       >
         查询
       </el-button>
-      <el-button type="success" class="resetBtn">重置</el-button>
+      <el-button type="success" class="resetBtn" @click="reset">重置</el-button>
       <el-button type="info" class="resetBtn">导出</el-button>
     </div>
     <!--表格板块-->
@@ -73,11 +90,17 @@
 </template>
 
 <script>
+import SingleChoice from '@/components/popupTree/singleChoice.vue' // 单选弹出层
+
 export default {
+  components: {
+    SingleChoice
+  },
   data() {
     return {
       storeArea: '', // 地区
       value1: '',
+      years: 'month', // 日期选择单位
       // 分页数据start
       total: 0, // 总共多少条数据
       pageSize: 1, // 每页显示条数
@@ -143,6 +166,20 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    // 触发调用子组件方法
+    drawer() {
+      this.$refs.singleChoice.show()
+    },
+    // 获取子组件选择数据
+    obtain(i) {
+      this.storeArea = i
+    },
+    // 触发重置输入框
+    reset() {
+      this.storeArea = ''
+      this.value1 = ''
+      this.value = ''
     }
   }
 }

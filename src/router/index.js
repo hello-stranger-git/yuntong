@@ -161,6 +161,15 @@ const routes = [
               breadcrumb: '巡查记录'
             }
           },
+          // 巡查记录->查看
+          {
+            path: '/videoInspection/inspectionRecord/checkDetail',
+            name: 'CheckDetail',
+            component: () => import('@/views/videoInspection/inspectionRecord/components/checkDetail'),
+            meta: {
+              breadcrumb: '巡查记录'
+            }
+          },
           // 图片点检
           {
             path: '/videoInspection/imageCheck',
@@ -170,6 +179,17 @@ const routes = [
               breadcrumb: '图片点检'
             }
           },
+
+          // 点检
+          {
+            path: '/videoInspection/imageCheck/check',
+            name: 'ImageCheckCheck',
+            component: () => import('@/views/videoInspection/imageCheck/components/check'),
+            meta: {
+              breadcrumb: '点检'
+            }
+          },
+
           // AI巡查
           {
             path: '/videoInspection/aiInspection',
@@ -354,6 +374,17 @@ const routes = [
               breadcrumb: '巡查模板配置'
             }
           },
+
+          // 巡查项配置
+          {
+            path: '/parameterConfig/inspectionConfig/inspectionEdit',
+            name: 'InspectionEdit',
+            component: () => import('@/views/parameterConfig/inspectionConfig/components/inspectionEdit'),
+            meta: {
+              breadcrumb: '巡查项配置'
+            }
+          },
+
           // 店外客流配置
           {
             path: '/parameterConfig/innerFlowConfig',
