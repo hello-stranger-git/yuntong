@@ -374,6 +374,17 @@ const routes = [
               breadcrumb: '巡查模板配置'
             }
           },
+
+          // 巡查项配置
+          {
+            path: '/parameterConfig/inspectionConfig/inspectionEdit',
+            name: 'InspectionEdit',
+            component: () => import('@/views/parameterConfig/inspectionConfig/components/inspectionEdit'),
+            meta: {
+              breadcrumb: '巡查项配置'
+            }
+          },
+
           // 店外客流配置
           {
             path: '/parameterConfig/innerFlowConfig',
