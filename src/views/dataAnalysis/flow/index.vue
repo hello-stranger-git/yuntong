@@ -3,7 +3,16 @@
   <div style="padding:24px">
     <!--搜索板块-->
     <div class="search">
-      <el-input v-model="searchValue" placeholder="请输入内容" clearable />
+      <!-- 区域选择 -->
+      <span @click="drawer">
+        <el-input
+          v-model="searchValue"
+          placeholder="请选择机构"
+          readonly="readonly"
+        />
+      </span>
+      <!-- 侧边弹出层 -->
+      <SingleChoice ref="singleChoice" @change="obtain" />
       <el-select
         v-model="selectValue"
         clearable
@@ -34,7 +43,7 @@
         "
         >查询</el-button
       >
-      <el-button type="info" class="resetBtn">重置</el-button>
+      <el-button type="info" class="resetBtn" @click="reset">重置</el-button>
     </div>
     <!--客流分析-->
     <div class="module folw">
@@ -122,6 +131,8 @@
 </template>
 
 <script>
+import SingleChoice from '@/components/popupTree/singleChoice.vue' // 单选弹出层
+
 import PassengerFlow from './components/passengerFlow' // 客流分析
 import OutPassengerFlow from './components/outPassengerFlow' // 店外客流分析
 import TimeSlotFlow from './components/timeSlotFlow' // 时间段客流
@@ -138,7 +149,8 @@ export default {
     TimeSlotFlow,
     Customers,
     HeatMap,
-    ChainComparison
+    ChainComparison,
+    SingleChoice
   },
   data() {
     return {
@@ -172,6 +184,22 @@ export default {
       // 下拉框值
       selectValue: ''
       // 搜索模块数据end
+    }
+  },
+  methods: {
+    // 触发调用子组件方法
+    drawer() {
+      this.$refs.singleChoice.show()
+    },
+    // 获取子组件选择数据
+    obtain(i) {
+      this.searchValue = i
+    },
+    // 触发重置输入框
+    reset() {
+      this.searchValue = ''
+      this.selectValue = ''
+      this.date = ''
     }
   }
 }

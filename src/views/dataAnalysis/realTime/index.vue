@@ -3,7 +3,6 @@
   <div style="padding:24px">
     <!--搜索板块-->
     <div class="search">
-      <!-- <el-input v-model="searchValue" placeholder="请输入内容" clearable /> -->
       <!-- 区域选择 -->
       <span @click="drawer">
         <el-input
