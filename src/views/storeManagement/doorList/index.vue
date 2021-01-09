@@ -50,13 +50,14 @@
           <el-table-column prop="tel" label="门店电话" width="200" />
           <el-table-column prop="startTime" label="创建时间" width="200" />
           <el-table-column label="操作">
-            <template>
+            <template slot-scope="scoped">
               <el-button
                 size="mini"
                 type="primary"
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
+                @click="jumpDoorDetail(scoped.row)"
               >
                 查看
               </el-button>
@@ -414,6 +415,13 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    // 点击查看按钮
+    jumpDoorDetail(data) {
+      this.$router.push({
+        path: '/storeManagement/doorList/doorDetail',
+        query: { data: data }
+      })
     }
   }
 }
