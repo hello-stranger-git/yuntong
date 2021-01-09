@@ -199,6 +199,24 @@ const routes = [
               breadcrumb: '待我处理'
             }
           },
+          // 待审核
+          {
+            path: '/inspectionTask/waitDeal/examine',
+            name: 'Examine',
+            component: () => import('@/views/inspectionTask/waitDeal/components/examine'),
+            meta: {
+              breadcrumb: '待审核'
+            }
+          },
+          // 待整改
+          {
+            path: '/inspectionTask/waitDeal/rectification',
+            name: 'Rectification',
+            component: () => import('@/views/inspectionTask/waitDeal/components/rectification'),
+            meta: {
+              breadcrumb: '待整改'
+            }
+          },
           // 我的任务
           {
             path: '/inspectionTask/myTask',
@@ -247,6 +265,17 @@ const routes = [
               breadcrumb: '门店列表'
             }
           },
+
+          // 门店详情
+          {
+            path: '/storeManagement/doorList/doorDetail',
+            name: 'DoorDetail',
+            component: () => import('@/views/storeManagement/doorList/components/doorDetail'),
+            meta: {
+              breadcrumb: '门店详情'
+            }
+          },
+
           // 门店审核
           {
             path: '/storeManagement/doorExamine',

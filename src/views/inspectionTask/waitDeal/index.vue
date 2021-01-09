@@ -41,18 +41,19 @@
           <el-table-column prop="storeName" label="门店名称" width="300" />
           <el-table-column prop="date" label="时间" width="300" />
           <el-table-column prop="checkType" label="巡查类型" width="200" />
-          <el-table-column prop="statu" label="任务状态" width="150" />
+          <el-table-column prop="status" label="任务状态" width="150" />
           <el-table-column prop="checkSuggest" label="点检意见" />
           <el-table-column label="操作" width="200">
-            <template>
+            <template slot-scope="scoped">
               <el-button
                 size="mini"
                 type="primary"
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
+                @click="jump(scoped.row)"
               >
-                移除
+                {{ scoped.row.status }}
               </el-button>
             </template>
           </el-table-column>
@@ -91,7 +92,14 @@ export default {
           storeName: '百信广场苹果专卖店',
           date: new Date().toLocaleString(),
           checkType: '在线考评转点检',
-          statu: '待整改',
+          status: '待整改',
+          checkSuggest: '“视频3，6，7，8摄像头无法打开”点检不合格'
+        },
+        {
+          storeName: '百信广场苹果专卖店',
+          date: new Date().toLocaleString(),
+          checkType: '在线考评转点检',
+          status: '待审核',
           checkSuggest: '“视频3，6，7，8摄像头无法打开”点检不合格'
         }
       ],
@@ -142,6 +150,20 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    // 跳转到待整改或者待审核
+    jump(data) {
+      if (data.status === '待整改') {
+        this.$router.push({
+          path: '/inspectionTask/waitDeal/rectification',
+          query: { data: data }
+        })
+      } else if (data.status === '待审核') {
+        this.$router.push({
+          path: '/inspectionTask/waitDeal/examine',
+          query: { data: data }
+        })
+      }
     }
   }
 }
