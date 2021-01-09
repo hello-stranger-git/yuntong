@@ -163,7 +163,7 @@ export default {
     dlt(i) {
       this.toConfigureData.splice(i, 1)
     },
-    // 获取子组件整改人选择数据
+    // 获取子组件选择数据
     obtain(i) {
       this.region = i
     },
