@@ -265,6 +265,17 @@ const routes = [
               breadcrumb: '门店列表'
             }
           },
+
+          // 门店详情
+          {
+            path: '/storeManagement/doorList/doorDetail',
+            name: 'DoorDetail',
+            component: () => import('@/views/storeManagement/doorList/components/doorDetail'),
+            meta: {
+              breadcrumb: '门店详情'
+            }
+          },
+
           // 门店审核
           {
             path: '/storeManagement/doorExamine',
