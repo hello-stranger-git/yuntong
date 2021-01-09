@@ -163,4 +163,8 @@ export default {
 /deep/.el-tree-node.is-current.is-focusable {
   color: #4a92ff;
 }
+
+/deep/.el-drawer:focus {
+  outline: none;
+}
 </style>
