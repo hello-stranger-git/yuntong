@@ -1,4 +1,4 @@
-<!--实时视频-->
+<!--在线考评-->
 <template>
   <div class="contain">
     <div class="aside">
@@ -437,7 +437,7 @@ export default {
     flex: 1;
     margin: 24px;
     border-radius: 10px;
-    overflow: hidden;
+    // overflow: auto;
     background-color: #fff;
     .control {
       position: relative;

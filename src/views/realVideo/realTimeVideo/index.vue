@@ -441,7 +441,7 @@ export default {
     flex: 1;
     margin: 24px;
     border-radius: 10px;
-    overflow: hidden;
+    // overflow: auto;
     background-color: #fff;
     .control {
       position: relative;
