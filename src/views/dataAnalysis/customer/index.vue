@@ -3,7 +3,17 @@
   <div style="padding:24px">
     <!--搜索板块-->
     <div class="search">
-      <el-input v-model="searchValue" placeholder="请输入内容" clearable />
+      <!-- <el-input v-model="searchValue" placeholder="请输入内容" clearable /> -->
+      <!-- 区域选择 -->
+      <span @click="drawer">
+        <el-input
+          v-model="searchValue"
+          placeholder="请选择机构"
+          readonly="readonly"
+        />
+      </span>
+      <!-- 侧边弹出层 -->
+      <SingleChoice ref="singleChoice" @change="obtain" />
       <el-select
         v-model="selectValue"
         clearable
@@ -36,7 +46,7 @@
       >
         查询
       </el-button>
-      <el-button type="info" class="resetBtn">重置</el-button>
+      <el-button type="info" class="resetBtn" @click="reset">重置</el-button>
     </div>
     <!--顾客年龄段和年龄趋势-->
     <div class="module">
@@ -100,6 +110,8 @@
 </template>
 
 <script>
+import SingleChoice from '@/components/popupTree/singleChoice.vue' // 单选弹出层
+
 import FlowSexPieChart from './components/flowSexPieChart' // 客流性别饼状图
 import CustomerBarChart from './components/customerBarChart' // 顾客年龄段柱状图
 import AgeTrendsLineChart from './components/ageTrendsLineChart' // 年龄趋势折线图
@@ -112,7 +124,8 @@ export default {
     CustomerBarChart,
     AgeTrendsLineChart,
     FlowSexTrendsRadarChart,
-    RetentionLineChart
+    RetentionLineChart,
+    SingleChoice
   },
   data() {
     return {
@@ -146,6 +159,22 @@ export default {
       // 下拉框值
       selectValue: ''
       // 搜索模块数据end
+    }
+  },
+  methods: {
+    // 触发调用子组件方法
+    drawer() {
+      this.$refs.singleChoice.show()
+    },
+    // 获取子组件选择数据
+    obtain(i) {
+      this.searchValue = i
+    },
+    // 触发重置输入框
+    reset() {
+      this.searchValue = ''
+      this.selectValue = ''
+      this.date = ''
     }
   }
 }
