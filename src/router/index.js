@@ -161,6 +161,15 @@ const routes = [
               breadcrumb: '巡查记录'
             }
           },
+          // 巡查记录->查看
+          {
+            path: '/videoInspection/inspectionRecord/checkDetail',
+            name: 'CheckDetail',
+            component: () => import('@/views/videoInspection/inspectionRecord/components/checkDetail'),
+            meta: {
+              breadcrumb: '巡查记录'
+            }
+          },
           // 图片点检
           {
             path: '/videoInspection/imageCheck',
