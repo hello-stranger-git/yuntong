@@ -11,7 +11,8 @@
         :style="
           `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
         "
-        style="font-weight: 400;font-size: 12px;color: #FFFFFF;width: 49px;height: 28px;line-height:28px;text-align:center;background: #4A92FF;opacity: 1;border-radius: 8px;display:inline-block"
+        style="cursor: pointer;font-weight: 400;font-size: 12px;color: #FFFFFF;width: 49px;height: 28px;line-height:28px;text-align:center;background: #4A92FF;opacity: 1;border-radius: 8px;display:inline-block"
+        @click="jumpCheck"
       >
         点检
       </span>
@@ -60,6 +61,28 @@ export default {
     image: {
       type: String,
       default: ''
+    }
+  },
+  data() {
+    return {
+      data: {}
+    }
+  },
+  mounted() {
+    this.data = {
+      title: this.title,
+      type: this.type,
+      address: this.address,
+      time: this.time,
+      image: this.image
+    }
+  },
+  methods: {
+    jumpCheck() {
+      this.$router.push({
+        path: '/videoInspection/imageCheck/check',
+        query: { data: this.data }
+      })
     }
   }
 }

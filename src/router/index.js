@@ -170,6 +170,17 @@ const routes = [
               breadcrumb: '图片点检'
             }
           },
+
+          // 点检
+          {
+            path: '/videoInspection/imageCheck/check',
+            name: 'ImageCheckCheck',
+            component: () => import('@/views/videoInspection/imageCheck/components/check'),
+            meta: {
+              breadcrumb: '点检'
+            }
+          },
+
           // AI巡查
           {
             path: '/videoInspection/aiInspection',
