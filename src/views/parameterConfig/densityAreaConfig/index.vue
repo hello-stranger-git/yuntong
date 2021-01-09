@@ -12,10 +12,7 @@
         />
       </span>
       <!-- 侧边弹出层 -->
-      <SingleChoice ref="singleChoice" @change="Rec" />
-      <!-- <el-drawer title="请选择机构" :visible.sync="drawer">
-        <span>广州</span>
-      </el-drawer> -->
+      <SingleChoice ref="singleChoice" @change="obtain" />
       <!-- 营业厅选择 -->
       <el-select v-model="businessHall" filterable placeholder="请选择门店">
         <el-option
@@ -161,16 +158,14 @@ export default {
     // 触发调用子组件方法
     drawer() {
       this.$refs.singleChoice.show()
-      console.log(this.$refs.singleChoice.aa)
     },
     // 触发删除配置
     dlt(i) {
       this.toConfigureData.splice(i, 1)
     },
     // 获取子组件整改人选择数据
-    Rec(i) {
-      this.Rectification = i
-      console.log(this.Rectification)
+    obtain(i) {
+      this.region = i
     },
     // 触发提交
     submit() {

@@ -19,7 +19,7 @@
         <div class="demo-drawer__footer">
           <div>
             <el-button @click="cancelForm">取 消</el-button>
-            <el-button type="primary" @click="$refs.drawer.closeDrawer()">
+            <el-button type="primary" @click="confirm">
               确定
             </el-button>
           </div>
@@ -36,7 +36,8 @@ export default {
       mechanism: require('@/assets/img/icon/mechanism.png'),
 
       drawer: false, // 是否显示弹出层
-
+      // 节点选中值
+      selectedValue: '',
       // 树形控件数据
       data: [
         {
@@ -84,6 +85,7 @@ export default {
           ]
         }
       ],
+
       defaultProps: {
         children: 'children',
         label: 'label'
@@ -95,16 +97,28 @@ export default {
     show() {
       this.drawer = true
     },
+    // 取消关闭弹出层
     cancelForm() {
       this.drawer = false
-      clearTimeout(this.timer)
+    },
+    // 当点击节点时触发
+    handleNodeClick(data) {
+      if (!data.children) {
+        this.selectedValue = data.label
+      } else {
+        this.selectedValue = ''
+      }
     },
     // 触发向父组件传参
     confirm() {
-      this.$emit('change', 111)
-    },
-    handleNodeClick(data) {
-      console.log(data)
+      if (this.selectedValue) {
+        this.$emit('change', this.selectedValue)
+        this.drawer = false
+      } else {
+        this.$message({
+          message: '请选择机构'
+        })
+      }
     }
   }
 }
