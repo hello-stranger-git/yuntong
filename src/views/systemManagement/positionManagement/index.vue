@@ -43,6 +43,7 @@
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
+                @click="openPositionDialog(scope.row)"
               >
                 查看
               </el-button>
@@ -52,7 +53,7 @@
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
-                @click="handleEdit(scope.$index, scope.row)"
+                @click="handleEdit(scope.row)"
               >
                 编辑
               </el-button>
@@ -78,6 +79,46 @@
           :current-page="purrentPage"
         />
       </div>
+    </div>
+
+    <!--系统设置->职位管理->查看dialog-->
+    <div class="positionDialog">
+      <el-dialog
+        :title="positionDialogTitle"
+        :visible.sync="positionDialogFormVisible"
+      >
+        <el-form ref="positionDialog" :model="positionForm" :rules="rules">
+          <el-form-item label="职位名称" label-width="100px" prop="name">
+            <el-input v-model="positionForm.name" :disabled="operation" />
+          </el-form-item>
+
+          <el-form-item label="权限" prop="power" style="display:flex">
+            <el-tree
+              :data="positionForm.power"
+              show-checkbox
+              node-key="id"
+              :props="defaultProps"
+            />
+          </el-form-item>
+
+          <el-form-item label="职位描述" label-width="100px">
+            <el-input v-model="positionForm.describe" :disabled="operation" />
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button
+            v-if="positionDialogTitle === '编辑'"
+            type="primary"
+            :style="
+              `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
+            "
+            @click="savePosition"
+          >
+            确定
+          </el-button>
+          <el-button @click="positionDialogFormVisible = false">关闭</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -106,7 +147,99 @@ export default {
         {
           date: '二级管理员'
         }
-      ]
+      ],
+      // 职位管理查看
+      positionForm: {
+        name: '',
+        power: [
+          {
+            id: 1,
+            label: '门店分布',
+            disabled: true,
+            children: [
+              {
+                id: 1 - 1,
+                label: '管理员',
+                disabled: true
+              }
+            ]
+          },
+          {
+            id: 2,
+            label: '数据分析',
+            disabled: true,
+            children: [
+              {
+                id: 2 - 1,
+                label: '管理员',
+                disabled: true
+              }
+            ]
+          },
+          {
+            id: 3,
+            label: '实时视频',
+            disabled: true,
+            children: [
+              {
+                id: 3 - 1,
+                label: '管理员',
+                disabled: true
+              }
+            ]
+          },
+          {
+            id: 4,
+            label: '视频巡查',
+            disabled: true,
+            children: [
+              {
+                id: 4 - 1,
+                label: '管理员',
+                disabled: true
+              }
+            ]
+          },
+          {
+            id: 5,
+            label: '巡查任务',
+            disabled: true,
+            children: [
+              {
+                id: 5 - 1,
+                label: '管理员',
+                disabled: true
+              }
+            ]
+          },
+          {
+            id: 6,
+            label: '门店管理',
+            disabled: true,
+            children: [
+              {
+                id: 6 - 1,
+                label: '管理员',
+                disabled: true
+              }
+            ]
+          }
+        ],
+        describe: ''
+      },
+      defaultProps: {
+        children: 'children',
+        label: 'label'
+      },
+      // 职位管理dialog
+      positionDialogFormVisible: false,
+      // 是否可操作
+      operation: false,
+      positionDialogTitle: '查看',
+      // 验证规则
+      rules: {
+        name: [{ required: true, message: '请输入职位名称', trigger: 'blur' }]
+      }
     }
   },
   methods: {
@@ -118,6 +251,44 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    // 打开职位管理查看
+    openPositionDialog(row) {
+      this.operation = true
+
+      this.positionDialogTitle = '查看'
+      this.positionDialogFormVisible = true
+      this.positionForm.name = row.date
+      this.treeOperation(this.positionForm.power, true)
+    },
+    // 编辑
+    handleEdit(row) {
+      this.operation = false
+      this.positionDialogTitle = '编辑'
+      this.positionDialogFormVisible = true
+      this.positionForm.name = row.date
+      this.treeOperation(this.positionForm.power, false)
+      // console.log(this.positionForm)
+    },
+    // 保存职位编辑
+    savePosition() {
+      this.$refs['positionDialog'].validate(valid => {
+        if (valid) {
+          this.positionDialogFormVisible = false
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    // closeTree修改树是否可操作
+    treeOperation(tree, blean) {
+      for (let i = 0; i < tree.length; i++) {
+        tree[i].disabled = blean
+        if (tree[i].children) {
+          this.treeOperation(tree[i].children, blean)
+        }
+      }
     }
   }
 }
@@ -181,6 +352,40 @@ export default {
     }
     .success-row {
       background: #ffffff;
+    }
+  }
+}
+
+//职位管理查询dialog
+.positionDialog {
+  /deep/.el-dialog {
+    width: 822px;
+    background: #ffffff;
+    border-radius: 10px;
+    .el-dialog__header {
+      font-size: 18px;
+      font-weight: bold;
+      color: #141414;
+      padding: 24px 0 0 24px;
+    }
+    .el-dialog__body {
+      padding-top: 40px;
+      padding-left: 48px;
+      .el-form-item__label {
+        width: 100px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #141414;
+        padding-right: 19px;
+      }
+      .el-input__inner {
+        width: 600px;
+      }
+    }
+    .dialog-footer {
+      text-align: center;
+      .el-button {
+      }
     }
   }
 }
