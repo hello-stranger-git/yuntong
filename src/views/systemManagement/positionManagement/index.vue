@@ -87,8 +87,8 @@
         :title="positionDialogTitle"
         :visible.sync="positionDialogFormVisible"
       >
-        <el-form :model="positionForm">
-          <el-form-item label="职位名称" label-width="100px">
+        <el-form ref="positionDialog" :model="positionForm" :rules="rules">
+          <el-form-item label="职位名称" label-width="100px" prop="name">
             <el-input v-model="positionForm.name" :disabled="operation" />
           </el-form-item>
 
@@ -106,6 +106,16 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
+          <el-button
+            v-if="positionDialogTitle === '编辑'"
+            type="primary"
+            :style="
+              `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
+            "
+            @click="savePosition"
+          >
+            确定
+          </el-button>
           <el-button @click="positionDialogFormVisible = false">关闭</el-button>
         </div>
       </el-dialog>
@@ -225,7 +235,11 @@ export default {
       positionDialogFormVisible: true,
       // 是否可操作
       operation: false,
-      positionDialogTitle: '查看'
+      positionDialogTitle: '查看',
+      // 验证规则
+      rules: {
+        name: [{ required: true, message: '请输入职位名称', trigger: 'blur' }]
+      }
     }
   },
   methods: {
@@ -255,6 +269,17 @@ export default {
       this.positionForm.name = row.date
       this.treeOperation(this.positionForm.power, false)
       // console.log(this.positionForm)
+    },
+    // 保存职位编辑
+    savePosition() {
+      this.$refs['positionDialog'].validate(valid => {
+        if (valid) {
+          this.positionDialogFormVisible = false
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     },
     // closeTree修改树是否可操作
     treeOperation(tree, blean) {
