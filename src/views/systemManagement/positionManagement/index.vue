@@ -53,7 +53,7 @@
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
-                @click="handleEdit(scope.$index, scope.row)"
+                @click="handleEdit(scope.row)"
               >
                 编辑
               </el-button>
@@ -83,10 +83,13 @@
 
     <!--系统设置->职位管理->查看dialog-->
     <div class="positionDialog">
-      <el-dialog title="查看" :visible.sync="positionDialogFormVisible">
+      <el-dialog
+        :title="positionDialogTitle"
+        :visible.sync="positionDialogFormVisible"
+      >
         <el-form :model="positionForm">
           <el-form-item label="职位名称" label-width="100px">
-            <el-input v-model="positionForm.name" :disabled="true" />
+            <el-input v-model="positionForm.name" :disabled="operation" />
           </el-form-item>
 
           <el-form-item label="权限" prop="power" style="display:flex">
@@ -99,7 +102,7 @@
           </el-form-item>
 
           <el-form-item label="职位描述" label-width="100px">
-            <el-input v-model="positionForm.describe" :disabled="true" />
+            <el-input v-model="positionForm.describe" :disabled="operation" />
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -219,7 +222,10 @@ export default {
         label: 'label'
       },
       // 职位管理dialog
-      positionDialogFormVisible: true
+      positionDialogFormVisible: true,
+      // 是否可操作
+      operation: false,
+      positionDialogTitle: '查看'
     }
   },
   methods: {
@@ -234,9 +240,30 @@ export default {
     },
     // 打开职位管理查看
     openPositionDialog(row) {
+      this.operation = true
+
+      this.positionDialogTitle = '查看'
       this.positionDialogFormVisible = true
       this.positionForm.name = row.date
-      console.log(row)
+      this.treeOperation(this.positionForm.power, true)
+    },
+    // 编辑
+    handleEdit(row) {
+      this.operation = false
+      this.positionDialogTitle = '编辑'
+      this.positionDialogFormVisible = true
+      this.positionForm.name = row.date
+      this.treeOperation(this.positionForm.power, false)
+      // console.log(this.positionForm)
+    },
+    // closeTree修改树是否可操作
+    treeOperation(tree, blean) {
+      for (let i = 0; i < tree.length; i++) {
+        tree[i].disabled = blean
+        if (tree[i].children) {
+          this.treeOperation(tree[i].children, blean)
+        }
+      }
     }
   }
 }
