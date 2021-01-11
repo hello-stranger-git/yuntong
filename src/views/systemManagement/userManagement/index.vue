@@ -199,7 +199,7 @@ export default {
           storeNumber: '4'
         }
       ],
-      powerDialogVisible: true,
+      powerDialogVisible: false,
       powerData: {
         id: 0,
         position: []

@@ -59,11 +59,9 @@
             <el-pagination
               background
               layout="total,prev, pager, next"
-              :total="total"
-              :page-size="pageSize"
-              :current-page="currentPage"
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
+              :total="total1"
+              :page-size="pageSize1"
+              :current-page="currentPage1"
             />
           </div>
         </div>
@@ -136,11 +134,9 @@
             <el-pagination
               background
               layout="total,prev, pager, next"
-              :total="total"
-              :page-size="pageSize"
-              :current-page="currentPage"
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
+              :total="total2"
+              :page-size="pageSize2"
+              :current-page="currentPage2"
             />
           </div>
         </div>
@@ -203,11 +199,9 @@
             <el-pagination
               background
               layout="total,prev, pager, next"
-              :total="total"
-              :page-size="pageSize"
-              :current-page="currentPage"
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
+              :total="total3"
+              :page-size="pageSize3"
+              :current-page="currentPage3"
             />
           </div>
         </div>
@@ -246,22 +240,21 @@ export default {
       value: '',
       personName: '',
       value1: '',
-      total: 0, // 总共多少条数据
-      pageSize: 10, // 每页显示条数
-      currentPage: 0, // 当前在哪一页
+      total1: 0, // 总共多少条数据
+      pageSize1: 10, // 每页显示条数
+      currentPage1: 0, // 当前在哪一页
+      total2: 0, // 总共多少条数据
+      pageSize2: 10, // 每页显示条数
+      currentPage2: 0, // 当前在哪一页
+      total3: 0, // 总共多少条数据
+      pageSize3: 10, // 每页显示条数
+      currentPage3: 0, // 当前在哪一页
       tableData: []
     }
   },
   methods: {
     handleClick(tab, event) {
       // console.log(tab, event)
-    },
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`)
-    },
-    handleCurrentChange(val) {
-      this.currentPage = val
-      console.log(`当前页: ${val}`)
     },
     // 修改表格隔行颜色
     tableRowClassName({ row, rowIndex }) {
