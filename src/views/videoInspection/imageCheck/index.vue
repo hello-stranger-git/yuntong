@@ -3,12 +3,24 @@
   <div style="padding:24px">
     <!--搜索板块-->
     <div class="search">
-      <el-input v-model="searchDoor" placeholder="请输入内容" clearable />
+      <!-- <el-input v-model="searchDoor" placeholder="请输入内容" clearable /> -->
+      <!-- 区域选择 -->
+      <span @click="drawer">
+        <el-input
+          v-model="searchDoor"
+          placeholder="请选择机构"
+          readonly="readonly"
+        />
+      </span>
+      <!-- 侧边弹出层 -->
+      <MultipleChoice ref="singleChoice" @change="obtain" />
+
       <el-select
         v-model="videoValue"
         clearable
         placeholder="请选择"
         class="select"
+        :disabled="searchDoor ? false : true"
       >
         <el-option
           v-for="item in videoOptions"
@@ -52,7 +64,7 @@
       >
         查询
       </el-button>
-      <el-button type="info" class="resetBtn">重置</el-button>
+      <el-button type="info" class="resetBtn" @click="reset">重置</el-button>
     </div>
 
     <!--下面类容板块-->
@@ -86,10 +98,13 @@
 </template>
 
 <script>
+import MultipleChoice from '@/components/popupTree/multipleChoice.vue' // 多选弹出层
+
 import ImgCheckItem from './components/imgCheckItem'
 export default {
   components: {
-    ImgCheckItem
+    ImgCheckItem,
+    MultipleChoice
   },
   data() {
     return {
@@ -245,6 +260,28 @@ export default {
       videoValue: '', // 门店值
       selectTime: '', // 时间段选择
       strackVideo: '' // 定时抓拍
+    }
+  },
+  methods: {
+    // 触发调用子组件方法
+    drawer() {
+      this.$refs.singleChoice.show()
+    },
+    // 获取子组件选择数据
+    obtain(i) {
+      console.log(i)
+      var obj = []
+      for (var item of i) {
+        obj.push(item.label)
+      }
+      this.searchDoor = obj.join('；')
+    },
+    // 触发重置输入框
+    reset() {
+      this.searchDoor = ''
+      this.dateTime = ''
+      this.selectTime = ''
+      this.strackVideo = ''
     }
   }
 }
