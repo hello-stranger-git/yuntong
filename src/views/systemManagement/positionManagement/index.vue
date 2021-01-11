@@ -232,7 +232,7 @@ export default {
         label: 'label'
       },
       // 职位管理dialog
-      positionDialogFormVisible: true,
+      positionDialogFormVisible: false,
       // 是否可操作
       operation: false,
       positionDialogTitle: '查看',
