@@ -43,6 +43,7 @@
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
+                @click="openPositionDialog(scope.row)"
               >
                 查看
               </el-button>
@@ -79,6 +80,33 @@
         />
       </div>
     </div>
+
+    <!--系统设置->职位管理->查看dialog-->
+    <div class="positionDialog">
+      <el-dialog title="查看" :visible.sync="positionDialogFormVisible">
+        <el-form :model="positionForm">
+          <el-form-item label="职位名称" label-width="100px">
+            <el-input v-model="positionForm.name" :disabled="true" />
+          </el-form-item>
+
+          <el-form-item label="权限" prop="power" style="display:flex">
+            <el-tree
+              :data="positionForm.power"
+              show-checkbox
+              node-key="id"
+              :props="defaultProps"
+            />
+          </el-form-item>
+
+          <el-form-item label="职位描述" label-width="100px">
+            <el-input v-model="positionForm.describe" :disabled="true" />
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="positionDialogFormVisible = false">关闭</el-button>
+        </div>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -106,7 +134,92 @@ export default {
         {
           date: '二级管理员'
         }
-      ]
+      ],
+      // 职位管理查看
+      positionForm: {
+        name: '',
+        power: [
+          {
+            id: 1,
+            label: '门店分布',
+            disabled: true,
+            children: [
+              {
+                id: 1 - 1,
+                label: '管理员',
+                disabled: true
+              }
+            ]
+          },
+          {
+            id: 2,
+            label: '数据分析',
+            disabled: true,
+            children: [
+              {
+                id: 2 - 1,
+                label: '管理员',
+                disabled: true
+              }
+            ]
+          },
+          {
+            id: 3,
+            label: '实时视频',
+            disabled: true,
+            children: [
+              {
+                id: 3 - 1,
+                label: '管理员',
+                disabled: true
+              }
+            ]
+          },
+          {
+            id: 4,
+            label: '视频巡查',
+            disabled: true,
+            children: [
+              {
+                id: 4 - 1,
+                label: '管理员',
+                disabled: true
+              }
+            ]
+          },
+          {
+            id: 5,
+            label: '巡查任务',
+            disabled: true,
+            children: [
+              {
+                id: 5 - 1,
+                label: '管理员',
+                disabled: true
+              }
+            ]
+          },
+          {
+            id: 6,
+            label: '门店管理',
+            disabled: true,
+            children: [
+              {
+                id: 6 - 1,
+                label: '管理员',
+                disabled: true
+              }
+            ]
+          }
+        ],
+        describe: ''
+      },
+      defaultProps: {
+        children: 'children',
+        label: 'label'
+      },
+      // 职位管理dialog
+      positionDialogFormVisible: true
     }
   },
   methods: {
@@ -118,6 +231,12 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    // 打开职位管理查看
+    openPositionDialog(row) {
+      this.positionDialogFormVisible = true
+      this.positionForm.name = row.date
+      console.log(row)
     }
   }
 }
@@ -181,6 +300,40 @@ export default {
     }
     .success-row {
       background: #ffffff;
+    }
+  }
+}
+
+//职位管理查询dialog
+.positionDialog {
+  /deep/.el-dialog {
+    width: 822px;
+    background: #ffffff;
+    border-radius: 10px;
+    .el-dialog__header {
+      font-size: 18px;
+      font-weight: bold;
+      color: #141414;
+      padding: 24px 0 0 24px;
+    }
+    .el-dialog__body {
+      padding-top: 40px;
+      padding-left: 48px;
+      .el-form-item__label {
+        width: 100px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #141414;
+        padding-right: 19px;
+      }
+      .el-input__inner {
+        width: 600px;
+      }
+    }
+    .dialog-footer {
+      text-align: center;
+      .el-button {
+      }
     }
   }
 }
