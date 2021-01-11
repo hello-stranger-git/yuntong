@@ -4,17 +4,16 @@
     <!--输入框板块-->
     <div class="search">
       <!-- 区域选择 -->
-      <span @click="drawer = true">
+      <span @click="drawer">
         <el-input
-          v-model="region"
+          v-model="searchValue"
           placeholder="请选择机构"
           readonly="readonly"
         />
       </span>
       <!-- 侧边弹出层 -->
-      <el-drawer title="请选择机构" :visible.sync="drawer">
-        <span>广州</span>
-      </el-drawer>
+      <SingleChoice ref="singleChoice" @change="obtain" />
+
       <!-- 营业厅选择 -->
       <el-select v-model="businessHall" filterable placeholder="请选择门店">
         <el-option
@@ -80,14 +79,17 @@
 </template>
 
 <script>
+import SingleChoice from '@/components/popupTree/singleChoice.vue' // 单选弹出层
+
 export default {
+  components: {
+    SingleChoice
+  },
   data() {
     return {
       toConfigure: require('@/assets/img/parameterConfig/densityAreaConfig/toConfigure.png'), // 下降图标
       // 请选择地区
-      region: '',
-      // 弹出层默认隐藏
-      drawer: false,
+      searchValue: '',
       // 请选择营业厅
       businessHall: '',
       // 请选择位置
@@ -151,6 +153,14 @@ export default {
     }
   },
   methods: {
+    // 触发调用子组件方法
+    drawer() {
+      this.$refs.singleChoice.show()
+    },
+    // 获取子组件选择数据
+    obtain(i) {
+      this.searchValue = i
+    },
     // 触发删除配置
     dlt(i) {
       this.toConfigureData.splice(i, 1)
