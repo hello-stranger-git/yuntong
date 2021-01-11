@@ -3,19 +3,16 @@
   <div style="padding:24px">
     <!--搜索板块-->
     <div class="search">
-      <el-select
-        v-model="selectValue"
-        clearable
-        placeholder="请选择"
-        class="select"
-      >
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
+      <!-- 区域选择 -->
+      <span @click="drawer">
+        <el-input
+          v-model="selectValue"
+          placeholder="请选择机构"
+          readonly="readonly"
         />
-      </el-select>
+      </span>
+      <!-- 侧边弹出层 -->
+      <MultipleChoice ref="singleChoice" @change="obtain" />
       <el-date-picker
         v-model="date"
         type="daterange"
@@ -34,7 +31,7 @@
       >
         查询
       </el-button>
-      <el-button type="info" class="resetBtn">重置</el-button>
+      <el-button type="info" class="resetBtn" @click="reset">重置</el-button>
     </div>
     <!--店铺客流对比-->
     <div
@@ -78,6 +75,8 @@
 </template>
 
 <script>
+import MultipleChoice from '@/components/popupTree/multipleChoice.vue' // 多选弹出层
+
 import FlowBarChart from './components/flowBarChart'
 import InnerFlowBarChart from './components/innerFlowBarChart'
 import FlowPriceBarChart from './components/flowPriceBarChart'
@@ -85,7 +84,8 @@ export default {
   components: {
     FlowBarChart,
     InnerFlowBarChart,
-    FlowPriceBarChart
+    FlowPriceBarChart,
+    MultipleChoice
   },
   data() {
     return {
@@ -117,6 +117,26 @@ export default {
       // 下拉框值
       selectValue: ''
       // 搜索模块数据end
+    }
+  },
+  methods: {
+    // 触发调用子组件方法
+    drawer() {
+      this.$refs.singleChoice.show()
+    },
+    // 获取子组件选择数据
+    obtain(i) {
+      console.log(i)
+      var obj = []
+      for (var item of i) {
+        obj.push(item.label)
+      }
+      this.selectValue = obj.join('；')
+    },
+    // 触发重置输入框
+    reset() {
+      this.selectValue = ''
+      this.date = ''
     }
   }
 }
