@@ -18,8 +18,13 @@
       </span>
     </div>
     <!--图片-->
-    <div style="margin-top:12px;width:364px;height:215px">
-      <img width="364px" height="215px" :src="image" />
+    <div style="margin-top:12px;width:364px;height:215px;border-radius:12px">
+      <img
+        width="364px"
+        height="215px"
+        :src="image"
+        style="border-radius:12px"
+      />
     </div>
     <!--抓拍类型-->
     <div style="margin-top:16px">
