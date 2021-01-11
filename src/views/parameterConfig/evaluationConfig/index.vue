@@ -10,14 +10,26 @@
         clearable
       />
 
-      <el-select v-model="taskTime" placeholder="请选择时间">
+      <!-- <el-select v-model="taskTime" placeholder="请选择时间">
         <el-option
           v-for="item in timeOptions"
           :key="item.value"
           :label="item.label"
           :value="item.value"
         />
-      </el-select>
+      </el-select> -->
+
+      <el-date-picker
+        v-model="date"
+        type="daterange"
+        align="right"
+        unlink-panels
+        range-separator="至"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+        :picker-options="pickerOptions"
+        style="margin-left:24px"
+      />
 
       <el-button
         type="primary"
@@ -108,48 +120,72 @@ export default {
       pageSize: 10, // 每页显示条数
       currentPage: 1, // 当前在哪一页
       // 时间选择数据
-      timeOptions: [
-        {
-          value: '今日',
-          label: '今日'
-        },
-        {
-          value: '昨日',
-          label: '昨日'
-        },
-        {
-          value: '最近7日',
-          label: '最近7日'
-        },
-        {
-          value: '最近30日',
-          label: '最近30日'
-        },
-        {
-          value: '本月',
-          label: '本月'
-        },
-        {
-          value: '上月',
-          label: '上月'
-        },
-        {
-          value: '自定义',
-          label: '自定义'
-        }
-      ],
+      // timeOptions: [
+      //   {
+      //     value: '今日',
+      //     label: '今日'
+      //   },
+      //   {
+      //     value: '昨日',
+      //     label: '昨日'
+      //   },
+      //   {
+      //     value: '最近7日',
+      //     label: '最近7日'
+      //   },
+      //   {
+      //     value: '最近30日',
+      //     label: '最近30日'
+      //   },
+      //   {
+      //     value: '本月',
+      //     label: '本月'
+      //   },
+      //   {
+      //     value: '上月',
+      //     label: '上月'
+      //   },
+      //   {
+      //     value: '自定义',
+      //     label: '自定义'
+      //   }
+      // ],
 
       // 表格数据
-      tableData: [
-        // {
-        //   taskName: 'aa',
-        //   vld: 'aa',
-        //   frequency: 'aa',
-        //   template: 'aa',
-        //   assessor: 'aa',
-        //   creationTime: 'aa'
-        // }
-      ]
+      tableData: [],
+      pickerOptions: {
+        shortcuts: [
+          {
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+              picker.$emit('pick', [start, end])
+            }
+          },
+          {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+              picker.$emit('pick', [start, end])
+            }
+          }
+        ]
+      },
+      // 时间选择
+      data: ''
     }
   },
   mounted() {
