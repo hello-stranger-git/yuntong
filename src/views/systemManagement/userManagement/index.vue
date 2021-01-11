@@ -242,7 +242,7 @@ export default {
         id: 0,
         position: []
       },
-      powerDoorDialogVisible: true, // 授权门店dialog
+      powerDoorDialogVisible: false, // 授权门店dialog
       powerDoorForm: {
         // 授权门店dialog数据
         id: 0,
