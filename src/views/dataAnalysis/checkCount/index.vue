@@ -54,7 +54,7 @@
           </div>
           <div class="table">
             <el-table
-              :data="tableData"
+              :data="tableData1"
               style="width: 100%"
               :row-class-name="tableRowClassName"
             >
@@ -137,7 +137,7 @@
           </div>
           <div class="table">
             <el-table
-              :data="tableData"
+              :data="tableData2"
               style="width: 100%"
               :row-class-name="tableRowClassName"
             >
@@ -221,7 +221,7 @@
         <div class="module">
           <div class="table">
             <el-table
-              :data="tableData"
+              :data="tableData3"
               style="width: 100%"
               :row-class-name="tableRowClassName"
             >
@@ -291,7 +291,9 @@ export default {
       total3: 0, // 总共多少条数据
       pageSize3: 10, // 每页显示条数
       currentPage3: 0, // 当前在哪一页
-      tableData: [],
+      tableData1: [],
+      tableData2: [],
+      tableData3: [],
       // 历史tab
 
       historyMechanism: '',
