@@ -6,7 +6,21 @@
       <el-tab-pane label="今日考勤" name="first">
         <!-- 搜索 -->
         <div class="search">
-          <el-select v-model="value" placeholder="请选择店铺">
+          <!-- 区域选择 -->
+          <span @click="drawer('today')">
+            <el-input
+              v-model="todayMechanism"
+              placeholder="请选择机构"
+              readonly="readonly"
+            />
+          </span>
+          <!-- 侧边弹出层 -->
+          <SingleChoice ref="todaySingleChoice" @change="todayObtain" />
+          <el-select
+            v-model="todayName"
+            :disabled="todayMechanism ? false : true"
+            placeholder="请选择名字"
+          >
             <el-option
               v-for="item in options1"
               :key="item.value"
@@ -14,12 +28,7 @@
               :value="item.value"
             />
           </el-select>
-          <el-input
-            v-model="personName"
-            class="deviceNmu"
-            placeholder="请输入名字"
-            clearable
-          />
+
           <el-button
             type="primary"
             :style="
@@ -29,7 +38,9 @@
           >
             查询
           </el-button>
-          <el-button type="success" class="resetBtn">重置</el-button>
+          <el-button type="success" class="resetBtn" @click="reset('today')">
+            重置
+          </el-button>
           <el-button type="info" class="resetBtn">导出</el-button>
         </div>
         <!--表格-->
@@ -72,7 +83,21 @@
       <el-tab-pane label="历史考勤" name="second">
         <!-- 搜索 -->
         <div class="search">
-          <el-select v-model="value" placeholder="请选择店铺">
+          <!-- 区域选择 -->
+          <span @click="drawer('history')">
+            <el-input
+              v-model="historyMechanism"
+              placeholder="请选择机构"
+              readonly="readonly"
+            />
+          </span>
+          <!-- 侧边弹出层 -->
+          <SingleChoice ref="historySingleChoice" @change="historyObtain" />
+          <el-select
+            v-model="historyName"
+            :disabled="historyMechanism ? false : true"
+            placeholder="请选择姓名"
+          >
             <el-option
               v-for="item in options1"
               :key="item.value"
@@ -80,15 +105,10 @@
               :value="item.value"
             />
           </el-select>
-          <el-input
-            v-model="personName"
-            class="deviceNmu"
-            placeholder="请输入名字"
-            clearable
-          />
           <el-date-picker
-            v-model="value1"
+            v-model="historyDate"
             type="daterange"
+            :disabled="historyMechanism ? false : true"
             range-separator="至"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
@@ -103,7 +123,9 @@
           >
             查询
           </el-button>
-          <el-button type="success" class="resetBtn">重置</el-button>
+          <el-button type="success" class="resetBtn" @click="reset('history')">
+            重置
+          </el-button>
           <el-button type="info" class="resetBtn">导出</el-button>
         </div>
         <!--表格-->
@@ -149,19 +171,34 @@
       <el-tab-pane label="出勤统计" name="third">
         <!-- 搜索 -->
         <div class="search">
-          <el-select v-model="value" placeholder="请选择店铺">
+          <!-- <el-select v-model="StatisticsMechanism" placeholder="请选择店铺">
             <el-option
               v-for="item in options1"
               :key="item.value"
               :label="item.label"
               :value="item.value"
             />
-          </el-select>
+          </el-select> -->
 
+          <!-- 区域选择 -->
+          <span @click="drawer('statistics')">
+            <el-input
+              v-model="statisticsMechanism"
+              placeholder="请选择机构"
+              readonly="readonly"
+            />
+          </span>
+
+          <!-- 侧边弹出层 -->
+          <SingleChoice
+            ref="statisticsSingleChoice"
+            @change="statisticsObtain"
+          />
           <el-date-picker
-            v-model="value1"
+            v-model="statisticsDate"
             type="daterange"
             range-separator="至"
+            :disabled="statisticsMechanism ? false : true"
             start-placeholder="开始日期"
             end-placeholder="结束日期"
             :style="{ marginLeft: '24px' }"
@@ -175,7 +212,13 @@
           >
             查询
           </el-button>
-          <el-button type="success" class="resetBtn">重置</el-button>
+          <el-button
+            type="success"
+            class="resetBtn"
+            @click="reset('statistics')"
+          >
+            重置
+          </el-button>
           <el-button type="info" class="resetBtn">导出</el-button>
         </div>
         <!--表格-->
@@ -217,39 +260,41 @@
 </template>
 
 <script>
+import SingleChoice from '@/components/popupTree/singleChoice.vue' // 单选弹出层
+
 export default {
+  components: {
+    SingleChoice
+  },
   data() {
     return {
+      // 今日tab
       activeName: 'first',
-      options1: [
-        {
-          value: '选项1',
-          label: '黄金糕'
-        },
-        {
-          value: '选项2',
-          label: '双皮奶'
-        },
-        {
-          value: '选项3',
-          label: '蚵仔煎'
-        },
-        {
-          value: '选项4',
-          label: '龙须面'
-        },
-        {
-          value: '选项5',
-          label: '北京烤鸭'
-        }
-      ],
-      value: '',
-      personName: '',
+      todayMechanism: '',
+      todayName: '',
       value1: '',
       total: 0, // 总共多少条数据
       pageSize: 10, // 每页显示条数
       currentPage: 0, // 当前在哪一页
-      tableData: []
+      tableData: [],
+      options1: [
+        {
+          value: '大明',
+          label: '大明'
+        },
+        {
+          value: '小明',
+          label: '小明'
+        }
+      ],
+      // 历史tab
+
+      historyMechanism: '',
+      historyName: '',
+      historyDate: '',
+      // 统计tab
+      statisticsMechanism: '',
+      statisticsDate: ''
     }
   },
   methods: {
@@ -271,6 +316,49 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    // 触发重置输入框
+    reset(tab) {
+      if (tab === 'today') {
+        this.todayMechanism = ''
+        this.todayName = ''
+      } else if (tab === 'history') {
+        this.historyMechanism = ''
+        this.historyName = ''
+        this.historyDate = ''
+      } else {
+        this.statisticsMechanism = ''
+        this.statisticsDate = ''
+      }
+    },
+
+    // 触发调用子组件方法
+    drawer(tab) {
+      if (tab === 'today') {
+        this.$refs.todaySingleChoice.show()
+      } else if (tab === 'history') {
+        this.$refs.historySingleChoice.show()
+      } else {
+        this.$refs.statisticsSingleChoice.show()
+      }
+    },
+
+    // 今日
+    // 获取子组件选择数据
+    todayObtain(i) {
+      this.todayMechanism = i
+    },
+
+    // 历史
+    // 获取子组件选择数据
+    historyObtain(i) {
+      this.historyMechanism = i
+    },
+
+    // 统计
+    // 获取子组件选择数据
+    statisticsObtain(i) {
+      this.statisticsMechanism = i
     }
   }
 }
