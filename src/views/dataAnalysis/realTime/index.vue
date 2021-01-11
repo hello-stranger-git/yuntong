@@ -151,8 +151,7 @@ export default {
   },
   data() {
     return {
-      // 搜索模块数据start
-      // 搜索输入框
+      // 区域选择
       searchValue: '',
       // 下拉框里面的数据
       options: [
