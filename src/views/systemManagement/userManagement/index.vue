@@ -65,6 +65,7 @@
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
+                @click="powerDoor(scoped.row)"
               >
                 授权门店
               </el-button>
@@ -148,6 +149,38 @@
         </div>
       </el-dialog>
     </div>
+
+    <!--授权门店dialog-->
+    <div class="powerDialog">
+      <el-dialog title="授权门店" :visible.sync="powerDoorDialogVisible">
+        <el-form :model="powerDoorForm">
+          <el-form-item label="账号" label-width="100px">
+            <el-input v-model="powerDoorForm.accountNumber" disabled />
+          </el-form-item>
+          <el-form-item label="用户姓名" label-width="100px">
+            <el-input v-model="powerDoorForm.uname" disabled />
+          </el-form-item>
+          <el-form-item label="联系方式" label-width="100px">
+            <el-input v-model="powerDoorForm.tel" disabled />
+          </el-form-item>
+          <el-form-item label="授权门店" label-width="100px">
+            <el-input v-model="powerDoorForm.id" />
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button
+            type="primary"
+            :style="
+              `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
+            "
+            @click="powerDoorDialogVisible = false"
+          >
+            提交
+          </el-button>
+          <el-button @click="powerDoorDialogVisible = false">关闭</el-button>
+        </div>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -169,40 +202,55 @@ export default {
           accountNumber: 'chengxu1',
           uname: '华为-程旭',
           position: ['店长 '],
-          storeNumber: '4'
+          storeNumber: '4',
+          tel: 13131333333
         },
         {
           id: 2,
           accountNumber: 'chengxu1',
           uname: '华为-程旭',
           position: ['全部权限 ', '店长 '],
-          storeNumber: '4'
+          storeNumber: '4',
+          tel: 13131333333
         },
         {
           id: 3,
           accountNumber: 'chengxu1',
           uname: '华为-程旭',
           position: ['管理员 '],
-          storeNumber: '4'
+          storeNumber: '4',
+          tel: 13131333333
         },
         {
           id: 4,
           accountNumber: 'chengxu1',
           uname: '华为-程旭',
           position: ['管理员 '],
-          storeNumber: '4'
+          storeNumber: '4',
+          tel: 13131333333
         },
         {
           accountNumber: 'chengxu1',
           uname: '华为-程旭',
           position: ['管理员 '],
-          storeNumber: '4'
+          storeNumber: '4',
+          tel: 13131333333
         }
       ],
       powerDialogVisible: false,
       powerData: {
         id: 0,
         position: []
+      },
+      powerDoorDialogVisible: false, // 授权门店dialog
+      powerDoorForm: {
+        // 授权门店dialog数据
+        id: 0,
+        accountNumber: '',
+        uname: '',
+        tel: '',
+        position: [],
+        storeNumber: ''
       }
     }
   },
@@ -239,6 +287,11 @@ export default {
         }
       })
       this.powerDialogVisible = true
+    },
+    // 授权门店
+    powerDoor(row) {
+      this.powerDoorDialogVisible = true
+      this.powerDoorForm = row
     },
     subPower() {
       this.tableData.map(item => {
@@ -372,6 +425,38 @@ export default {
       .dialog-footer {
         text-align: center;
       }
+    }
+  }
+}
+
+//授权门店dialog
+.powerDialog {
+  /deep/.el-dialog {
+    width: 822px;
+    background: #ffffff;
+    border-radius: 10px;
+    .el-dialog__header {
+      font-size: 18px;
+      font-weight: bold;
+      color: #141414;
+      padding: 24px 0 0 24px;
+    }
+    .el-dialog__body {
+      padding-top: 40px;
+      padding-left: 48px;
+      .el-form-item__label {
+        width: 100px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #141414;
+        padding-right: 19px;
+      }
+      .el-input__inner {
+        width: 600px;
+      }
+    }
+    .dialog-footer {
+      text-align: center;
     }
   }
 }
