@@ -3,12 +3,22 @@
   <div style="padding:24px">
     <!--搜索板块-->
     <div class="search">
-      <el-input
+      <!-- <el-input
         v-model="storeName"
         class="deviceNmu"
         placeholder="请输入门店名称"
         clearable
-      />
+      /> -->
+      <!-- 区域选择 -->
+      <span @click="drawer">
+        <el-input
+          v-model="storeName"
+          placeholder="请选择机构"
+          readonly="readonly"
+        />
+      </span>
+      <!-- 侧边弹出层 -->
+      <MultipleChoice ref="singleChoice" @change="obtain" />
       <el-date-picker
         v-model="date"
         type="daterange"
@@ -16,9 +26,17 @@
         start-placeholder="开始日期"
         end-placeholder="结束日期"
       />
-      <el-select v-model="value" placeholder="请选择状态" clearable>
+      <el-select v-model="state" placeholder="请选择状态" clearable>
         <el-option
-          v-for="item in options1"
+          v-for="item in stateData"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
+      </el-select>
+      <el-select v-model="category" placeholder="我发送的" clearable>
+        <el-option
+          v-for="item in categoryData"
           :key="item.value"
           :label="item.label"
           :value="item.value"
@@ -33,7 +51,7 @@
       >
         查询
       </el-button>
-      <el-button type="info" class="resetBtn">重置</el-button>
+      <el-button type="info" class="resetBtn" @click="reset">重置</el-button>
     </div>
     <!--表格板块-->
     <div class="module">
@@ -70,7 +88,12 @@
 </template>
 
 <script>
+import MultipleChoice from '@/components/popupTree/multipleChoice.vue' // 多选弹出层
+
 export default {
+  components: {
+    MultipleChoice
+  },
   data() {
     return {
       storeName: '', // 店名
@@ -91,29 +114,40 @@ export default {
         //   checkSuggest: '“视频3，6，7，8摄像头无法打开”点检不合格'
         // }
       ],
-      options1: [
+      stateData: [
         {
           value: '选项1',
-          label: '黄金糕'
+          label: '待整改'
         },
         {
           value: '选项2',
-          label: '双皮奶'
+          label: '待审核'
         },
         {
           value: '选项3',
-          label: '蚵仔煎'
+          label: '完成'
         },
         {
           value: '选项4',
-          label: '龙须面'
-        },
-        {
-          value: '选项5',
-          label: '北京烤鸭'
+          label: '申诉待审核'
         }
       ],
-      value: ''
+      categoryData: [
+        {
+          value: '选项1',
+          label: '我发送的'
+        },
+        {
+          value: '选项2',
+          label: '我处理的'
+        },
+        {
+          value: '选项3',
+          label: '抄送我的'
+        }
+      ],
+      category: '',
+      state: ''
     }
   },
   mounted() {
@@ -138,6 +172,26 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    // 触发调用子组件方法
+    drawer() {
+      this.$refs.singleChoice.show()
+    },
+    // 获取子组件选择数据
+    obtain(i) {
+      console.log(i)
+      var obj = []
+      for (var item of i) {
+        obj.push(item.label)
+      }
+      this.storeName = obj.join('；')
+    },
+    // 触发重置输入框
+    reset() {
+      this.date = ''
+      this.storeName = ''
+      this.category = ''
+      this.state = ''
     }
   }
 }

@@ -3,12 +3,22 @@
   <div style="padding:24px">
     <!--搜索板块-->
     <div class="search">
-      <el-input
+      <!-- <el-input
         v-model="storeName"
         class="deviceNmu"
         placeholder="请输入门店名称"
         clearable
-      />
+      /> -->
+      <!-- 区域选择 -->
+      <span @click="drawer">
+        <el-input
+          v-model="storeName"
+          placeholder="请选择机构"
+          readonly="readonly"
+        />
+      </span>
+      <!-- 侧边弹出层 -->
+      <MultipleChoice ref="singleChoice" @change="obtain" />
       <el-cascader
         v-model="city"
         :options="options"
@@ -39,7 +49,7 @@
       >
         查询
       </el-button>
-      <el-button type="info" class="resetBtn">重置</el-button>
+      <el-button type="info" class="resetBtn" @click="reset">重置</el-button>
     </div>
     <!--表格板块-->
     <div class="module">
@@ -87,7 +97,12 @@
 </template>
 
 <script>
+import MultipleChoice from '@/components/popupTree/multipleChoice.vue' // 多选弹出层
+
 export default {
+  components: {
+    MultipleChoice
+  },
   data() {
     return {
       city: '', // 城市
@@ -380,23 +395,15 @@ export default {
       options1: [
         {
           value: '选项1',
-          label: '黄金糕'
+          label: '待审核'
         },
         {
           value: '选项2',
-          label: '双皮奶'
+          label: '通过'
         },
         {
           value: '选项3',
-          label: '蚵仔煎'
-        },
-        {
-          value: '选项4',
-          label: '龙须面'
-        },
-        {
-          value: '选项5',
-          label: '北京烤鸭'
+          label: '未通过'
         }
       ],
       value: ''
@@ -424,6 +431,26 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    // 触发调用子组件方法
+    drawer() {
+      this.$refs.singleChoice.show()
+    },
+    // 获取子组件选择数据
+    obtain(i) {
+      console.log(i)
+      var obj = []
+      for (var item of i) {
+        obj.push(item.label)
+      }
+      this.storeName = obj.join('；')
+    },
+    // 触发重置输入框
+    reset() {
+      this.storeName = ''
+      this.city = ''
+      this.storeTel = ''
+      this.value = ''
     }
   }
 }

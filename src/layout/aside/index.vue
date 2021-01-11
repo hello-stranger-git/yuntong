@@ -4,7 +4,7 @@
     :style="{ background: getPreviewBgc ? getPreviewBgc : getAsideBgc }"
   >
     <el-menu
-      default-active="1"
+      :default-active="activeIndex"
       class="el-menu-vertical-demo"
       :collapse="togAsid"
       :collapse-transition="true"
@@ -43,7 +43,11 @@
             <!-- 再次判断是否有子路由 -->
             <template v-for="(params, index) in item.childrens">
               <template v-if="!params.childrens">
-                <el-menu-item :key="index" :index="params.to">
+                <el-menu-item
+                  :key="index"
+                  :index="params.to"
+                  @click="selectMenuItem(params)"
+                >
                   {{ params.value }}
                 </el-menu-item>
               </template>
@@ -67,7 +71,7 @@ export default {
   data() {
     return {
       huaweiLogo: require('@/assets/img/aside/huawei_logo.png'),
-      activeIndex: 0,
+      activeIndex: '/bpRetail',
       // 只能嵌套两个childrens
       routes: [
         {
@@ -224,6 +228,12 @@ export default {
   computed: {
     ...mapGetters(['getAsideBgc', 'getPreviewBgc', 'getLogo'])
   },
+  mounted() {
+    if (window.localStorage.getItem('navBar')) {
+      this.activeIndex = window.localStorage.getItem('navBar')
+      this.$router.push({ path: window.localStorage.getItem('navBar') })
+    }
+  },
   methods: {
     handleOpen(key, keyPath) {
       // console.log(key, keyPath)
@@ -233,6 +243,11 @@ export default {
     },
     handleSelect(index) {
       console.log(index)
+    },
+    // 选择子菜单
+    selectMenuItem(params) {
+      window.localStorage.setItem('navBar', params.to)
+      this.activeIndex = params.to
     }
   }
 }

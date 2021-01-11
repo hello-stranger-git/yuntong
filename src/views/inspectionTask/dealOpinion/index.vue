@@ -3,14 +3,24 @@
   <div style="padding:24px">
     <!--搜索板块-->
     <div class="search">
-      <el-input
+      <!-- <el-input
         v-model="storeName"
         class="deviceNmu"
         placeholder="请输入门店名称"
         clearable
-      />
+      /> -->
+      <!-- 区域选择 -->
+      <span @click="drawer">
+        <el-input
+          v-model="storeName"
+          placeholder="请选择机构"
+          readonly="readonly"
+        />
+      </span>
+      <!-- 侧边弹出层 -->
+      <MultipleChoice ref="singleChoice" @change="obtain" />
       <el-input
-        v-model="storeName"
+        v-model="opinion"
         class="deviceNmu"
         placeholder="请输处理意见"
         clearable
@@ -25,7 +35,7 @@
       >
         查询
       </el-button>
-      <el-button type="info" class="resetBtn">重置</el-button>
+      <el-button type="info" class="resetBtn" @click="reset">重置</el-button>
     </div>
     <!--表格板块-->
     <div class="module">
@@ -62,12 +72,18 @@
 </template>
 
 <script>
+import MultipleChoice from '@/components/popupTree/multipleChoice.vue' // 多选弹出层
+
 export default {
+  components: {
+    MultipleChoice
+  },
   data() {
     return {
       storeName: '', // 店名
       task: '',
       date: '',
+      opinion: '', // 处理意见
       // 分页数据start
       total: 100, // 总共多少条数据
       pageSize: 10, // 每页显示条数
@@ -130,6 +146,25 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    // 触发调用子组件方法
+    drawer() {
+      this.$refs.singleChoice.show()
+    },
+    // 获取子组件选择数据
+    obtain(i) {
+      console.log(i)
+      var obj = []
+      for (var item of i) {
+        obj.push(item.label)
+      }
+      this.storeName = obj.join('；')
+    },
+    // 触发重置输入框
+    reset() {
+      this.storeName = ''
+      this.opinion = ''
+      this.date = ''
     }
   }
 }

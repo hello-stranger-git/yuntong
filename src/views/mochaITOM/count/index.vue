@@ -44,6 +44,7 @@
           :data="tableData"
           style="width: 100%"
           :row-class-name="tableRowClassName"
+          @cell-click="openTime"
         >
           <el-table-column prop="storeName" label="门店名称" />
           <el-table-column prop="personNumber" label="观看人数" />
@@ -64,6 +65,30 @@
         />
       </div>
     </div>
+
+    <div class="videoDialog">
+      <el-dialog title="视频查看记录" :visible.sync="videoDialogVisible">
+        <el-table :data="videoTimeData">
+          <el-table-column property="name" label="观看人" />
+          <el-table-column property="deviceId" label="设备号" />
+          <el-table-column property="awayNumber" label="通道号" />
+          <el-table-column property="awayName" label="通道名称" />
+          <el-table-column property="startTime" label="开始时间" />
+          <el-table-column property="endTime" label="结束时间" />
+          <el-table-column property="countTime" label="持续时间" />
+        </el-table>
+        <!--分页组件-->
+        <div style="text-align:center;margin-top:55px">
+          <el-pagination
+            background
+            layout="total,prev, pager, next"
+            :total="total1"
+            :page-size="pageSize1"
+            :current-page="currentPage1"
+          />
+        </div>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -78,7 +103,12 @@ export default {
       total: 100, // 总共多少条数据
       pageSize: 10, // 每页显示条数
       currentPage: 1, // 当前在哪一页
+      // 分页数据end
       // 分页数据start
+      total1: 8, // 总共多少条数据
+      pageSize1: 10, // 每页显示条数
+      currentPage1: 1, // 当前在哪一页
+      // 分页数据end
       // 表格数据
       tableData: [
         {
@@ -153,7 +183,91 @@ export default {
           checkTimes: 998,
           checkLongTime: '5478分钟41秒'
         }
-      ]
+      ],
+      // 观看视频记录
+      videoTimeData: [
+        {
+          id: 1,
+          name: '齐梦燕',
+          deviceId: '5G037E7PAZD0BF8',
+          awayNumber: '5',
+          awayName: '质询台',
+          startTime: '2021-01-08 16:08:15',
+          endTime: '2021-01-08 16:10:20',
+          countTime: '2分钟5秒'
+        },
+        {
+          id: 2,
+          name: '齐梦燕',
+          deviceId: '5G037E7PAZD0BF8',
+          awayNumber: '5',
+          awayName: '质询台',
+          startTime: '2021-01-08 16:08:15',
+          endTime: '2021-01-08 16:10:20',
+          countTime: '2分钟5秒'
+        },
+        {
+          id: 3,
+          name: '齐梦燕',
+          deviceId: '5G037E7PAZD0BF8',
+          awayNumber: '5',
+          awayName: '质询台',
+          startTime: '2021-01-08 16:08:15',
+          endTime: '2021-01-08 16:10:20',
+          countTime: '2分钟5秒'
+        },
+        {
+          id: 4,
+          name: '齐梦燕',
+          deviceId: '5G037E7PAZD0BF8',
+          awayNumber: '5',
+          awayName: '质询台',
+          startTime: '2021-01-08 16:08:15',
+          endTime: '2021-01-08 16:10:20',
+          countTime: '2分钟5秒'
+        },
+        {
+          id: 5,
+          name: '齐梦燕',
+          deviceId: '5G037E7PAZD0BF8',
+          awayNumber: '5',
+          awayName: '质询台',
+          startTime: '2021-01-08 16:08:15',
+          endTime: '2021-01-08 16:10:20',
+          countTime: '2分钟5秒'
+        },
+        {
+          id: 6,
+          name: '齐梦燕',
+          deviceId: '5G037E7PAZD0BF8',
+          awayNumber: '5',
+          awayName: '质询台',
+          startTime: '2021-01-08 16:08:15',
+          endTime: '2021-01-08 16:10:20',
+          countTime: '2分钟5秒'
+        },
+        {
+          id: 7,
+          name: '齐梦燕',
+          deviceId: '5G037E7PAZD0BF8',
+          awayNumber: '5',
+          awayName: '质询台',
+          startTime: '2021-01-08 16:08:15',
+          endTime: '2021-01-08 16:10:20',
+          countTime: '2分钟5秒'
+        },
+        {
+          id: 8,
+          name: '齐梦燕',
+          deviceId: '5G037E7PAZD0BF8',
+          awayNumber: '5',
+          awayName: '质询台',
+          startTime: '2021-01-08 16:08:15',
+          endTime: '2021-01-08 16:10:20',
+          countTime: '2分钟5秒'
+        }
+      ],
+      videoDialogVisible: false
     }
   },
   mounted() {
@@ -175,6 +289,12 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    // 查看时长
+    openTime(row, column, event) {
+      if (event.childNodes[0].innerText.indexOf('秒') !== -1) {
+        this.videoDialogVisible = true
+      }
     }
   }
 }
@@ -230,6 +350,43 @@ export default {
     }
     /deep/.el-table-column--selection {
       padding-left: 5px;
+    }
+  }
+}
+
+/deep/.el-table_1_column_4 {
+  .cell {
+    color: #409eff;
+    cursor: pointer;
+  }
+  &.is-leaf {
+    .cell {
+      color: #909399;
+    }
+  }
+}
+
+//查看记录dialog
+.videoDialog {
+  /deep/.el-dialog {
+    width: 1058px;
+    background: #ffffff;
+    border-radius: 10px;
+    .el-dialog__header {
+      padding: 24px 0 0 24px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #141414;
+    }
+    .has-gutter {
+      font-size: 14px;
+      font-weight: bold;
+      color: #141414;
+    }
+    tbody {
+      font-size: 14px;
+      color: #141414;
+      font-weight: 400;
     }
   }
 }

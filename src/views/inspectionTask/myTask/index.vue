@@ -4,7 +4,18 @@
     <!--搜索板块-->
     <div class="searchBox">
       <div class="search">
-        <el-input v-model="storeName" placeholder="请输入门店名称" clearable />
+        <!-- <el-input v-model="storeName" placeholder="请输入门店名称" clearable /> -->
+        <!-- 区域选择 -->
+        <span @click="drawer">
+          <el-input
+            v-model="storeName"
+            placeholder="请选择机构"
+            readonly="readonly"
+          />
+        </span>
+        <!-- 侧边弹出层 -->
+        <MultipleChoice ref="singleChoice" @change="obtain" />
+
         <el-date-picker
           v-model="date"
           type="daterange"
@@ -14,7 +25,7 @@
         />
         <el-select v-model="model" placeholder="巡查模板" clearable>
           <el-option
-            v-for="item in options1"
+            v-for="item in template"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -24,9 +35,9 @@
         <el-input v-model="task" placeholder="请输入任务名称" clearable />
       </div>
       <div class="search">
-        <el-select v-model="waitDeal" placeholder="待处理" clearable>
+        <el-select v-model="waitDeal" placeholder="任务状态" clearable>
           <el-option
-            v-for="item in options1"
+            v-for="item in stateData"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -42,7 +53,7 @@
         >
           查询
         </el-button>
-        <el-button type="info" class="resetBtn">重置</el-button>
+        <el-button type="info" class="resetBtn" @click="reset">重置</el-button>
       </div>
     </div>
     <!--表格板块-->
@@ -80,7 +91,12 @@
 </template>
 
 <script>
+import MultipleChoice from '@/components/popupTree/multipleChoice.vue' // 多选弹出层
+
 export default {
+  components: {
+    MultipleChoice
+  },
   data() {
     return {
       storeName: '', // 店名
@@ -100,26 +116,37 @@ export default {
         //   task:'',
         // }
       ],
-      options1: [
+
+      template: [
         {
-          value: '选项1',
-          label: '黄金糕'
+          value: '巡查模板',
+          label: '巡查模板'
         },
         {
-          value: '选项2',
-          label: '双皮奶'
+          value: '店面巡查模板',
+          label: '店面巡查模板'
         },
         {
-          value: '选项3',
-          label: '蚵仔煎'
+          value: '超级旗舰店模板',
+          label: '超级旗舰店模板'
         },
         {
-          value: '选项4',
-          label: '龙须面'
+          value: '设备运行状态模板',
+          label: '设备运行状态模板'
+        }
+      ],
+      stateData: [
+        {
+          value: '待处理',
+          label: '待处理'
         },
         {
-          value: '选项5',
-          label: '北京烤鸭'
+          value: '已完成',
+          label: '已完成'
+        },
+        {
+          value: '失效',
+          label: '失效'
         }
       ]
     }
@@ -146,6 +173,27 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    // 触发调用子组件方法
+    drawer() {
+      this.$refs.singleChoice.show()
+    },
+    // 获取子组件选择数据
+    obtain(i) {
+      console.log(i)
+      var obj = []
+      for (var item of i) {
+        obj.push(item.label)
+      }
+      this.storeName = obj.join('；')
+    },
+    // 触发重置输入框
+    reset() {
+      this.storeName = ''
+      this.date = ''
+      this.model = ''
+      this.task = ''
+      this.waitDeal = ''
     }
   }
 }

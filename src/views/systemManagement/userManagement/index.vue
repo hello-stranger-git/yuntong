@@ -49,7 +49,7 @@
           <el-table-column prop="position" label="职位" width="152" />
           <el-table-column prop="storeNumber" label="授权门店数" width="200" />
           <el-table-column label="操作">
-            <template>
+            <template slot-scope="scoped">
               <el-button
                 size="mini"
                 type="primary"
@@ -65,6 +65,7 @@
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
+                @click="powerDoor(scoped.row)"
               >
                 授权门店
               </el-button>
@@ -74,6 +75,7 @@
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
+                @click="openPowerDialog(scoped.row)"
               >
                 权限
               </el-button>
@@ -121,6 +123,64 @@
         />
       </div>
     </div>
+    <div class="powerDialog">
+      <!--权限Dialog-->
+      <el-dialog title="权限" :visible.sync="powerDialogVisible">
+        <el-form :model="powerData">
+          <el-form-item label="职位" label-width="100px">
+            <el-checkbox-group v-model="powerData.position">
+              <el-checkbox label="店长 " name="type" />
+              <el-checkbox label="全部权限 " name="type" />
+              <el-checkbox label="管理员 " name="type" />
+            </el-checkbox-group>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button
+            type="primary"
+            :style="
+              `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
+            "
+            @click="subPower"
+          >
+            提交
+          </el-button>
+          <el-button @click="powerDialogVisible = false">关闭</el-button>
+        </div>
+      </el-dialog>
+    </div>
+
+    <!--授权门店dialog-->
+    <div class="powerDialog">
+      <el-dialog title="授权门店" :visible.sync="powerDoorDialogVisible">
+        <el-form :model="powerDoorForm">
+          <el-form-item label="账号" label-width="100px">
+            <el-input v-model="powerDoorForm.accountNumber" disabled />
+          </el-form-item>
+          <el-form-item label="用户姓名" label-width="100px">
+            <el-input v-model="powerDoorForm.uname" disabled />
+          </el-form-item>
+          <el-form-item label="联系方式" label-width="100px">
+            <el-input v-model="powerDoorForm.tel" disabled />
+          </el-form-item>
+          <el-form-item label="授权门店" label-width="100px">
+            <el-input v-model="powerDoorForm.id" />
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button
+            type="primary"
+            :style="
+              `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
+            "
+            @click="powerDoorDialogVisible = false"
+          >
+            提交
+          </el-button>
+          <el-button @click="powerDoorDialogVisible = false">关闭</el-button>
+        </div>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -138,36 +198,60 @@ export default {
       // 表格数据
       tableData: [
         {
+          id: 1,
           accountNumber: 'chengxu1',
           uname: '华为-程旭',
-          position: '管理员',
-          storeNumber: '4'
+          position: ['店长 '],
+          storeNumber: '4',
+          tel: 13131333333
+        },
+        {
+          id: 2,
+          accountNumber: 'chengxu1',
+          uname: '华为-程旭',
+          position: ['全部权限 ', '店长 '],
+          storeNumber: '4',
+          tel: 13131333333
+        },
+        {
+          id: 3,
+          accountNumber: 'chengxu1',
+          uname: '华为-程旭',
+          position: ['管理员 '],
+          storeNumber: '4',
+          tel: 13131333333
+        },
+        {
+          id: 4,
+          accountNumber: 'chengxu1',
+          uname: '华为-程旭',
+          position: ['管理员 '],
+          storeNumber: '4',
+          tel: 13131333333
         },
         {
           accountNumber: 'chengxu1',
           uname: '华为-程旭',
-          position: '管理员',
-          storeNumber: '4'
-        },
-        {
-          accountNumber: 'chengxu1',
-          uname: '华为-程旭',
-          position: '管理员',
-          storeNumber: '4'
-        },
-        {
-          accountNumber: 'chengxu1',
-          uname: '华为-程旭',
-          position: '管理员',
-          storeNumber: '4'
-        },
-        {
-          accountNumber: 'chengxu1',
-          uname: '华为-程旭',
-          position: '管理员',
-          storeNumber: '4'
+          position: ['管理员 '],
+          storeNumber: '4',
+          tel: 13131333333
         }
-      ]
+      ],
+      powerDialogVisible: false,
+      powerData: {
+        id: 0,
+        position: []
+      },
+      powerDoorDialogVisible: false, // 授权门店dialog
+      powerDoorForm: {
+        // 授权门店dialog数据
+        id: 0,
+        accountNumber: '',
+        uname: '',
+        tel: '',
+        position: [],
+        storeNumber: ''
+      }
     }
   },
   mounted() {
@@ -193,6 +277,30 @@ export default {
     // 取消按钮默认选中样式
     cancel() {
       this.tacitlyApprove = false
+    },
+    // 打开权限管理dialog
+    openPowerDialog(row) {
+      this.tableData.map(item => {
+        if (item.id === row.id) {
+          this.powerData.position = row.position
+          this.powerData.id = row.id
+        }
+      })
+      this.powerDialogVisible = true
+    },
+    // 授权门店
+    powerDoor(row) {
+      this.powerDoorDialogVisible = true
+      this.powerDoorForm = row
+    },
+    subPower() {
+      this.tableData.map(item => {
+        if (item.id === this.powerData.id) {
+          console.log(item.position.length)
+          item.position = this.powerData.position
+        }
+      })
+      this.powerDialogVisible = false
     }
   }
 }
@@ -283,6 +391,72 @@ export default {
     }
     /deep/.el-table-column--selection {
       padding-left: 5px;
+    }
+  }
+}
+
+//权限dialog
+.powerDialog {
+  /deep/.el-dialog {
+    width: 546px;
+    background: #ffffff;
+    border-radius: 10px;
+    .el-dialog__header {
+      font-size: 18px;
+      font-weight: bold;
+      color: #141414;
+      padding: 24px 0 0 24px;
+    }
+    .el-dialog__body {
+      padding: 36px 0 0 30px;
+      .el-form-item__label {
+        font-size: 14px;
+        font-weight: bold;
+        color: #141414;
+        padding-right: 24px;
+      }
+      .el-checkbox {
+        margin-right: 12px;
+      }
+    }
+    .el-dialog__footer {
+      padding-top: 0;
+      padding-bottom: 24px;
+      .dialog-footer {
+        text-align: center;
+      }
+    }
+  }
+}
+
+//授权门店dialog
+.powerDialog {
+  /deep/.el-dialog {
+    width: 822px;
+    background: #ffffff;
+    border-radius: 10px;
+    .el-dialog__header {
+      font-size: 18px;
+      font-weight: bold;
+      color: #141414;
+      padding: 24px 0 0 24px;
+    }
+    .el-dialog__body {
+      padding-top: 40px;
+      padding-left: 48px;
+      .el-form-item__label {
+        width: 100px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #141414;
+        padding-right: 19px;
+      }
+      .el-input__inner {
+        width: 600px;
+      }
+    }
+    .dialog-footer {
+      text-align: center;
     }
   }
 }

@@ -72,7 +72,7 @@
           <div class="type upPage">上一页</div>
           <div class="type nextPage">下一页</div>
         </div>
-        <div class="type onlineCheck" @click="$router.push({ name: 'OnLine' })">
+        <div class="type onlineCheck" @click="jumpOnline">
           在线考评
         </div>
         <div class="type close" @click="clearVideos">关闭全部</div>
@@ -353,6 +353,11 @@ export default {
       for (let i = 0; i < this.videosArr.length; i++) {
         this.videosArr[i].url = ''
       }
+    },
+    jumpOnline() {
+      window.localStorage.setItem('navBar', '/videoInspection/onLine')
+      window.location.reload()
+      this.$router.push({ path: window.localStorage.getItem('navBar') })
     }
   }
 }

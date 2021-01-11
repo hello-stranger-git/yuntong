@@ -3,13 +3,16 @@
   <div style="padding:24px">
     <!--搜索板块-->
     <div class="search">
-      <el-input
-        v-model="shopName"
-        class="shopName"
-        placeholder="请选输入门店名称"
-        clearable
-      />
-
+      <!-- 区域选择 -->
+      <span @click="drawer">
+        <el-input
+          v-model="shopName"
+          placeholder="请选择机构"
+          readonly="readonly"
+        />
+      </span>
+      <!-- 侧边弹出层 -->
+      <MultipleChoice ref="singleChoice" @change="obtain" />
       <!-- 日期选择 -->
       <el-date-picker
         v-model="operationDate"
@@ -21,7 +24,6 @@
         end-placeholder="结束日期"
         :picker-options="pickerOptions"
       />
-
       <el-select v-model="inspectionType" filterable placeholder="类型">
         <el-option
           v-for="item in options"
@@ -40,7 +42,7 @@
       >
         查询
       </el-button>
-      <el-button type="info" class="resetBtn">重置</el-button>
+      <el-button type="info" class="resetBtn" @click="reset">重置</el-button>
     </div>
     <!--表格板块-->
     <div class="module">
@@ -104,7 +106,12 @@
 </template>
 
 <script>
+import MultipleChoice from '@/components/popupTree/multipleChoice.vue' // 多选弹出层
+
 export default {
+  components: {
+    MultipleChoice
+  },
   data() {
     return {
       shopName: '', // 请输入门店名称
@@ -341,6 +348,26 @@ export default {
         path: '/videoInspection/inspectionRecord/checkDetail',
         query: { data: row }
       })
+    },
+
+    // 触发调用子组件方法
+    drawer() {
+      this.$refs.singleChoice.show()
+    },
+    // 获取子组件选择数据
+    obtain(i) {
+      console.log(i)
+      var obj = []
+      for (var item of i) {
+        obj.push(item.label)
+      }
+      this.shopName = obj.join('；')
+    },
+    // 触发重置输入框
+    reset() {
+      this.shopName = ''
+      this.operationDate = ''
+      this.inspectionType = ''
     }
   }
 }
