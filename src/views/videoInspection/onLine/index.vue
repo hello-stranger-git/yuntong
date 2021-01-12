@@ -15,7 +15,7 @@
           :style="{ border: activeTab === 1 ? '' : 'none' }"
           @click="activeTab = 1"
         >
-          我的收藏
+          任务
         </div>
       </div>
       <!-- tab1 -->
@@ -380,6 +380,7 @@ export default {
         width: 64px;
         text-align: center;
         border-bottom: 2px solid #4a92ff;
+        cursor: pointer;
       }
       .list {
         left: 54px;

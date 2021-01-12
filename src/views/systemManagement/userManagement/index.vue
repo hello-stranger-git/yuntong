@@ -207,7 +207,7 @@
             <el-input v-model="checkDialogForm.tel" disabled />
           </el-form-item>
           <el-form-item label="职位" label-width="100px">
-            <el-input v-model="checkDialogForm.position" disabled />
+            <el-input v-model="checkDialogForm.position[0]" disabled />
           </el-form-item>
           <el-form-item label="描述" label-width="100px">
             <el-input v-model="checkDialogForm.organizion" disabled />
@@ -348,12 +348,21 @@ export default {
         tel: '',
         position: [],
         stores: [],
+        storesId: []
+      },
+      // 查看dialog数据
+      checkDialogForm: {
+        id: 0,
+        accountNumber: '',
+        uname: '',
+        tel: '',
+        position: [],
+        stores: [],
         storesId: [],
         sex: '',
         organizion: '',
         description: ''
       },
-      checkDialogForm: {},
       powerSotre: '' // 弹出框店铺管理输入框内容
     }
   },

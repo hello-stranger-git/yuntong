@@ -383,6 +383,7 @@ export default {
       .list,
       .task {
         position: absolute;
+        cursor: pointer;
         top: 18px;
         height: 29px;
         line-height: 29px;
