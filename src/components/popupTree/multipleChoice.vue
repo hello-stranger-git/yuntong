@@ -1,12 +1,12 @@
 <!--多选弹出层-->
 <template>
-  <div>
+  <div class="multipleChoice">
     <!-- 弹出层 -->
     <el-drawer
       title="我是标题"
       :visible.sync="drawer"
       :with-header="false"
-      :show-close="false"
+      :show-close="true"
     >
       <div class="demo-drawer__content">
         <div class="drawer_title"><img :src="mechanism" />请选择机构</div>
@@ -17,6 +17,8 @@
           ref="tree"
           highlight-current
           :props="defaultProps"
+          node-key="id"
+          :default-checked-keys="keyid"
         />
 
         <div class="demo-drawer__footer">
@@ -33,7 +35,15 @@
 </template>
 <script>
 export default {
-  props: {},
+  props: {
+    keyid: {
+      type: Array
+    },
+    limit: {
+      type: Number,
+      default: 9999
+    }
+  },
   data() {
     return {
       mechanism: require('@/assets/img/icon/mechanism.png'),
@@ -108,6 +118,9 @@ export default {
       }
     }
   },
+  mounted() {
+    console.log(this.keyid)
+  },
   methods: {
     // 触发显示弹出层
     show() {
@@ -120,7 +133,7 @@ export default {
     // 触发向父组件传参
     confirm() {
       const selectedValue = this.$refs.tree.getCheckedNodes(true)
-      if (selectedValue.length > 5) {
+      if (selectedValue.length > this.limit) {
         this.$message({
           message: '选项最多选择5项'
         })
