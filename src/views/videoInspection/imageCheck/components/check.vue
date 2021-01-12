@@ -10,7 +10,7 @@
         {{ data.address }}
       </div>
       <div class="date">时间：{{ data.time }}</div>
-      <el-select v-model="value" placeholder="请选择">
+      <el-select v-model="templateType" placeholder="请选择">
         <el-option
           v-for="item in type"
           :key="item.value"
@@ -26,7 +26,7 @@
         分
       </div>
       <div class="problems">
-        <div v-for="(item, i) in arr" :key="i" class="item">
+        <div v-for="(item, i) in problemArr" :key="i" class="item">
           {{ item.text }}
           <span>{{ item.score }}</span>
           <img :src="removeItem" @click="removeProblem(i)" />
@@ -50,9 +50,9 @@
         <el-radio v-model="checked" :label="false">不需要整改</el-radio>
       </div>
       <div class="otherPerson">
-        <el-select v-model="value2" multiple placeholder="请选择抄送人">
+        <el-select v-model="otherPerson" multiple placeholder="请选择抄送人">
           <el-option
-            v-for="item in options"
+            v-for="item in otherPersonArr"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -60,9 +60,9 @@
         </el-select>
       </div>
       <div v-if="checked" class="changePerson">
-        <el-select v-model="value" placeholder="请选择整改人">
+        <el-select v-model="changePerson" placeholder="请选择整改人">
           <el-option
-            v-for="item in options"
+            v-for="item in changePersonArr"
             :key="item.value"
             :label="item.label"
             :value="item.value"
@@ -84,6 +84,7 @@ export default {
       storeIcon: require('@/assets/img/patrolTask/store.png'),
       removeItem: require('@/assets/img/icon/removeItem.png'),
       data: '',
+      arr1: ['change'],
       options: [
         {
           value: '禁忌行为',
@@ -174,8 +175,8 @@ export default {
           ]
         },
         {
-          value: '选项2',
-          label: '双皮奶',
+          value: '禁止行为',
+          label: '禁止行为',
           children: [
             {
               value: '服务禁忌',
@@ -184,42 +185,50 @@ export default {
                 {
                   value: {
                     score: -1,
-                    text: '1、表情：不可面对客户出现负面表情'
+                    text: '11、表情：不可面对客户出现负面表情'
                   },
-                  label: '1、表情：不可面对客户出现负面表情'
+                  label: '11、表情：不可面对客户出现负面表情'
                 },
                 {
                   value: {
                     score: -1,
-                    text: '2、态度：对待客户应认真，负责，耐心'
+                    text: '12、态度：对待客户应认真，负责，耐心'
                   },
-                  label: '2、态度：对待客户应认真，负责，耐心'
+                  label: '12、态度：对待客户应认真，负责，耐心'
                 },
                 {
                   value: {
                     score: -1,
-                    text: '3、行为：严禁在工作区域出现严重公司服务形象...'
+                    text: '13、行为：严禁在工作区域出现严重公司服务形象...'
                   },
-                  label: '3、行为：严禁在工作区域出现严重公司服务形象...'
+                  label: '13、行为：严禁在工作区域出现严重公司服务形象...'
                 },
                 {
                   value: {
                     score: -1,
-                    text: '4、语言：使用文明礼貌用语，尊重客户'
+                    text: '14、语言：使用文明礼貌用语，尊重客户'
                   },
-                  label: '4、语言：使用文明礼貌用语，尊重客户'
+                  label: '14、语言：使用文明礼貌用语，尊重客户'
                 },
                 {
                   value: {
                     score: -1,
-                    text: '5、表情：不可面对客户出现负面表情'
+                    text: '15、表情：不可面对客户出现负面表情'
                   },
-                  label: '5、表情：不可面对客户出现负面表情'
+                  label: '15、表情：不可面对客户出现负面表情'
                 }
               ]
             }
           ]
         }
+      ],
+      otherPersonArr: [
+        { label: '刘德华', value: '刘德华' },
+        { label: '张学友', value: '张学友' }
+      ],
+      changePersonArr: [
+        { label: '刘德华', value: '刘德华' },
+        { label: '张学友', value: '张学友' }
       ],
       type: [
         {
@@ -231,10 +240,11 @@ export default {
           label: '标准2'
         }
       ],
-      value: '',
+      templateType: '',
       currentProblem: [],
       problemArr: [],
-      value2: [],
+      otherPerson: [],
+      changePerson: '',
       input: '',
       checked: 'show',
       problems: []
@@ -243,8 +253,8 @@ export default {
   computed: {
     getTotal() {
       let total = 0
-      for (const i in this.arr) {
-        total += this.arr[i].score
+      for (const i in this.problemArr) {
+        total += this.problemArr[i].score
       }
       return total
     }
@@ -255,13 +265,23 @@ export default {
   },
   methods: {
     pushProblem() {
-      this.arr = []
+      this.problemArr = []
       for (let i = 0; i < this.currentProblem.length; i++) {
-        this.arr.push(this.currentProblem[i][this.currentProblem[i].length - 1])
+        this.problemArr.push(
+          this.currentProblem[i][this.currentProblem[i].length - 1]
+        )
       }
     },
     removeProblem(i) {
-      this.currentProblem.splice(i, 1)
+      // 解决复选框不刷新问题
+      const arr = []
+      for (const k in this.currentProblem) {
+        if (this.currentProblem[k] !== this.currentProblem[i]) {
+          arr.push(this.currentProblem[k])
+        }
+      }
+      this.currentProblem = []
+      this.currentProblem = arr
       this.pushProblem()
     }
   }
