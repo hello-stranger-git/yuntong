@@ -164,7 +164,9 @@
             <el-input v-model="powerDoorForm.tel" disabled />
           </el-form-item>
           <el-form-item label="授权门店" label-width="100px">
-            <el-input v-model="powerDoorForm.id" />
+            <span @click="drawer">
+              <el-input v-model="powerSotre" readonly="readonly" />
+            </span>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -181,11 +183,19 @@
         </div>
       </el-dialog>
     </div>
+
+    <!-- 侧边弹出层 -->
+    <MultipleChoice ref="singleChoice" @change="obtain" :keyid="keyid" />
   </div>
 </template>
 
 <script>
+import MultipleChoice from '@/components/popupTree/multipleChoice.vue' // 多选弹出层
+
 export default {
+  components: {
+    MultipleChoice
+  },
   data() {
     return {
       uname: '', // 请输入姓名
@@ -195,6 +205,7 @@ export default {
       total: 100, // 总共多少条数据
       pageSize: 10, // 每页显示条数
       currentPage: 1, // 当前在哪一页
+      keyid: [],
       // 表格数据
       tableData: [
         {
@@ -203,7 +214,17 @@ export default {
           uname: '华为-程旭',
           position: ['店长 '],
           storeNumber: '4',
-          tel: 13131333333
+          tel: 13131333333,
+          stores: [
+            {
+              id: '3-1-1',
+              label: '广州'
+            },
+            {
+              id: '3-1-2',
+              label: '东莞'
+            }
+          ]
         },
         {
           id: 2,
@@ -211,7 +232,17 @@ export default {
           uname: '华为-程旭',
           position: ['全部权限 ', '店长 '],
           storeNumber: '4',
-          tel: 13131333333
+          tel: 13131333333,
+          stores: [
+            {
+              id: '3-1-1',
+              label: '广州'
+            },
+            {
+              id: '3-1-2',
+              label: '东莞'
+            }
+          ]
         },
         {
           id: 3,
@@ -219,24 +250,55 @@ export default {
           uname: '华为-程旭',
           position: ['管理员 '],
           storeNumber: '4',
-          tel: 13131333333
+          tel: 13131333333,
+          stores: [
+            {
+              id: '3-1-1',
+              label: '广州'
+            },
+            {
+              id: '3-1-2',
+              label: '东莞'
+            }
+          ]
         },
         {
           id: 4,
           accountNumber: 'chengxu1',
           uname: '华为-程旭',
           position: ['管理员 '],
-          storeNumber: '4',
-          tel: 13131333333
+          storeNumber: '2',
+          tel: 13131333333,
+          stores: [
+            {
+              id: '3-1-1',
+              label: '广州'
+            },
+            {
+              id: '3-1-2',
+              label: '东莞'
+            }
+          ]
         },
         {
           accountNumber: 'chengxu1',
           uname: '华为-程旭',
           position: ['管理员 '],
-          storeNumber: '4',
-          tel: 13131333333
+          storeNumber: '2',
+          tel: 13131333333,
+          stores: [
+            {
+              id: '3-1-1',
+              label: '广州'
+            },
+            {
+              id: '3-1-2',
+              label: '东莞'
+            }
+          ]
         }
       ],
+
       powerDialogVisible: false,
       powerData: {
         id: 0,
@@ -250,8 +312,10 @@ export default {
         uname: '',
         tel: '',
         position: [],
-        storeNumber: ''
-      }
+        stores: [],
+        storesId: []
+      },
+      powerSotre: '' // 弹出框店铺管理输入框内容
     }
   },
   mounted() {
@@ -292,6 +356,16 @@ export default {
     powerDoor(row) {
       this.powerDoorDialogVisible = true
       this.powerDoorForm = row
+      const labelObj = []
+      const idObj = []
+      for (var item of this.powerDoorForm.stores) {
+        labelObj.push(item.label)
+        idObj.push(item.id)
+      }
+      this.powerSotre = labelObj.join('；')
+      this.powerDoorForm.storesId = idObj
+      console.log(this.powerSotre)
+      console.log(idObj)
     },
     subPower() {
       this.tableData.map(item => {
@@ -301,6 +375,27 @@ export default {
         }
       })
       this.powerDialogVisible = false
+    },
+
+    // 触发调用子组件方法
+    drawer() {
+      this.keyid = this.powerDoorForm.storesId
+      this.$refs.singleChoice.show()
+    },
+    // 获取子组件选择数据
+    obtain(i) {
+      console.log(i)
+      this.powerDoorForm.stores = i
+      const labelObj = []
+      const idObj = []
+      console.log(11111)
+      for (var item of this.powerDoorForm.stores) {
+        labelObj.push(item.label)
+        idObj.push(item.id)
+      }
+      this.powerSotre = labelObj.join('；')
+      this.powerDoorForm.storesId = idObj
+      console.log(this.powerSotre)
     }
   }
 }
@@ -458,6 +553,9 @@ export default {
     .dialog-footer {
       text-align: center;
     }
+  }
+  .multipleChoice {
+    z-index: 9999 !important;
   }
 }
 </style>
