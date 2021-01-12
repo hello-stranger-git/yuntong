@@ -12,7 +12,7 @@
         />
       </span>
       <!-- 侧边弹出层 -->
-      <MultipleChoice ref="singleChoice" @change="obtain" />
+      <MultipleChoice ref="singleChoice" @change="obtain" :limit="5" />
       <el-date-picker
         v-model="dateTime"
         type="daterange"
