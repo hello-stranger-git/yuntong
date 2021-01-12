@@ -86,7 +86,7 @@ export default {
     jumpCheck() {
       this.$router.push({
         path: '/videoInspection/imageCheck/check',
-        query: { data: this.data }
+        query: { data: JSON.stringify(this.data) }
       })
     }
   }

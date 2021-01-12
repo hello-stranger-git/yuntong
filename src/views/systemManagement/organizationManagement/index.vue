@@ -22,6 +22,17 @@
     </div>
     <!--表格板块-->
     <div class="module">
+      <div class="addDiv">
+        <el-button
+          type="primary"
+          :style="
+            `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
+          "
+          @click="add()"
+        >
+          新增
+        </el-button>
+      </div>
       <!--表格-->
       <div class="table">
         <el-table
@@ -56,6 +67,7 @@
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
+                @click="edit(props.row)"
               >
                 编辑
               </el-button>
@@ -66,6 +78,7 @@
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
+                @click="add(props.row)"
               >
                 新增
               </el-button>
@@ -85,6 +98,59 @@
           @current-change="handleCurrentChange"
         />
       </div>
+    </div>
+    <div class="dialog">
+      <!--新增\编辑\查看dialog-->
+      <el-dialog
+        :title="dialogTitle"
+        :visible.sync="dialogFormVisible"
+        @open="resetForm"
+      >
+        <el-form ref="dialogForm" :model="form" :rules="rules">
+          <el-form-item
+            label="组织名称"
+            label-width="100px"
+            prop="organizeName"
+          >
+            <el-input v-model="form.organizeName" :disabled="dialogEdit" />
+          </el-form-item>
+          <el-form-item
+            label="上级组织"
+            label-width="100px"
+            prop="higherOrganize"
+          >
+            <el-input v-model="form.higherOrganize" :disabled="dialogEdit" />
+          </el-form-item>
+          <el-form-item label="组织简称" label-width="100px">
+            <el-input v-model="form.shortName" :disabled="dialogEdit" />
+          </el-form-item>
+          <el-form-item label="地址" label-width="100px">
+            <el-input v-model="form.path" :disabled="dialogEdit" />
+          </el-form-item>
+          <el-form-item label="服务电话" label-width="100px" prop="tel">
+            <el-input v-model="form.tel" :disabled="dialogEdit" />
+          </el-form-item>
+          <el-form-item label="启用/禁用" label-width="100px">
+            <el-radio-group v-model="form.status">
+              <el-radio label="0" :disabled="dialogEdit">启用</el-radio>
+              <el-radio label="1" :disabled="dialogEdit">禁用</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button
+            v-if="dialogTitle !== '查看'"
+            type="primary"
+            :style="
+              `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
+            "
+            @click="subDialogForm"
+          >
+            提交
+          </el-button>
+          <el-button @click="dialogFormVisible = false">关闭</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -107,6 +173,7 @@ export default {
           path: '中国广东省广州市白云区机场路1455号',
           higherOrganize: '丽的华为',
           tel: '13660333868',
+          status: '0',
           children: [
             {
               id: 11,
@@ -114,7 +181,8 @@ export default {
               shortName: '简称',
               path: '中国广东省广州市白云区机场路1455号',
               higherOrganize: '上级',
-              tel: '13660333868'
+              tel: '13660333868',
+              status: '0'
             },
             {
               id: 12,
@@ -122,17 +190,50 @@ export default {
               shortName: '简称',
               path: '中国广东省广州市白云区机场路1455号',
               higherOrganize: '上级',
-              tel: '13660333868'
+              tel: '13660333868',
+              status: '0'
             }
           ]
         }
-      ]
+      ],
+      dialogTitle: '新增',
+      dialogEdit: true, // 新增\编辑\查看dialog，是否可编辑
+      dialogFormVisible: false, // 新增\编辑\查看dialog
+      form: {
+        higherOrganize: '',
+        id: '',
+        organizeName: '',
+        path: '',
+        shortName: '',
+        tel: '',
+        status: '0'
+      },
+      rules: {
+        organizeName: [
+          { required: true, message: '请输入组织名称', trigger: 'blur' }
+        ],
+
+        higherOrganize: [
+          { required: true, message: '请输入上级组织', trigger: 'blur' }
+        ],
+
+        tel: [{ required: true, message: '请输入服务电话', trigger: 'blur' }]
+      }
     }
   },
   mounted() {},
   methods: {
-    handle(data) {
-      console.log(data)
+    handle(row) {
+      this.dialogTitle = '查看'
+      this.dialogFormVisible = true
+      this.dialogEdit = true
+      this.form = row
+    },
+    edit(row) {
+      this.dialogTitle = '编辑'
+      this.dialogFormVisible = true
+      this.dialogEdit = false
+      this.form = row
     },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`)
@@ -149,6 +250,38 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    // 新增
+    add(row) {
+      this.dialogTitle = '新增'
+      this.dialogFormVisible = true
+      this.dialogEdit = false
+      this.form = {
+        higherOrganize: '',
+        id: '',
+        organizeName: '',
+        path: '',
+        shortName: '',
+        tel: '',
+        status: ''
+      }
+      if (row.higherOrganize) {
+        this.form.higherOrganize = row.higherOrganize
+      }
+    },
+    // dialog表单提交
+    subDialogForm() {
+      this.$refs['dialogForm'].validate(valid => {
+        if (valid) {
+          this.dialogFormVisible = false
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    resetForm() {
+      this.$refs['dialogForm'].resetFields()
     }
   }
 }
@@ -219,5 +352,33 @@ export default {
   margin-right: 0;
   margin-bottom: 0;
   width: 50%;
+}
+
+//新增\编辑\查看dialog
+.dialog {
+  /deep/.el-dialog {
+    width: 822px;
+    background: #ffffff;
+    border-radius: 10px;
+    .el-dialog__header {
+      font-size: 18px;
+      font-weight: bold;
+      color: #141414;
+      padding: 24px 0 0 24px;
+    }
+    .el-dialog__body {
+      padding-top: 40px;
+      .el-form-item__label {
+        font-size: 14px;
+        font-weight: bold;
+        color: #141414;
+      }
+    }
+    .el-dialog__footer {
+      .dialog-footer {
+        text-align: center;
+      }
+    }
+  }
 }
 </style>
