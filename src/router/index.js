@@ -434,6 +434,24 @@ const routes = [
               breadcrumb: '用户管理'
             }
           },
+          // 用户新增
+          {
+            path: '/systemManagement/userManagement/userAdd',
+            name: 'UserAdd',
+            component: () => import('@/views/systemManagement/userManagement/components/userAdd'),
+            meta: {
+              breadcrumb: '用户新增'
+            }
+          },
+          // 用户编辑
+          {
+            path: '/systemManagement/userManagement/userEdit',
+            name: 'UserEdit',
+            component: () => import('@/views/systemManagement/userManagement/components/userEdit'),
+            meta: {
+              breadcrumb: '用户编辑'
+            }
+          },
           // 组织管理
           {
             path: '/systemManagement/organizationManagement',

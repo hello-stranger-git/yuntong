@@ -41,44 +41,16 @@ export default {
       // 树形控件数据
       data: [
         {
-          label: '所有店',
+          id: 1,
+          label: '丽的华为',
           children: [
             {
-              label: ' 华南区'
-            },
-            {
-              label: '华中区'
-            },
-            {
-              label: '西南区',
+              id: 2,
+              label: '广东省',
               children: [
                 {
-                  label: '广东',
-                  children: [
-                    {
-                      label: '广州'
-                    },
-                    {
-                      label: '东莞'
-                    },
-                    {
-                      label: '深圳',
-                      children: [
-                        {
-                          label: '宝安区华为体验店'
-                        },
-                        {
-                          label: '南山区华为体验店'
-                        },
-                        {
-                          label: '龙华区华为体验店'
-                        },
-                        {
-                          label: '盐田区华为体验店'
-                        }
-                      ]
-                    }
-                  ]
+                  id: 3,
+                  label: '广州'
                 }
               ]
             }

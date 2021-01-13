@@ -30,11 +30,27 @@
     <div class="module">
       <!--按钮组-->
       <div class="userButton">
-        <el-button :class="tacitlyApprove ? 'default' : ''">
+        <el-button
+          @click="tabSwitch = 1"
+          :class="tabSwitch == 1 ? 'default' : ''"
+        >
           平台用户
         </el-button>
-        <el-button @click="cancel">
+        <el-button
+          @click="tabSwitch = 2"
+          :class="tabSwitch == 2 ? 'default' : ''"
+        >
           乐店客用户
+        </el-button>
+
+        <el-button
+          class="addClass"
+          :style="
+            `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
+          "
+          @click="add"
+        >
+          新增
         </el-button>
       </div>
       <!--表格-->
@@ -91,6 +107,7 @@
               <el-button
                 size="mini"
                 type="primary"
+                @click="edit(scoped.row)"
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
@@ -161,7 +178,7 @@
             <el-input v-model="powerDoorForm.uname" disabled />
           </el-form-item>
           <el-form-item label="联系方式" label-width="100px">
-            <el-input v-model="powerDoorForm.tel" disabled />
+            <el-input v-model="powerDoorForm.phone" disabled />
           </el-form-item>
           <el-form-item label="授权门店" label-width="100px">
             <span @click="drawer">
@@ -200,7 +217,7 @@ export default {
     return {
       uname: '', // 请输入姓名
       accountNumber: '', // 请输入账号
-      tacitlyApprove: true, // 表格区上不选项默认选中样式
+      tabSwitch: 1, // 表格区上tab选项默认选中项
       // 分页数据start
       total: 100, // 总共多少条数据
       pageSize: 10, // 每页显示条数
@@ -210,11 +227,27 @@ export default {
       tableData: [
         {
           id: 1,
+          sex: 0, // 性别
+          identifier: '001', // 编号
+          email: '123@.com', // 电子邮箱
+          organization: '广州', // 组织
+          power: [
+            {
+              // 权限
+              id: 23,
+              label: '考评任务配置'
+            },
+            {
+              id: 24,
+              label: '巡查模板配置'
+            }
+          ],
+          desc: '', // 描述
           accountNumber: 'chengxu1',
           uname: '华为-程旭',
           position: ['店长 '],
           storeNumber: '4',
-          tel: 13131333333,
+          phone: 13131333333,
           stores: [
             {
               id: '3-1-1',
@@ -228,11 +261,27 @@ export default {
         },
         {
           id: 2,
+          sex: 0, // 性别
+          identifier: '002', // 编号
+          email: '123@.com', // 电子邮箱
+          organization: '广州', // 组织
+          power: [
+            {
+              // 权限
+              id: 23,
+              label: '考评任务配置'
+            },
+            {
+              id: 24,
+              label: '巡查模板配置'
+            }
+          ],
+          desc: '', // 描述
           accountNumber: 'chengxu1',
           uname: '华为-程旭',
           position: ['全部权限 ', '店长 '],
           storeNumber: '4',
-          tel: 13131333333,
+          phone: 13131333333,
           stores: [
             {
               id: '3-1-1',
@@ -246,11 +295,27 @@ export default {
         },
         {
           id: 3,
+          sex: 0, // 性别
+          identifier: '003', // 编号
+          email: '123@.com', // 电子邮箱
+          organization: '广州', // 组织
+          power: [
+            {
+              // 权限
+              id: 23,
+              label: '考评任务配置'
+            },
+            {
+              id: 24,
+              label: '巡查模板配置'
+            }
+          ],
+          desc: '', // 描述
           accountNumber: 'chengxu1',
-          uname: '华为-程旭',
+          uname: '华为-吴',
           position: ['管理员 '],
           storeNumber: '4',
-          tel: 13131333333,
+          phone: 13131333333,
           stores: [
             {
               id: '3-1-1',
@@ -264,11 +329,27 @@ export default {
         },
         {
           id: 4,
+          sex: 0, // 性别
+          identifier: '004', // 编号
+          email: '123@.com', // 电子邮箱
+          organization: '广州', // 组织
+          power: [
+            {
+              // 权限
+              id: 23,
+              label: '考评任务配置'
+            },
+            {
+              id: 24,
+              label: '巡查模板配置'
+            }
+          ],
+          desc: '', // 描述
           accountNumber: 'chengxu1',
-          uname: '华为-程旭',
+          uname: '华为-陈',
           position: ['管理员 '],
           storeNumber: '2',
-          tel: 13131333333,
+          phone: 13131333333,
           stores: [
             {
               id: '3-1-1',
@@ -281,11 +362,28 @@ export default {
           ]
         },
         {
+          id: 5,
+          sex: 0, // 性别
+          identifier: '005', // 编号
+          email: '123@.com', // 电子邮箱
+          organization: '广州', // 组织
+          power: [
+            {
+              // 权限
+              id: 23,
+              label: '考评任务配置'
+            },
+            {
+              id: 24,
+              label: '巡查模板配置'
+            }
+          ],
+          desc: '', // 描述
           accountNumber: 'chengxu1',
-          uname: '华为-程旭',
+          uname: '华为-林',
           position: ['管理员 '],
           storeNumber: '2',
-          tel: 13131333333,
+          phone: 13131333333,
           stores: [
             {
               id: '3-1-1',
@@ -310,7 +408,7 @@ export default {
         id: 0,
         accountNumber: '',
         uname: '',
-        tel: '',
+        phone: '',
         position: [],
         stores: [],
         storesId: []
@@ -339,9 +437,9 @@ export default {
       return ''
     },
     // 取消按钮默认选中样式
-    cancel() {
-      this.tacitlyApprove = false
-    },
+    // cancel() {
+    //   this.tacitlyApprove = false
+    // },
     // 打开权限管理dialog
     openPowerDialog(row) {
       this.tableData.map(item => {
@@ -396,6 +494,17 @@ export default {
       this.powerSotre = labelObj.join('；')
       this.powerDoorForm.storesId = idObj
       console.log(this.powerSotre)
+    },
+    // 触发跳转至新增页面
+    add() {
+      this.$router.push({ name: 'UserAdd' })
+    },
+    // 触发跳转至编辑页面
+    edit(row) {
+      this.$router.push({
+        name: 'UserEdit',
+        query: { row }
+      })
     }
   }
 }
@@ -437,10 +546,10 @@ export default {
   .userButton {
     // border: 1px solid red;
     .el-button {
-      &:first-child {
+      &:nth-child(1) {
         border-radius: 5px 0 0 5px;
       }
-      &:last-child {
+      &:nth-child(2) {
         border-radius: 0 5px 5px 0;
       }
       &:focus,
@@ -456,6 +565,11 @@ export default {
       height: 36px;
       border: none;
       background-color: #ececec;
+    }
+    // 新增
+    .addClass {
+      color: #fff;
+      margin-left: 48px;
     }
     // 默认选中颜色
     .default {
