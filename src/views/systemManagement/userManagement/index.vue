@@ -72,6 +72,7 @@
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
+                @click="handle(scoped.row)"
               >
                 查看
               </el-button>
@@ -200,9 +201,42 @@
         </div>
       </el-dialog>
     </div>
-
+    <!-- 查看dislog -->
+    <div class="powerDialog">
+      <el-dialog title="查看" :visible.sync="checkedDialogVisible">
+        <el-form :model="checkDialogForm">
+          <el-form-item label="账号" label-width="100px">
+            <el-input v-model="checkDialogForm.accountNumber" disabled />
+          </el-form-item>
+          <el-form-item label="用户编号" label-width="100px">
+            <el-input v-model="checkDialogForm.id" disabled />
+          </el-form-item>
+          <el-form-item label="用户姓名" label-width="100px">
+            <el-input v-model="checkDialogForm.uname" disabled />
+          </el-form-item>
+          <el-form-item label="性别" label-width="100px">
+            <el-input v-model="checkDialogForm.sex" disabled />
+          </el-form-item>
+          <el-form-item label="所属组织" label-width="100px">
+            <el-input v-model="checkDialogForm.organizion" disabled />
+          </el-form-item>
+          <el-form-item label="联系方式" label-width="100px">
+            <el-input v-model="checkDialogForm.tel" disabled />
+          </el-form-item>
+          <el-form-item label="职位" label-width="100px">
+            <el-input v-model="checkDialogForm.position[0]" disabled />
+          </el-form-item>
+          <el-form-item label="描述" label-width="100px">
+            <el-input v-model="checkDialogForm.organizion" disabled />
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="checkedDialogVisible = false">关闭</el-button>
+        </div>
+      </el-dialog>
+    </div>
     <!-- 侧边弹出层 -->
-    <MultipleChoice ref="singleChoice" @change="obtain" :keyid="keyid" />
+    <MultipleChoice ref="singleChoice" :keyid="keyid" @change="obtain" />
   </div>
 </template>
 
@@ -403,6 +437,7 @@ export default {
         position: []
       },
       powerDoorDialogVisible: false, // 授权门店dialog
+      checkedDialogVisible: false,
       powerDoorForm: {
         // 授权门店dialog数据
         id: 0,
@@ -413,6 +448,19 @@ export default {
         stores: [],
         storesId: []
       },
+      // 查看dialog数据
+      checkDialogForm: {
+        id: 0,
+        accountNumber: '',
+        uname: '',
+        tel: '',
+        position: [],
+        stores: [],
+        storesId: [],
+        sex: '',
+        organizion: '',
+        description: ''
+      },
       powerSotre: '' // 弹出框店铺管理输入框内容
     }
   },
@@ -420,6 +468,14 @@ export default {
     this.total = this.tableData.length
   },
   methods: {
+    handle(data) {
+      console.log(data)
+      this.checkDialogForm = data
+      this.checkDialogForm.sex = '男'
+      this.checkDialogForm.description = '描述。。。'
+      this.checkDialogForm.organizion = '组织~~~'
+      this.checkedDialogVisible = !this.checkedDialogVisible
+    },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`)
     },

@@ -51,6 +51,7 @@
           :style="
             `background-color:${this.$store.state.btnBgColor};border-color:${this.$store.state.btnBgColor}`
           "
+          @click="addConfig"
         >
           新增
         </el-button>
@@ -70,13 +71,14 @@
           <el-table-column prop="creationTime" label="创建时间" width="200" />
 
           <el-table-column label="操作">
-            <template>
+            <template slot-scope="scoped">
               <el-button
                 size="mini"
                 type="primary"
                 :style="
                   `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
                 "
+                @click="seeMessage(scoped.row)"
               >
                 查看
               </el-button>
@@ -105,6 +107,58 @@
           @current-change="handleCurrentChange"
         />
       </div>
+    </div>
+
+    <div class="dialog">
+      <!--新增\查看dialog-->
+      <el-dialog
+        :title="dialogTitle"
+        :visible.sync="dialogFormVisible"
+        @open="resetForm"
+      >
+        <el-form ref="dialogForm" :rules="rules" :model="message">
+          <el-form-item label="任务名称" label-width="100px" prop="taskName">
+            <el-input v-model="message.taskName" :disabled="dialogDis" />
+          </el-form-item>
+          <el-form-item label="任务有效期" label-width="100px" prop="vld">
+            <el-input v-model="message.vld" :disabled="dialogDis" />
+          </el-form-item>
+
+          <el-form-item label="任务频次" label-width="100px" prop="frequency">
+            <el-radio-group v-model="message.frequency">
+              <el-radio label="0" :disabled="dialogDis">日</el-radio>
+              <el-radio label="1" :disabled="dialogDis">周</el-radio>
+              <el-radio label="2" :disabled="dialogDis">月</el-radio>
+            </el-radio-group>
+          </el-form-item>
+
+          <el-form-item label="考评人" label-width="100px" prop="assessor">
+            <el-input v-model="message.assessor" :disabled="dialogDis" />
+          </el-form-item>
+          <el-form-item label="门店" label-width="100px" prop="store">
+            <el-input v-model="message.store" :disabled="dialogDis" />
+          </el-form-item>
+          <el-form-item label="巡查模板" label-width="100px" prop="template">
+            <el-input v-model="message.template" :disabled="dialogDis" />
+          </el-form-item>
+          <el-form-item label="执行时效" label-width="100px">
+            <el-input v-model="message.implement" :disabled="dialogDis" />
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button
+            v-if="dialogTitle !== '查看任务配置'"
+            type="primary"
+            :style="
+              `background-color:${$store.state.btnBgColor};border-color:${$store.state.btnBgColor}`
+            "
+            @click="subDialogForm"
+          >
+            保存
+          </el-button>
+          <el-button @click="dialogFormVisible = false">关闭</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -152,7 +206,30 @@ export default {
       // ],
 
       // 表格数据
-      tableData: [],
+      tableData: [
+        {
+          id: 1,
+          taskName: '摄像1',
+          vld: '一个月',
+          frequency: '0',
+          assessor: '文萍',
+          store: '沙河',
+          template: '店面巡查模板',
+          implement: '1天',
+          creationTime: ''
+        }
+      ],
+      message: {
+        id: 1,
+        taskName: '',
+        vld: '',
+        frequency: '',
+        assessor: '',
+        store: '',
+        template: '',
+        implement: '',
+        creationTime: ''
+      },
       pickerOptions: {
         shortcuts: [
           {
@@ -185,7 +262,31 @@ export default {
         ]
       },
       // 时间选择
-      data: ''
+      date: '',
+      dialogFormVisible: false,
+      dialogTitle: '新增任务配置',
+      dialogDis: true,
+      rules: {
+        taskName: [
+          { required: true, message: '请输入任务名称', trigger: 'blur' }
+        ],
+
+        vld: [{ required: true, message: '请输入任务有效期', trigger: 'blur' }],
+
+        frequency: [
+          { required: true, message: '请选择任务频次', trigger: 'blur' }
+        ],
+
+        assessor: [
+          { required: true, message: '请输入考评人', trigger: 'blur' }
+        ],
+
+        store: [{ required: true, message: '请输入门店', trigger: 'blur' }],
+
+        template: [
+          { required: true, message: '请输入巡查模板', trigger: 'blur' }
+        ]
+      }
     }
   },
   mounted() {
@@ -207,6 +308,44 @@ export default {
         return 'success-row'
       }
       return ''
+    },
+    // 查看
+    seeMessage(row) {
+      this.dialogTitle = '查看任务配置'
+      this.dialogDis = true
+      this.dialogFormVisible = true
+      this.message = row
+    },
+    // 新增
+    addConfig() {
+      this.dialogTitle = '新增任务配置'
+      this.dialogDis = false
+      this.dialogFormVisible = true
+      this.message = {
+        id: '',
+        taskName: '',
+        vld: '',
+        frequency: '',
+        assessor: '',
+        store: '',
+        template: '',
+        implement: '',
+        creationTime: ''
+      }
+    },
+    // 提交
+    subDialogForm() {
+      this.$refs['dialogForm'].validate(valid => {
+        if (valid) {
+          this.dialogFormVisible = false
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    resetForm() {
+      this.$refs['dialogForm'].resetFields()
     }
   }
 }
@@ -272,6 +411,34 @@ export default {
     }
     /deep/.el-table-column--selection {
       padding-left: 5px;
+    }
+  }
+}
+
+//新增任务配置dialog
+.dialog {
+  /deep/.el-dialog {
+    width: 822px;
+    background: #ffffff;
+    border-radius: 10px;
+    .el-dialog__header {
+      font-size: 18px;
+      font-weight: bold;
+      color: #141414;
+      padding: 24px 0 0 24px;
+    }
+    .el-dialog__body {
+      padding-top: 40px;
+      .el-form-item__label {
+        font-size: 14px;
+        font-weight: bold;
+        color: #141414;
+      }
+    }
+    .el-dialog__footer {
+      .dialog-footer {
+        text-align: center;
+      }
     }
   }
 }

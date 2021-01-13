@@ -9,29 +9,23 @@
         <div class="pic"><img :src="img" /></div>
       </div>
       <div class="problem">
-        点检问题(问题项：<span>2</span>),得分<span>-20</span>分
-        <div class="toggle" @click="changeProblemArrow">
+        点检问题(问题项：
+        <span>{{ problems.length }}</span>
+        ),得分
+        <span>{{ totalScore }}</span>
+        分
+        <div class="toggle" @click="showProblems = !showProblems">
           {{ showProblems ? '收起' : '展开' }}
           <img
             :src="arrowIcon"
-            :style="{ transform: 'rotate(' + -problemArrowDeg + 'deg)' }"
+            :style="{
+              transform: 'rotate(' + (showProblems ? -90 : 0) + 'deg)'
+            }"
           />
         </div>
         <el-collapse-transition>
           <div v-show="showProblems">
-            <div class="cell">
-              1、台席干净整洁，作业工具、受理单纸摆放整齐。
-            </div>
-            <div class="cell">
-              1、台席干净整洁，作业工具、受理单纸摆放整齐。
-            </div>
-            <div class="cell">
-              1、台席干净整洁，作业工具、受理单纸摆放整齐。
-            </div>
-            <div class="cell">
-              1、台席干净整洁，作业工具、受理单纸摆放整齐。
-            </div>
-            <div class="cell">
+            <div v-for="(item, i) in problems" :key="i" class="cell">
               1、台席干净整洁，作业工具、受理单纸摆放整齐。
             </div>
           </div>
@@ -57,11 +51,11 @@
       </div>
       <div class=" changRecord">
         整改记录
-        <div class="toggle" @click="changeRecordArrow">
+        <div class="toggle" @click="showStep = !showStep">
           {{ showStep ? '收起' : '展开' }}
           <img
             :src="arrowIcon"
-            :style="{ transform: 'rotate(' + -recordArrowDeg + 'deg)' }"
+            :style="{ transform: 'rotate(' + (showStep ? -90 : 0) + 'deg)' }"
           />
         </div>
       </div>
@@ -105,33 +99,29 @@ export default {
       img: require('@/assets/img/patrolTask/patrolImg.png'),
       storeIcon: require('@/assets/img/patrolTask/store.png'),
       arrowIcon: require('@/assets/img/patrolTask/arrowIcon.png'),
-      problemArrowDeg: 90,
-      recordArrowDeg: 90,
+
       showProblems: true,
-      showStep: true
+      showStep: true,
+      problems: [
+        { value: '1、台席干净整洁，作业工具、受理单纸摆放整齐。', score: -1 },
+        { value: '2、台席干净整洁，作业工具、受理单纸摆放整齐。', score: -1 },
+        { value: '3、台席干净整洁，作业工具、受理单纸摆放整齐。', score: -1 }
+      ]
+    }
+  },
+  computed: {
+    totalScore() {
+      let total = 0
+      for (const i in this.problems) {
+        total += this.problems[i].score
+      }
+      return total
     }
   },
   mounted() {
     console.log(this.$route.query.data)
   },
-  methods: {
-    changeProblemArrow() {
-      if (!this.problemArrowDeg) {
-        this.problemArrowDeg = 90
-      } else {
-        this.problemArrowDeg = 0
-      }
-      this.showProblems = !this.showProblems
-    },
-    changeRecordArrow() {
-      if (!this.recordArrowDeg) {
-        this.recordArrowDeg = 90
-      } else {
-        this.recordArrowDeg = 0
-      }
-      this.showStep = !this.showStep
-    }
-  }
+  methods: {}
 }
 </script>
 
@@ -160,6 +150,7 @@ export default {
         margin-top: 18px;
         width: 201px;
         height: 113px;
+        margin-right: 20px;
         img {
           width: 100%;
           height: 100%;
@@ -193,6 +184,7 @@ export default {
       }
     }
     .cell {
+      font-weight: 400;
       height: 19px;
       line-height: 19px;
       &:first-child {
