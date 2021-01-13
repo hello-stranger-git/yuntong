@@ -281,7 +281,7 @@ export default {
           uname: '华为-程旭',
           position: ['店长 '],
           storeNumber: '4',
-          phone: 13131333333,
+          phone: '13131333333',
           stores: [
             {
               id: '3-1-1',
@@ -542,7 +542,6 @@ export default {
       this.powerDoorForm.stores = i
       const labelObj = []
       const idObj = []
-      console.log(11111)
       for (var item of this.powerDoorForm.stores) {
         labelObj.push(item.label)
         idObj.push(item.id)
@@ -559,7 +558,7 @@ export default {
     edit(row) {
       this.$router.push({
         name: 'UserEdit',
-        query: { row }
+        params: { row }
       })
     }
   }

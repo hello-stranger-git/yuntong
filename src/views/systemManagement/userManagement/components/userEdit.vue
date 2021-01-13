@@ -304,9 +304,8 @@ export default {
       ]
     }
   },
-  created() {
-    this.form = this.$route.query.row
-    console.log(this.form)
+  mounted() {
+    this.form = this.$route.params.row
     var storeObj = []
     var powerObj = []
     //  授权门店输入框值赋值
