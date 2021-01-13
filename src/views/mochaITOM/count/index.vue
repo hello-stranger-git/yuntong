@@ -3,7 +3,19 @@
   <div style="padding:24px">
     <!--搜索板块-->
     <div class="search">
-      <el-input v-model="storeName" placeholder="请选择门店名称" clearable />
+      <!-- <el-input v-model="storeName" placeholder="请选择门店名称" clearable /> -->
+
+      <!-- 门店选择 -->
+      <span @click="drawer">
+        <el-input
+          v-model="storeName"
+          placeholder="请选择门店名称"
+          readonly="readonly"
+        />
+      </span>
+      <!-- 侧边弹出层 -->
+      <MultipleChoice ref="singleChoice" @change="obtain" />
+
       <el-input v-model="personNumber" placeholder="请输入观看人数" clearable />
       <el-date-picker
         v-model="time"
@@ -22,7 +34,7 @@
       >
         查询
       </el-button>
-      <el-button type="info" class="resetBtn">重置</el-button>
+      <el-button type="info" class="resetBtn" @click="reset">重置</el-button>
     </div>
     <!--表格板块-->
     <div class="module">
@@ -93,7 +105,12 @@
 </template>
 
 <script>
+import MultipleChoice from '@/components/popupTree/multipleChoice.vue' // 多选弹出层
+
 export default {
+  components: {
+    MultipleChoice
+  },
   data() {
     return {
       storeName: '', // 请输入设备序列号
@@ -295,6 +312,25 @@ export default {
       if (event.childNodes[0].innerText.indexOf('秒') !== -1) {
         this.videoDialogVisible = true
       }
+    },
+    // 触发调用子组件方法
+    drawer() {
+      this.$refs.singleChoice.show()
+    },
+    // 获取子组件选择数据
+    obtain(i) {
+      console.log(i)
+      var obj = []
+      for (var item of i) {
+        obj.push(item.label)
+      }
+      this.storeName = obj.join('；')
+    },
+    // 触发重置输入框
+    reset() {
+      this.storeName = ''
+      this.personNumber = ''
+      this.time = ''
     }
   }
 }
