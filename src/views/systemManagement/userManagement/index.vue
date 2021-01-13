@@ -221,7 +221,7 @@
             <el-input v-model="checkDialogForm.organizion" disabled />
           </el-form-item>
           <el-form-item label="联系方式" label-width="100px">
-            <el-input v-model="checkDialogForm.tel" disabled />
+            <el-input v-model="checkDialogForm.phone" disabled />
           </el-form-item>
           <el-form-item label="职位" label-width="100px">
             <el-input v-model="checkDialogForm.position[0]" disabled />
